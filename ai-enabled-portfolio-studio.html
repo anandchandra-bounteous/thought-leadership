@@ -206,7 +206,11 @@ html.light .flow-node-accent {
 .pmatrix, .pmatrix-cell, .pmatrix-row-label, .pmatrix-detail, .pmatrix-mobile-card,
 .capradar, .capradar-detail, .capbar-track,
 .probcard, .prob-row, .prob-cascade-node, .prob-coi, .prob-impact-tag,
-.ciodash, .ciodash-pillar, .ciodash-dim, .ciodash-group-head, .ciodash-statement {
+.ciodash, .ciodash-pillar, .ciodash-dim, .ciodash-group-head, .ciodash-statement,
+.iflow, .iflow-card, .iflow-pill,
+.adopt, .adopt-dep, .adopt-gate, .adopt-runway-label, .adopt-statement, .adopt-progress-seg,
+.propensity, .propensity-composite, .propensity-bar-track, .cio-positioning,
+.txfm-shift, .txfm-shift-stat, .txfm-track-line {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -1521,6 +1525,524 @@ html.light .prob-coi { background: rgba(160,85,68,0.04); }
 .callout-dark p {
   font-size: 15px;
   color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════
+   CIO FEATURE PROPENSITY SCORE
+   ═══════════════════════════════════════ */
+.propensity {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 36px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.propensity-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.propensity-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.propensity-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.propensity-composite {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--accent-glow);
+  transition: background 0.4s ease;
+}
+
+html.light .propensity-composite {
+  background: rgba(154, 123, 62, 0.04);
+}
+
+.propensity-composite-score {
+  font-family: var(--font-serif);
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.propensity-composite-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.propensity-composite-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.propensity-composite-sub {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.propensity-body {
+  padding: 24px 28px 28px;
+}
+
+.propensity-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 44px;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.propensity-row:last-child { border-bottom: none; }
+
+.propensity-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.propensity-label-sub {
+  display: block;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.propensity-bar-track {
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+html.light .propensity-bar-track {
+  background: #e8e5df;
+}
+
+.propensity-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+
+.propensity-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -1px; bottom: -1px;
+  width: 2px;
+  background: inherit;
+  border-radius: 0 3px 3px 0;
+  filter: brightness(1.3);
+}
+
+.propensity-bar-gold { background: var(--accent); }
+.propensity-bar-green { background: var(--green); }
+.propensity-bar-blue { background: var(--blue); }
+
+.propensity-score {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: right;
+  letter-spacing: 0.03em;
+}
+
+.propensity-footer {
+  padding: 16px 28px 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.propensity-footer-text {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* CIO positioning statement within section */
+.cio-positioning {
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin: 36px 0;
+  background: var(--accent-glow);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+html.light .cio-positioning {
+  background: rgba(154, 123, 62, 0.03);
+}
+
+.cio-positioning-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.cio-positioning p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+
+.cio-positioning p:last-child { margin-bottom: 0; }
+
+.cio-positioning strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .propensity-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px 0;
+  }
+  .propensity-score { text-align: left; }
+  .propensity-composite { padding: 20px; flex-wrap: wrap; }
+  .propensity-composite-score { font-size: 36px; }
+  .cio-positioning { padding: 24px 20px; }
+}
+
+@media print {
+  .propensity { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .propensity-composite { background: #fdf8ef; }
+  .propensity-bar-fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .cio-positioning { background: #fdf8ef; border-color: #d6c8a0; }
+}
+
+/* ═══════════════════════════════════════
+   TRANSFORMATION MATURITY SHIFT
+   ═══════════════════════════════════════ */
+.txfm-shift {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.txfm-shift-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.txfm-shift-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.txfm-shift-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.txfm-shift-legend {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.txfm-shift-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.txfm-shift-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.txfm-shift-legend-dot-asis { background: var(--red); }
+.txfm-shift-legend-dot-tobe { background: var(--accent); }
+
+.txfm-shift-legend-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+/* ── Body ── */
+.txfm-shift-body {
+  padding: 28px 28px 20px;
+}
+
+/* ── Single dimension row ── */
+.txfm-dim {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.txfm-dim:last-child { border-bottom: none; }
+
+.txfm-dim-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.txfm-dim-label-sub {
+  display: block;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ── Track ── */
+.txfm-track {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.txfm-track-line {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--border);
+  transform: translateY(-50%);
+}
+
+/* Shift zone (the colored band between the two dots) */
+.txfm-track-shift {
+  position: absolute;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.3s;
+}
+
+.txfm-dim.vis .txfm-track-shift {
+  opacity: 1;
+}
+
+.txfm-track-shift-band {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--red), var(--accent));
+  opacity: 0.2;
+}
+
+/* Arrow within the shift zone */
+.txfm-track-arrow {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--accent);
+  opacity: 0.5;
+}
+
+/* ── Dots ── */
+.txfm-dot {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: box-shadow 0.3s ease;
+}
+
+.txfm-dot-asis {
+  background: var(--red);
+  box-shadow: 0 0 0 3px var(--red-dim);
+}
+
+.txfm-dot-tobe {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.txfm-dot-asis:hover {
+  box-shadow: 0 0 0 5px var(--red-dim);
+}
+
+.txfm-dot-tobe:hover {
+  box-shadow: 0 0 0 5px rgba(201, 169, 110, 0.18);
+}
+
+/* ── Endpoint labels (below the track) ── */
+.txfm-endpoint {
+  position: absolute;
+  top: calc(50% + 14px);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.txfm-endpoint-asis {
+  color: var(--red);
+  transform: translateX(-50%);
+}
+
+.txfm-endpoint-tobe {
+  color: var(--accent);
+  transform: translateX(-50%);
+}
+
+/* ── Scale ticks ── */
+.txfm-scale {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 6px;
+  background: var(--border);
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+
+/* ── Footer summary ── */
+.txfm-shift-footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border-top: 1px solid var(--border-light);
+}
+
+.txfm-shift-stat {
+  padding: 20px 24px;
+  background: var(--bg-card);
+  text-align: center;
+  transition: background 0.4s ease;
+}
+
+.txfm-shift-stat-value {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.txfm-shift-stat-value-accent { color: var(--accent); }
+.txfm-shift-stat-value-green { color: var(--green); }
+.txfm-shift-stat-value-red { color: var(--red); }
+
+.txfm-shift-stat-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .txfm-dim {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px 0;
+  }
+  .txfm-track { height: 50px; }
+  .txfm-shift-legend { display: none; }
+  .txfm-shift-footer { grid-template-columns: 1fr; }
+  .txfm-shift-body { padding: 20px 16px 12px; }
+  .txfm-endpoint { font-size: 8px; }
+}
+
+@media print {
+  .txfm-shift { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .txfm-dot-asis { background: #c27c6e; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .txfm-dot-tobe { background: #c9a96e; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .txfm-track-shift-band { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
 
 /* ═══════════════════════════════════════
@@ -3680,6 +4202,226 @@ html.light .radar-fill { opacity: 0.08; }
 .io-panel li:last-child { border-bottom: none; }
 
 /* ═══════════════════════════════════════
+   INTERFACE VALUE FLOW
+   ═══════════════════════════════════════ */
+.iflow {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 28px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.iflow-head {
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.iflow-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.iflow-head .iflow-badge {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  padding: 3px 8px; border-radius: var(--radius);
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* ── Card rows ── */
+.iflow-cards {
+  display: flex; flex-direction: column;
+}
+
+.iflow-card {
+  display: grid;
+  grid-template-columns: 6px 52px 1fr;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.iflow-card:last-child { border-bottom: none; }
+.iflow-card:hover { background: var(--bg-elevated); }
+
+/* Left spine colour bar */
+.iflow-spine {
+  position: relative;
+  transition: background 0.4s ease;
+}
+
+.iflow-spine-upstream { background: var(--blue); opacity: 0.5; }
+.iflow-spine-translation { background: var(--accent); opacity: 0.6; }
+.iflow-spine-application { background: var(--green); opacity: 0.5; }
+.iflow-spine-governance { background: var(--green); opacity: 0.7; }
+.iflow-spine-boundary { background: var(--text-muted); opacity: 0.25; }
+
+/* Sequence number */
+.iflow-seq {
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border-light);
+}
+
+.iflow-seq-num {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Card content */
+.iflow-content {
+  padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+/* Business relevance — the hero text */
+.iflow-relevance {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+}
+
+/* Meta row: domain name + role badge + example pills */
+.iflow-meta {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+
+.iflow-domain {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.iflow-role {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 3px 9px; border-radius: var(--radius);
+}
+
+.iflow-role-upstream {
+  background: var(--blue-dim); color: var(--blue);
+  border: 1px solid rgba(122,158,194,0.25);
+}
+
+.iflow-role-translation {
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.iflow-role-application {
+  background: var(--green-dim); color: var(--green);
+  border: 1px solid rgba(107,158,122,0.25);
+}
+
+.iflow-role-governance {
+  background: var(--green-dim); color: var(--green);
+  border: 1px solid rgba(107,158,122,0.3);
+}
+
+.iflow-role-boundary {
+  background: var(--bg-subtle); color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* Example pills */
+.iflow-examples {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-top: 2px;
+}
+
+.iflow-pill {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 400;
+  color: var(--text-tertiary);
+  padding: 2px 8px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  letter-spacing: 0.01em;
+  transition: border-color 0.3s ease;
+}
+
+.iflow-card:hover .iflow-pill {
+  border-color: var(--border);
+}
+
+/* CIO relevance line */
+.iflow-cio {
+  display: flex; align-items: baseline; gap: 6px;
+  margin-top: 4px;
+}
+
+.iflow-cio-label {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--accent-dim);
+  flex-shrink: 0;
+}
+
+.iflow-cio-text {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Legend */
+.iflow-legend {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  padding: 14px 28px;
+  border-top: 1px solid var(--border-light);
+}
+
+.iflow-legend-item {
+  display: flex; align-items: center; gap: 6px;
+}
+
+.iflow-legend-bar {
+  width: 4px; height: 16px; border-radius: 2px; flex-shrink: 0;
+}
+
+.iflow-legend-text {
+  font-family: var(--font-sans);
+  font-size: 9.5px; font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .iflow-card { grid-template-columns: 5px 40px 1fr; }
+  .iflow-content { padding: 18px 16px; }
+  .iflow-relevance { font-size: 14.5px; }
+  .iflow-meta { gap: 6px; }
+  .iflow-legend { padding: 12px 16px; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  .iflow-card { grid-template-columns: 4px 0 1fr; }
+  .iflow-seq { display: none; }
+  .iflow-content { padding: 16px 14px; }
+  .iflow-relevance { font-size: 14px; }
+}
+
+@media print {
+  .iflow { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .iflow-spine-upstream { background: #5a8ab5; }
+  .iflow-spine-translation { background: #c9a96e; }
+  .iflow-spine-application { background: #4a8a5e; }
+  .iflow-spine-governance { background: #4a8a5e; }
+  .iflow-spine-boundary { background: #999; }
+}
+
+/* ═══════════════════════════════════════
    TECHNICAL INTERFACE DIAGRAM
    ═══════════════════════════════════════ */
 .arch-container {
@@ -4135,6 +4877,339 @@ html.light .arch-platform {
   .arch-governance { background: #eef8f1; border-color: #c5e0cc; }
   .arch-source, .arch-branch-card { border-color: #ccc; }
   .arch-oos { border-color: #bbb; }
+}
+
+/* ═══════════════════════════════════════
+   PRE-ADOPTION READINESS
+   ═══════════════════════════════════════ */
+.adopt {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.adopt-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.adopt-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.adopt-head .adopt-badge {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  padding: 3px 8px; border-radius: var(--radius);
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* ── Dependency cards ── */
+.adopt-deps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.adopt-dep {
+  padding: 24px 22px;
+  border-right: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.2s ease;
+}
+
+.adopt-dep:nth-child(3n) { border-right: none; }
+.adopt-dep:nth-child(n+4) { border-bottom: none; }
+.adopt-dep:hover { background: var(--bg-elevated); }
+
+/* Signal light */
+.adopt-dep-signal {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.adopt-signal-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+
+.adopt-signal-dot-amber { background: var(--accent); box-shadow: 0 0 6px rgba(201,169,110,0.3); }
+.adopt-signal-dot-green { background: var(--green); box-shadow: 0 0 6px rgba(107,158,122,0.3); }
+
+.adopt-signal-text {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+
+.adopt-signal-text-amber { color: var(--accent); }
+.adopt-signal-text-green { color: var(--green); }
+
+/* Category tag */
+.adopt-dep-cat {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  padding: 3px 9px; border-radius: var(--radius);
+  display: inline-flex; align-self: flex-start;
+  margin-left: auto;
+}
+
+.adopt-cat-data { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(122,158,194,0.25); }
+.adopt-cat-tech { background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent-border); }
+.adopt-cat-org { background: var(--green-dim); color: var(--green); border: 1px solid rgba(107,158,122,0.25); }
+
+.adopt-dep-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+
+.adopt-dep-name {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.005em; line-height: 1.3;
+}
+
+.adopt-dep-desc {
+  font-family: var(--font-sans);
+  font-size: 12px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+/* Action needed line */
+.adopt-dep-action {
+  display: flex; align-items: baseline; gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+
+.adopt-dep-action-label {
+  font-family: var(--font-sans);
+  font-size: 7.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  flex-shrink: 0;
+}
+
+.adopt-dep-action-label-amber { color: var(--accent-dim); }
+.adopt-dep-action-label-green { color: var(--green); }
+
+.adopt-dep-action-text {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ── Adoption Runway ── */
+.adopt-runway {
+  border-top: 1px solid var(--border-light);
+}
+
+.adopt-runway-label {
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  display: flex; align-items: center; gap: 10px;
+  transition: background 0.4s ease;
+}
+
+html.light .adopt-runway-label { background: #f3f1ed; }
+
+.adopt-runway-label-text {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.adopt-runway-label-sub {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 300;
+  color: var(--text-muted);
+  margin-left: auto;
+  letter-spacing: 0.02em;
+}
+
+/* Three-gate strip */
+.adopt-gates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.adopt-gate {
+  padding: 24px 22px;
+  border-right: 1px solid var(--border-light);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.4s ease;
+}
+
+.adopt-gate:last-child { border-right: none; }
+
+/* Gate header with phase icon */
+.adopt-gate-header {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.adopt-gate-phase {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  padding: 3px 10px; border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.adopt-gate-prepare .adopt-gate-phase {
+  background: var(--blue-dim); color: var(--blue);
+  border: 1px solid rgba(122,158,194,0.25);
+}
+
+.adopt-gate-pilot .adopt-gate-phase {
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.adopt-gate-scale .adopt-gate-phase {
+  background: var(--green-dim); color: var(--green);
+  border: 1px solid rgba(107,158,122,0.25);
+}
+
+.adopt-gate-name {
+  font-family: var(--font-serif);
+  font-size: 18px; font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.adopt-gate-period {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.adopt-gate-desc {
+  font-family: var(--font-sans);
+  font-size: 12px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+/* Gate checklist */
+.adopt-gate-checks {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+
+.adopt-gate-check {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.adopt-gate-check-icon {
+  font-size: 10px; flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.adopt-gate-prepare .adopt-gate-check-icon { color: var(--blue); }
+.adopt-gate-pilot .adopt-gate-check-icon { color: var(--accent); }
+.adopt-gate-scale .adopt-gate-check-icon { color: var(--green); }
+
+/* Gate arrow connectors (between gates on desktop) */
+.adopt-gate-arrow {
+  display: none;
+}
+
+/* ── Progress bar connecting gates ── */
+.adopt-progress {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.adopt-progress-seg {
+  height: 4px;
+}
+
+.adopt-progress-prepare { background: var(--blue); opacity: 0.4; }
+.adopt-progress-pilot { background: var(--accent); opacity: 0.4; }
+.adopt-progress-scale { background: var(--green); opacity: 0.4; }
+
+/* ── Governance statement ── */
+.adopt-statement {
+  padding: 28px;
+  border-top: 1px solid var(--border-light);
+  background: var(--accent-glow);
+  transition: background 0.4s ease;
+}
+
+html.light .adopt-statement { background: rgba(154,123,62,0.04); }
+
+.adopt-statement-label {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--accent); margin-bottom: 12px;
+}
+
+.adopt-statement-text {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.adopt-statement-text strong {
+  font-weight: 500; font-style: normal;
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .adopt-deps { grid-template-columns: 1fr; }
+  .adopt-dep { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .adopt-dep:last-child { border-bottom: none; }
+  .adopt-gates { grid-template-columns: 1fr; }
+  .adopt-gate { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .adopt-gate:last-child { border-bottom: none; }
+  .adopt-progress { grid-template-columns: 1fr; }
+  .adopt-progress-seg { height: 3px; }
+}
+
+@media (max-width: 480px) {
+  .adopt-dep { padding: 20px 16px; }
+  .adopt-gate { padding: 20px 16px; }
+  .adopt-dep-name { font-size: 15px; }
+  .adopt-gate-name { font-size: 16px; }
+  .adopt-statement { padding: 24px 16px; }
+}
+
+@media print {
+  .adopt { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .adopt-signal-dot-amber { background: #c9a96e; }
+  .adopt-signal-dot-green { background: #4a8a5e; }
+  .adopt-statement { background: #fdf8ef; }
+  .adopt-runway-label { background: #f5f5f5; }
+  .adopt-progress-prepare { background: #5a8ab5; }
+  .adopt-progress-pilot { background: #c9a96e; }
+  .adopt-progress-scale { background: #4a8a5e; }
 }
 
 /* ═══════════════════════════════════════
@@ -4795,12 +5870,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
     </div>
 
-    <div class="final-block" style="margin-top:36px">
-      <h2>Executive Positioning</h2>
-      <p>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that helps investment organizations convert fragmented market information into structured, explainable business intelligence. Its value to a CIO lies in improving decision quality, strengthening consistency across investment functions, surfacing risk earlier, and increasing governance readiness — without replacing core execution infrastructure.</p>
-      <p>It should be positioned as a Tech for Business solution: one that uses advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
-      <p>For a CIO evaluating where technology investment can have the greatest impact on the investment operating model, Portfolio Studio targets the interpretation layer — the gap between information and action — where the greatest opportunity for measurable improvement resides.</p>
-    </div>
+
   </section>
 
   <hr class="section-sep">
@@ -4808,18 +5878,76 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <!-- 2. CIO Relevance -->
   <section class="section fade-in" id="cio-relevance">
     <div class="section-num">02</div>
-    <h2>Why This Matters to a CIO</h2>
-    <p class="section-lead">CIOs are accountable for decision quality, consistency, performance discipline, risk visibility, and governance. Portfolio Studio addresses each of these imperatives directly.</p>
+    <h2>CIO Relevance</h2>
+    <p class="section-lead">Portfolio Studio is a Tech for Business solution — one that uses advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
 
     <p>Most investment organizations do not suffer from a lack of data. They suffer from fragmented interpretation. Market developments, macro shifts, company events, and regulatory signals flow continuously into the organization, but the translation of that information into portfolio action is inconsistent, manual, and often person-dependent.</p>
 
     <p>Investment teams typically work across disconnected research, portfolio, and risk workflows. Narrative insight — the qualitative interpretation of what market developments mean for portfolio positioning — is often informal, unstructured, and difficult to scale across teams or time periods.</p>
 
-    <div class="callout">
-      <p><strong>Portfolio Studio creates a shared intelligence layer across research, portfolio construction, and risk oversight.</strong> The result is better-informed pre-trade decisions, stronger organizational alignment, and a more governable investment process.</p>
+    <p>For a CIO evaluating where technology investment can have the greatest impact on the investment operating model, Portfolio Studio targets the interpretation layer — the gap between raw information and portfolio action — where the greatest inconsistency and the greatest opportunity for measurable improvement typically reside. It does this without replacing core execution infrastructure.</p>
+
+    <!-- Feature Propensity Score -->
+    <div class="propensity">
+      <div class="propensity-head">
+        <h4>Feature Propensity Score — CIO Impact Alignment</h4>
+        <span class="propensity-badge">Assessment</span>
+      </div>
+
+      <div class="propensity-composite">
+        <div class="propensity-composite-score">8.7</div>
+        <div class="propensity-composite-meta">
+          <span class="propensity-composite-label">Composite CIO Relevance Score</span>
+          <span class="propensity-composite-sub">Weighted alignment of platform capabilities against five core CIO imperatives. Scored 0–10.</span>
+        </div>
+      </div>
+
+      <div class="propensity-body">
+
+        <div class="propensity-row" data-tip="Portfolio Studio structures narrative intelligence into explainable signals. Decisions trace back to interpreted evidence rather than intuition — improving both outcomes and accountability.">
+          <div class="propensity-label">Decision Quality<span class="propensity-label-sub">Structured signals over informal interpretation</span></div>
+          <div class="propensity-bar-track"><div class="propensity-bar-fill propensity-bar-gold" style="width:92%"></div></div>
+          <div class="propensity-score">9.2</div>
+        </div>
+
+        <div class="propensity-row" data-tip="A shared narrative framework ensures market developments are interpreted through common signal dimensions — reducing person-dependency and interpretation variance across teams.">
+          <div class="propensity-label">Cross-Team Consistency<span class="propensity-label-sub">Common signal dimensions across functions</span></div>
+          <div class="propensity-bar-track"><div class="propensity-bar-fill propensity-bar-gold" style="width:89%"></div></div>
+          <div class="propensity-score">8.9</div>
+        </div>
+
+        <div class="propensity-row" data-tip="Narrative structuring runs continuously — surfacing emerging risk themes and exposure implications before they manifest in portfolio drawdowns or compliance breaches.">
+          <div class="propensity-label">Early Risk Visibility<span class="propensity-label-sub">Proactive detection before portfolio impact</span></div>
+          <div class="propensity-bar-track"><div class="propensity-bar-fill propensity-bar-green" style="width:87%"></div></div>
+          <div class="propensity-score">8.7</div>
+        </div>
+
+        <div class="propensity-row" data-tip="Every structured output is traceable, explainable, and audit-ready. Investment committee briefings, risk reviews, and compliance documentation benefit from consistent, evidenced inputs.">
+          <div class="propensity-label">Governance Readiness<span class="propensity-label-sub">Traceable, explainable audit trail</span></div>
+          <div class="propensity-bar-track"><div class="propensity-bar-fill propensity-bar-blue" style="width:85%"></div></div>
+          <div class="propensity-score">8.5</div>
+        </div>
+
+        <div class="propensity-row" data-tip="Automated narrative interpretation compresses the cycle from information arrival to actionable portfolio context — freeing senior professionals to focus on judgment rather than data assembly.">
+          <div class="propensity-label">Operational Efficiency<span class="propensity-label-sub">Faster insight-to-action, reduced manual synthesis</span></div>
+          <div class="propensity-bar-track"><div class="propensity-bar-fill propensity-bar-gold" style="width:84%"></div></div>
+          <div class="propensity-score">8.4</div>
+        </div>
+
+      </div>
+
+      <div class="propensity-footer">
+        <div class="propensity-footer-text">Propensity scores reflect the degree of alignment between platform capabilities and each CIO imperative. Composite score is weighted by organizational impact: Decision Quality (25%), Consistency (20%), Risk Visibility (20%), Governance (20%), Efficiency (15%).</div>
+      </div>
     </div>
 
-    <p>For a CIO evaluating where to invest in operating model improvement, Portfolio Studio targets the precise gap between raw information and portfolio action — the interpretation layer — where the greatest inconsistency and the greatest opportunity for improvement typically reside.</p>
+    <!-- Executive Positioning Statement -->
+    <div class="cio-positioning">
+      <div class="cio-positioning-label">Executive Positioning</div>
+      <p><strong>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform</strong> that helps investment organizations convert fragmented market information into structured, explainable business intelligence. It creates a shared intelligence layer across research, portfolio construction, and risk oversight.</p>
+      <p>The result is better-informed pre-trade decisions, stronger organizational alignment, and a more governable investment process — positioning advanced AI as the engine behind improved portfolio outcomes, not as the proposition itself.</p>
+    </div>
+
   </section>
 
   <hr class="section-sep">
@@ -5012,14 +6140,171 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <h2>As-Is vs To-Be Transformation</h2>
     <p class="section-lead">Portfolio Studio transforms the investment operating model from fragmented manual interpretation to structured, narrative-aware intelligence.</p>
 
-    <div class="comparison">
-      <div class="comp-panel as-is" data-tip="The current state: information flows through a manual bottleneck, is processed in disconnected silos, and converges late at the committee stage — creating inconsistency, delay, and governance gaps.">
-        <h4>As-Is — Current State</h4>
-        <p>Fragmented information → manual synthesis → delayed action → reactive risk review → inconsistent committee preparation → governance gaps.</p>
+    <!-- Maturity Shift Visual -->
+    <div class="txfm-shift">
+      <div class="txfm-shift-head">
+        <h4>Operating Model Maturity Shift</h4>
+        <span class="txfm-shift-badge">Transformation</span>
+        <div class="txfm-shift-legend">
+          <div class="txfm-shift-legend-item">
+            <div class="txfm-shift-legend-dot txfm-shift-legend-dot-asis"></div>
+            <span class="txfm-shift-legend-text">As-Is</span>
+          </div>
+          <div class="txfm-shift-legend-item">
+            <div class="txfm-shift-legend-dot txfm-shift-legend-dot-tobe"></div>
+            <span class="txfm-shift-legend-text">To-Be</span>
+          </div>
+        </div>
       </div>
-      <div class="comp-panel to-be" data-tip="The target state: Portfolio Studio introduces a shared intelligence layer that replaces manual interpretation with structured, explainable narrative signals — enabling proactive oversight and governance-ready decisions.">
-        <h4>To-Be — With Portfolio Studio</h4>
-        <p>Unified intake → agentic narrative interpretation → structured portfolio signals → informed allocation → proactive oversight → governance-ready decisions.</p>
+
+      <div class="txfm-shift-body">
+
+        <!-- 1. Information Interpretation -->
+        <div class="txfm-dim" data-tip="All information currently funnels through individual human synthesis — creating delay, inconsistency, and person-dependency. Portfolio Studio automates narrative structuring while preserving human judgment at the decision point.">
+          <div class="txfm-dim-label">Information Interpretation<span class="txfm-dim-label-sub">How market data becomes portfolio context</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <!-- Scale ticks at 0%, 25%, 50%, 75%, 100% -->
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <!-- Shift band -->
+            <div class="txfm-track-shift" style="left:15%;width:73%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <!-- Dots -->
+            <div class="txfm-dot txfm-dot-asis" style="left:15%" data-tip="Manual, person-dependent synthesis"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:88%" data-tip="Automated narrative structuring with explainable outputs"></div>
+            <!-- Labels -->
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:15%">Manual &amp; fragmented</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:88%">Structured &amp; automated</div>
+          </div>
+        </div>
+
+        <!-- 2. Cross-Team Consistency -->
+        <div class="txfm-dim" data-tip="Research, portfolio, and risk teams currently interpret the same market events through different lenses with no shared framework. Portfolio Studio introduces common signal dimensions across all functions.">
+          <div class="txfm-dim-label">Cross-Team Consistency<span class="txfm-dim-label-sub">Alignment across research, portfolio, risk</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <div class="txfm-track-shift" style="left:12%;width:72%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <div class="txfm-dot txfm-dot-asis" style="left:12%" data-tip="Siloed, individual interpretation"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:84%" data-tip="Shared signal framework across all functions"></div>
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:12%">Siloed</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:84%">Shared framework</div>
+          </div>
+        </div>
+
+        <!-- 3. Risk Visibility -->
+        <div class="txfm-dim" data-tip="Risk review currently relies on backward-looking quantitative metrics. Narrative-driven risks — regime shifts, policy changes, thematic exposure — are under-modeled and surface too late. Portfolio Studio provides forward-looking narrative risk signals.">
+          <div class="txfm-dim-label">Risk Visibility<span class="txfm-dim-label-sub">When and how risks are surfaced</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <div class="txfm-track-shift" style="left:20%;width:62%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <div class="txfm-dot txfm-dot-asis" style="left:20%" data-tip="Reactive, backward-looking metrics only"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:82%" data-tip="Proactive, narrative-aware risk signals"></div>
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:20%">Reactive</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:82%">Proactive</div>
+          </div>
+        </div>
+
+        <!-- 4. Decision Speed -->
+        <div class="txfm-dim" data-tip="The insight-to-action cycle is currently constrained by manual synthesis, email chains, and sequential handoffs. Portfolio Studio compresses this cycle by making structured intelligence available in near real-time.">
+          <div class="txfm-dim-label">Decision Speed<span class="txfm-dim-label-sub">Time from market event to portfolio action</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <div class="txfm-track-shift" style="left:18%;width:72%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <div class="txfm-dot txfm-dot-asis" style="left:18%" data-tip="Days — sequential manual handoffs"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:90%" data-tip="Near real-time structured intelligence"></div>
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:18%">Days</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:90%">Near real-time</div>
+          </div>
+        </div>
+
+        <!-- 5. Governance Readiness -->
+        <div class="txfm-dim" data-tip="Committee briefings are currently assembled ad hoc from inconsistent sources. With Portfolio Studio, every output is structured, traceable, and governance-ready by design — improving audit quality and committee confidence.">
+          <div class="txfm-dim-label">Governance Readiness<span class="txfm-dim-label-sub">Committee preparation and audit trail</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <div class="txfm-track-shift" style="left:22%;width:58%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <div class="txfm-dot txfm-dot-asis" style="left:22%" data-tip="Ad hoc, inconsistent committee preparation"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:80%" data-tip="Traceable, structured, audit-ready by design"></div>
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:22%">Ad hoc</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:80%">Audit-ready</div>
+          </div>
+        </div>
+
+        <!-- 6. Portfolio Context -->
+        <div class="txfm-dim" data-tip="Portfolio construction currently relies almost exclusively on quantitative inputs. Qualitative narrative context — the 'why' behind market moves — is added informally if at all. Portfolio Studio integrates narrative intelligence directly into the portfolio context.">
+          <div class="txfm-dim-label">Portfolio Context<span class="txfm-dim-label-sub">Qualitative depth behind decisions</span></div>
+          <div class="txfm-track">
+            <div class="txfm-track-line"></div>
+            <div class="txfm-scale" style="left:0%"></div>
+            <div class="txfm-scale" style="left:25%"></div>
+            <div class="txfm-scale" style="left:50%"></div>
+            <div class="txfm-scale" style="left:75%"></div>
+            <div class="txfm-scale" style="left:100%"></div>
+            <div class="txfm-track-shift" style="left:25%;width:61%">
+              <div class="txfm-track-shift-band"></div>
+              <div class="txfm-track-arrow"></div>
+            </div>
+            <div class="txfm-dot txfm-dot-asis" style="left:25%" data-tip="Quantitative only — narrative context absent"></div>
+            <div class="txfm-dot txfm-dot-tobe" style="left:86%" data-tip="Narrative + quantitative — full decision context"></div>
+            <div class="txfm-endpoint txfm-endpoint-asis" style="left:25%">Quant only</div>
+            <div class="txfm-endpoint txfm-endpoint-tobe" style="left:86%">Narrative + Quant</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Summary stats footer -->
+      <div class="txfm-shift-footer">
+        <div class="txfm-shift-stat">
+          <div class="txfm-shift-stat-value txfm-shift-stat-value-accent">6</div>
+          <div class="txfm-shift-stat-label">Dimensions Transformed</div>
+        </div>
+        <div class="txfm-shift-stat">
+          <div class="txfm-shift-stat-value txfm-shift-stat-value-red">~20%</div>
+          <div class="txfm-shift-stat-label">Avg. As-Is Maturity</div>
+        </div>
+        <div class="txfm-shift-stat">
+          <div class="txfm-shift-stat-value txfm-shift-stat-value-green">~85%</div>
+          <div class="txfm-shift-stat-label">Avg. To-Be Maturity</div>
+        </div>
       </div>
     </div>
 
@@ -6615,70 +7900,226 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
     </div>
 
-    <!-- Interface Responsibility Table -->
-    <h3>Interface Responsibility Matrix</h3>
+    <!-- Interface Value Flow -->
+    <h3>Interface Value Map</h3>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Interface Domain</th>
-            <th>Example Inputs / Outputs</th>
-            <th>Role in Architecture</th>
-            <th>Business Relevance</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>External Market Information</strong></td>
-            <td>Financial news, macro commentary, company updates, regulatory events, liquidity signals</td>
-            <td>Upstream unstructured input layer</td>
-            <td>Provides the raw narrative environment that must be interpreted before portfolio action</td>
-          </tr>
-          <tr>
-            <td><strong>Internal Intelligence Inputs</strong></td>
-            <td>Analyst views, PM views, house views, committee inputs, research notes</td>
-            <td>Internal interpretation and institutional context layer</td>
-            <td>Ensures firm-specific views and investment judgment are reflected in the platform</td>
-          </tr>
-          <tr>
-            <td><strong>Portfolio &amp; Risk Systems</strong></td>
-            <td>Holdings, weights, exposures, risk metrics, performance data</td>
-            <td>Structured downstream portfolio context layer</td>
-            <td>Connects narrative intelligence directly to portfolio and risk decision-making</td>
-          </tr>
-          <tr>
-            <td><strong>Signal Framework</strong></td>
-            <td>Uncertainty, Fundamentals, Macro, Liquidity, ESG &amp; Regulation</td>
-            <td>Translation layer between interpretation and application</td>
-            <td>Converts narrative complexity into repeatable business signals</td>
-          </tr>
-          <tr>
-            <td><strong>Portfolio Optimizer</strong></td>
-            <td>Allocation context, rebalancing support, scenario inputs</td>
-            <td>Portfolio application layer</td>
-            <td>Improves context-aware portfolio construction and pre-trade decision quality</td>
-          </tr>
-          <tr>
-            <td><strong>Risk Manager</strong></td>
-            <td>Vulnerability insights, forward-looking risk flags, exposure context</td>
-            <td>Risk application layer</td>
-            <td>Strengthens early risk visibility and proactive oversight</td>
-          </tr>
-          <tr>
-            <td><strong>Governance Outputs</strong></td>
-            <td>Committee briefings, executive summaries, review context</td>
-            <td>Decision and governance layer</td>
-            <td>Improves traceability, alignment, and investment committee readiness</td>
-          </tr>
-          <tr>
-            <td><strong>Execution / OMS / EMS</strong></td>
-            <td>Trade execution workflows, routing, operational processing</td>
-            <td>Downstream external system boundary</td>
-            <td>Clarifies that Portfolio Studio enhances decision-making without replacing execution infrastructure</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="iflow">
+      <div class="iflow-head">
+        <span class="iflow-badge" data-tip="Eight interfaces ordered by data-flow sequence — from upstream inputs through translation and application to the system boundary. Business relevance is the lead text; technical detail sits beneath it." data-tip-pos="below">Data Flow</span>
+        <h4>Business Relevance by Interface — Architectural Sequence</h4>
+      </div>
+
+      <div class="iflow-cards">
+
+        <!-- 1. External Market Information -->
+        <div class="iflow-card" data-tip="This is the raw information environment. Without structured interpretation, this volume of unstructured data creates noise, not insight. Portfolio Studio's first job is to turn this into signal.">
+          <div class="iflow-spine iflow-spine-upstream"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">01</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Provides the raw narrative environment that must be interpreted before any portfolio action can be taken</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">External Market Information</span>
+              <span class="iflow-role iflow-role-upstream">Upstream Input</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Financial news</span>
+              <span class="iflow-pill">Macro commentary</span>
+              <span class="iflow-pill">Company updates</span>
+              <span class="iflow-pill">Regulatory events</span>
+              <span class="iflow-pill">Liquidity signals</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Without structured interpretation, information abundance creates noise — not insight</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Internal Intelligence Inputs -->
+        <div class="iflow-card" data-tip="Firm-specific views are what differentiate one investment organization from another. If the platform doesn't absorb internal judgment, it becomes generic — not institutional.">
+          <div class="iflow-spine iflow-spine-upstream"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">02</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Ensures firm-specific views and proprietary investment judgment are reflected in the platform's intelligence</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Internal Intelligence Inputs</span>
+              <span class="iflow-role iflow-role-upstream">Upstream Input</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Analyst views</span>
+              <span class="iflow-pill">PM views</span>
+              <span class="iflow-pill">House views</span>
+              <span class="iflow-pill">Committee inputs</span>
+              <span class="iflow-pill">Research notes</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">A platform that ignores internal judgment becomes generic — institutional context is what creates differentiation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Portfolio & Risk Systems -->
+        <div class="iflow-card" data-tip="The connection point to existing quantitative infrastructure. Narrative intelligence only creates value if it reaches portfolio and risk systems where decisions are made.">
+          <div class="iflow-spine iflow-spine-upstream"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">03</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Connects narrative intelligence directly to portfolio and risk decision-making within existing systems</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Portfolio &amp; Risk Systems</span>
+              <span class="iflow-role iflow-role-upstream">Upstream Input</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Holdings</span>
+              <span class="iflow-pill">Weights</span>
+              <span class="iflow-pill">Exposures</span>
+              <span class="iflow-pill">Risk metrics</span>
+              <span class="iflow-pill">Performance data</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Narrative intelligence only creates value if it reaches the systems where allocation and risk decisions are actually made</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Signal Framework -->
+        <div class="iflow-card" data-tip="The translation engine. This is where narrative complexity becomes business language — the five dimensions create a repeatable vocabulary that makes signals consistent, comparable, and consumable across functions.">
+          <div class="iflow-spine iflow-spine-translation"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">04</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Converts narrative complexity into repeatable, dimension-aligned business signals that all personas can consume</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Signal Framework</span>
+              <span class="iflow-role iflow-role-translation">Translation Layer</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Uncertainty</span>
+              <span class="iflow-pill">Fundamentals</span>
+              <span class="iflow-pill">Macro</span>
+              <span class="iflow-pill">Liquidity</span>
+              <span class="iflow-pill">ESG &amp; Regulation</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Five dimensions create a common language — making interpretation consistent, comparable, and auditable across teams</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Portfolio Optimizer -->
+        <div class="iflow-card" data-tip="The portfolio application surface. Structured signals feed directly into allocation decisions, scenario testing, and rebalance guidance — so portfolio construction reflects narrative context, not just quantitative models.">
+          <div class="iflow-spine iflow-spine-application"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">05</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Improves context-aware portfolio construction and pre-trade decision quality with narrative-linked intelligence</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Portfolio Optimizer</span>
+              <span class="iflow-role iflow-role-application">Application Layer</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Allocation context</span>
+              <span class="iflow-pill">Rebalancing support</span>
+              <span class="iflow-pill">Scenario inputs</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Portfolio decisions reflect the qualitative market reality — not just what quantitative models can see</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Risk Manager -->
+        <div class="iflow-card" data-tip="The risk application surface. Narrative-aware signals flag vulnerabilities before they appear in traditional risk metrics — shifting risk review from reactive to proactive.">
+          <div class="iflow-spine iflow-spine-application"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">06</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Strengthens early risk visibility and enables proactive oversight through narrative-aware vulnerability identification</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Risk Manager</span>
+              <span class="iflow-role iflow-role-application">Application Layer</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Vulnerability insights</span>
+              <span class="iflow-pill">Forward-looking risk flags</span>
+              <span class="iflow-pill">Exposure context</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Vulnerabilities surface in risk reports before they surface in P&amp;L — the right sequence for proactive oversight</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Governance Outputs -->
+        <div class="iflow-card" data-tip="The governance surface. Structured, traceable intelligence formatted for committee briefings, executive summaries, and audit-ready documentation — improving traceability and oversight quality.">
+          <div class="iflow-spine iflow-spine-governance"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">07</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Improves traceability, cross-functional alignment, and investment committee readiness with governance-grade outputs</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Governance Outputs</span>
+              <span class="iflow-role iflow-role-governance">Governance Layer</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Committee briefings</span>
+              <span class="iflow-pill">Executive summaries</span>
+              <span class="iflow-pill">Review context</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Decision rationale is traceable from market narrative to portfolio action — strengthening audit quality and board confidence</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Execution / OMS / EMS -->
+        <div class="iflow-card" style="opacity:0.5">
+          <div class="iflow-spine iflow-spine-boundary"></div>
+          <div class="iflow-seq"><span class="iflow-seq-num">08</span></div>
+          <div class="iflow-content">
+            <div class="iflow-relevance">Clarifies that Portfolio Studio enhances decision-making without replacing execution infrastructure</div>
+            <div class="iflow-meta">
+              <span class="iflow-domain">Execution / OMS / EMS</span>
+              <span class="iflow-role iflow-role-boundary">System Boundary</span>
+            </div>
+            <div class="iflow-examples">
+              <span class="iflow-pill">Trade execution</span>
+              <span class="iflow-pill">Order routing</span>
+              <span class="iflow-pill">Operational processing</span>
+            </div>
+            <div class="iflow-cio">
+              <span class="iflow-cio-label">CIO Relevance</span>
+              <span class="iflow-cio-text">Existing execution infrastructure remains untouched — Portfolio Studio sits above it, not instead of it</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legend -->
+      <div class="iflow-legend">
+        <div class="iflow-legend-item">
+          <div class="iflow-legend-bar" style="background:var(--blue);opacity:0.5"></div>
+          <span class="iflow-legend-text">Upstream Input</span>
+        </div>
+        <div class="iflow-legend-item">
+          <div class="iflow-legend-bar" style="background:var(--accent);opacity:0.6"></div>
+          <span class="iflow-legend-text">Translation Layer</span>
+        </div>
+        <div class="iflow-legend-item">
+          <div class="iflow-legend-bar" style="background:var(--green);opacity:0.5"></div>
+          <span class="iflow-legend-text">Application Layer</span>
+        </div>
+        <div class="iflow-legend-item">
+          <div class="iflow-legend-bar" style="background:var(--green);opacity:0.7"></div>
+          <span class="iflow-legend-text">Governance Layer</span>
+        </div>
+        <div class="iflow-legend-item">
+          <div class="iflow-legend-bar" style="background:var(--text-muted);opacity:0.25"></div>
+          <span class="iflow-legend-text">System Boundary</span>
+        </div>
+      </div>
     </div>
 
   </section>
@@ -6689,25 +8130,196 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <section class="section fade-in" id="dependencies">
     <div class="section-num">13</div>
     <h2>Dependencies and Adoption Considerations</h2>
-    <p class="section-lead">Key factors that will influence successful implementation and organizational adoption.</p>
+    <p class="section-lead">A readiness assessment of the six dependencies that gate successful enterprise adoption — each scored by status and mapped to the adoption stage where it must be resolved.</p>
 
-    <h3>Data Dependencies</h3>
-    <p>Portfolio Studio requires access to both structured data (portfolio holdings, risk metrics, market data) and unstructured data (news, research, commentary). Data quality, timeliness, and coverage will directly influence the quality of narrative interpretation and signal structuring.</p>
+    <div class="adopt">
+      <div class="adopt-head">
+        <span class="adopt-badge" data-tip="Six dependencies assessed by readiness status: Action Required (amber) means active work is needed before that gate; On Track (green) means the dependency is resolved or has a clear path to resolution. Each dependency is categorised as Data, Technical, or Organisational." data-tip-pos="below">Readiness</span>
+        <h4>Pre-Adoption Readiness Assessment — Dependency Map</h4>
+      </div>
 
-    <h3>Functional Dependencies</h3>
-    <p>Integration with existing portfolio management systems, risk platforms, and research tools is required to ensure Portfolio Studio outputs can be consumed within existing workflows.</p>
+      <!-- Six dependency cards -->
+      <div class="adopt-deps">
 
-    <h3>Organizational Dependencies</h3>
-    <p>Adoption depends on investment team willingness to incorporate structured narrative intelligence into their decision processes. Change management, training, and stakeholder engagement are critical.</p>
+        <!-- 1. Data -->
+        <div class="adopt-dep" data-tip="The single most critical dependency. Without access to both structured portfolio data and unstructured market information, the Narrative Builder cannot function. Data quality directly determines output quality.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-amber"></div>
+              <span class="adopt-signal-text adopt-signal-text-amber">Action Required</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-data">Data</span>
+          </div>
+          <div class="adopt-dep-name">Data Dependencies</div>
+          <div class="adopt-dep-desc">Portfolio Studio requires access to both structured data (portfolio holdings, risk metrics, market data) and unstructured data (news, research, commentary). Data quality, timeliness, and coverage will directly influence the quality of narrative interpretation and signal structuring.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-amber">What's Needed</span>
+            <span class="adopt-dep-action-text">Audit existing data feeds for coverage, quality, and latency. Identify gaps in unstructured data access. Establish data-quality baselines before pilot.</span>
+          </div>
+        </div>
 
-    <h3>Design Dependencies</h3>
-    <p>The user experience must be designed in close collaboration with investment professionals to ensure outputs are relevant, consumable, and naturally integrated into daily workflows.</p>
+        <!-- 2. Functional -->
+        <div class="adopt-dep" data-tip="Integration with existing PMS, risk platforms, and research tools is required so that Portfolio Studio outputs can be consumed within existing workflows — not in a parallel silo.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-amber"></div>
+              <span class="adopt-signal-text adopt-signal-text-amber">Action Required</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-tech">Technical</span>
+          </div>
+          <div class="adopt-dep-name">Functional Integration</div>
+          <div class="adopt-dep-desc">Integration with existing portfolio management systems, risk platforms, and research tools is required to ensure Portfolio Studio outputs can be consumed within existing workflows. API-level or data-feed integration points will be needed.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-amber">What's Needed</span>
+            <span class="adopt-dep-action-text">Map integration points to PMS, risk, and research systems. Define API contracts and data-feed specifications. Scope integration effort for pilot environment.</span>
+          </div>
+        </div>
 
-    <h3>Adoption Considerations</h3>
-    <p>A phased rollout is recommended, beginning with a focused pilot across a specific investment team or workflow before broader organizational adoption. Early wins and measurable improvements will be essential to building institutional confidence.</p>
+        <!-- 3. Organisational -->
+        <div class="adopt-dep" data-tip="Technology alone doesn't drive adoption. Investment team willingness to incorporate narrative intelligence into daily workflows is the human dependency that determines success or failure.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-amber"></div>
+              <span class="adopt-signal-text adopt-signal-text-amber">Action Required</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-org">Organisational</span>
+          </div>
+          <div class="adopt-dep-name">Organisational Readiness</div>
+          <div class="adopt-dep-desc">Adoption depends on investment team willingness to incorporate structured narrative intelligence into their decision processes. Change management, training, and stakeholder engagement are critical to building institutional confidence.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-amber">What's Needed</span>
+            <span class="adopt-dep-action-text">Identify pilot champions in research and PM functions. Design change management programme. Secure CIO sponsorship for phased rollout.</span>
+          </div>
+        </div>
 
-    <h3>Governance Integration</h3>
-    <p>The platform's outputs must be integrated into existing governance frameworks, including investment committee processes, risk oversight structures, and compliance documentation requirements.</p>
+        <!-- 4. Design -->
+        <div class="adopt-dep" data-tip="UX quality determines adoption speed. If outputs feel foreign to investment professionals, usage will be low regardless of intelligence quality. Co-design with end-users is non-negotiable.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-green"></div>
+              <span class="adopt-signal-text adopt-signal-text-green">On Track</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-tech">Technical</span>
+          </div>
+          <div class="adopt-dep-name">UX Design Collaboration</div>
+          <div class="adopt-dep-desc">The user experience must be designed in close collaboration with investment professionals to ensure outputs are relevant, consumable, and naturally integrated into daily workflows without requiring technical expertise.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-green">On Track</span>
+            <span class="adopt-dep-action-text">Co-design sessions planned with pilot personas. UX prototypes validated against real investment workflows.</span>
+          </div>
+        </div>
+
+        <!-- 5. Adoption Phasing -->
+        <div class="adopt-dep" data-tip="Phased rollout reduces transformation risk and builds institutional confidence through demonstrated early wins before broader commitment.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-green"></div>
+              <span class="adopt-signal-text adopt-signal-text-green">On Track</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-org">Organisational</span>
+          </div>
+          <div class="adopt-dep-name">Phased Adoption Strategy</div>
+          <div class="adopt-dep-desc">A phased rollout is recommended, beginning with a focused pilot across a specific investment team or workflow before broader organizational adoption. Early wins and measurable improvements will be essential to building institutional confidence.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-green">On Track</span>
+            <span class="adopt-dep-action-text">Three-phase adoption runway defined (Prepare → Pilot → Scale). KPI baselines will be established at each gate.</span>
+          </div>
+        </div>
+
+        <!-- 6. Governance Integration -->
+        <div class="adopt-dep" data-tip="Portfolio Studio outputs must align with existing governance frameworks before production deployment. Without committee-level integration, the platform risks being sidelined from the decision process it's designed to improve.">
+          <div class="adopt-dep-header">
+            <div class="adopt-dep-signal">
+              <div class="adopt-signal-dot adopt-signal-dot-amber"></div>
+              <span class="adopt-signal-text adopt-signal-text-amber">Action Required</span>
+            </div>
+            <span class="adopt-dep-cat adopt-cat-org">Organisational</span>
+          </div>
+          <div class="adopt-dep-name">Governance Framework Integration</div>
+          <div class="adopt-dep-desc">The platform's outputs must be integrated into existing governance frameworks, including investment committee processes, risk oversight structures, and compliance documentation requirements. Governance alignment should be established before production deployment.</div>
+          <div class="adopt-dep-action">
+            <span class="adopt-dep-action-label adopt-dep-action-label-amber">What's Needed</span>
+            <span class="adopt-dep-action-text">Map Portfolio Studio outputs to committee documentation requirements. Define governance approval workflow for structured intelligence. Align with compliance review processes.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Adoption Runway -->
+      <div class="adopt-runway">
+        <div class="adopt-runway-label">
+          <span class="adopt-runway-label-text">Adoption Runway</span>
+          <span class="adopt-runway-label-sub">Which dependencies must be resolved at each stage?</span>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="adopt-progress">
+          <div class="adopt-progress-seg adopt-progress-prepare"></div>
+          <div class="adopt-progress-seg adopt-progress-pilot"></div>
+          <div class="adopt-progress-seg adopt-progress-scale"></div>
+        </div>
+
+        <!-- Three gates -->
+        <div class="adopt-gates">
+
+          <!-- Gate 1: Prepare -->
+          <div class="adopt-gate adopt-gate-prepare" data-tip="The foundation gate. All three 'Action Required' infrastructure dependencies (data, integration, governance mapping) must be resolved here. Without these, the pilot cannot produce meaningful results.">
+            <div class="adopt-gate-header">
+              <div class="adopt-gate-phase">Gate 1</div>
+              <span class="adopt-gate-period">Months 0–3</span>
+            </div>
+            <div class="adopt-gate-name">Prepare</div>
+            <div class="adopt-gate-desc">Resolve infrastructure dependencies, establish data quality baselines, define integration points, and secure organisational sponsorship.</div>
+            <div class="adopt-gate-checks">
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Data audit and feed connectivity confirmed</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> PMS / risk system integration scoped</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> CIO sponsorship and pilot champions identified</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Governance mapping initiated</div>
+            </div>
+          </div>
+
+          <!-- Gate 2: Pilot -->
+          <div class="adopt-gate adopt-gate-pilot" data-tip="The validation gate. Deploy to a single team, validate workflows with real users, establish KPI baselines, and demonstrate early measurable value to build institutional confidence for broader rollout.">
+            <div class="adopt-gate-header">
+              <div class="adopt-gate-phase">Gate 2</div>
+              <span class="adopt-gate-period">Months 3–9</span>
+            </div>
+            <div class="adopt-gate-name">Pilot</div>
+            <div class="adopt-gate-desc">Single-team deployment with co-designed UX, workflow validation, and measurable KPI baselines to demonstrate value and build confidence.</div>
+            <div class="adopt-gate-checks">
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> UX co-design with pilot personas complete</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Narrative interpretation calibrated</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> First KPI baselines established</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Change management programme active</div>
+            </div>
+          </div>
+
+          <!-- Gate 3: Scale -->
+          <div class="adopt-gate adopt-gate-scale" data-tip="The enterprise gate. Cross-team rollout, committee integration, and governance framework alignment. This is where phased adoption becomes full organisational capability.">
+            <div class="adopt-gate-header">
+              <div class="adopt-gate-phase">Gate 3</div>
+              <span class="adopt-gate-period">Months 9–18+</span>
+            </div>
+            <div class="adopt-gate-name">Scale</div>
+            <div class="adopt-gate-desc">Cross-team rollout, committee process integration, governance alignment confirmed, and all dependencies resolved for full enterprise adoption.</div>
+            <div class="adopt-gate-checks">
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Multi-team deployment active</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Committee briefing outputs integrated</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Governance framework fully aligned</div>
+              <div class="adopt-gate-check"><span class="adopt-gate-check-icon">◆</span> Benefit realization tracking operational</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Governance Statement -->
+      <div class="adopt-statement">
+        <div class="adopt-statement-label">Adoption Posture — Executive Assessment</div>
+        <div class="adopt-statement-text"><strong>Four of six dependencies require active resolution before pilot go-live.</strong> Two are on track. The critical path runs through data connectivity, system integration, organisational sponsorship, and governance mapping. The recommended three-gate adoption runway (Prepare → Pilot → Scale) is designed to resolve dependencies sequentially, demonstrate measurable value at each stage, and build the institutional confidence needed for a CIO to approve enterprise-wide deployment with controlled risk.</div>
+      </div>
+
+    </div>
   </section>
 
 </div>
@@ -6775,6 +8387,10 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   // ── Fade In ──
   const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:0.06});
   document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  // Animate maturity shift bands on scroll
+  const dimObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');dimObs.unobserve(e.target);}});},{threshold:0.3});
+  document.querySelectorAll('.txfm-dim').forEach(el=>dimObs.observe(el));
 
   // ── Scroll handler ──
   let t=false;
