@@ -33,7 +33,7 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
   --sidebar-w: 260px;
-  --content-max: 780px;
+  --content-max: 1080px;
   --radius: 2px;
   --transition: 0.2s ease;
 }
@@ -200,7 +200,9 @@ html.light .flow-node-accent {
 .outcome-node,
 .benefit-curve-container, .bc-phase,
 .tlc, .tlc-office, .tlc-office-head, .tlc-stage,
-.tlc-coverage-fo, .tlc-coverage-empty {
+.tlc-coverage-fo, .tlc-coverage-empty,
+.arch-container, .arch-platform, .arch-source, .arch-layer,
+.arch-branch-card, .arch-governance, .arch-oos, .arch-explanation-card {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -360,7 +362,7 @@ html.light .flow-node-accent {
 .content {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 0 56px 160px;
+  padding: 0 64px 160px;
 }
 
 /* ═══════════════════════════════════════
@@ -409,7 +411,7 @@ html.light .flow-node-accent {
   color: var(--text-secondary);
   border-left: 1px solid var(--accent-dim);
   padding-left: 24px;
-  max-width: 620px;
+  max-width: 840px;
 }
 
 .chip-row {
@@ -873,7 +875,7 @@ html.light .bc-phase-scale { background: rgba(154,123,62,0.04); }
 html.light .bc-phase-optimize { background: rgba(61,122,80,0.04); }
 
 /* Responsive */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .bc-phases {
     grid-template-columns: 1fr 1fr;
   }
@@ -1406,7 +1408,7 @@ html.light .diagram-badge.badge-tobe {
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
 }
 
 .flow-source {
@@ -1471,7 +1473,7 @@ html.light .diagram-badge.badge-tobe {
 
 .flow-merge {
   width: 60%;
-  max-width: 400px;
+  max-width: 560px;
   height: 1px;
   background: var(--border);
   position: relative;
@@ -1496,7 +1498,7 @@ html.light .diagram-badge.badge-tobe {
   border-radius: var(--radius);
   padding: 20px 24px;
   width: 100%;
-  max-width: 480px;
+  max-width: 680px;
   transition: border-color 0.4s ease, background 0.4s ease;
 }
 
@@ -1604,7 +1606,7 @@ html.light .diagram-badge.badge-tobe {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   width: 100%;
-  max-width: 480px;
+  max-width: 680px;
 }
 
 .flow-branch .flow-node {
@@ -1615,7 +1617,7 @@ html.light .diagram-badge.badge-tobe {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 480px;
+  max-width: 680px;
   position: relative;
   padding: 0;
 }
@@ -1666,7 +1668,7 @@ html.light .diagram-badge.badge-tobe {
 
 .flow-stage {
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
   display: flex;
   align-items: stretch;
   gap: 0;
@@ -1705,7 +1707,7 @@ html.light .diagram-badge.badge-tobe {
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
   position: relative;
 }
 
@@ -1789,7 +1791,7 @@ html.light .diagram-badge.badge-tobe {
 /* Weak convergence zone */
 .flow-convergence {
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   padding: 16px 20px;
@@ -1841,7 +1843,7 @@ html.light .flow-convergence-label {
   grid-template-columns: 1fr 1fr;
   gap: 0;
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
   padding: 0;
 }
 
@@ -1878,7 +1880,7 @@ html.light .flow-convergence-label {
   align-items: center;
   padding: 6px 0;
   width: 100%;
-  max-width: 640px;
+  max-width: 860px;
 }
 
 .flow-merge-wide {
@@ -1902,7 +1904,7 @@ html.light .flow-convergence-label {
 }
 
 /* ── Responsive diagrams ── */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .flow-sources { grid-template-columns: 1fr; max-width: 320px; }
   .flow-node { max-width: 100%; }
   .flow-branch { grid-template-columns: 1fr; max-width: 100%; }
@@ -2089,7 +2091,7 @@ html.light .unidia-zone-outcome {
 /* ── Studio hero block ── */
 .studio-hero {
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   border: 2px solid var(--accent);
   border-radius: var(--radius);
   padding: 28px 28px 24px;
@@ -2154,7 +2156,7 @@ html.light .studio-hero {
 /* ── Benefits strip ── */
 .benefits-strip {
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
@@ -2203,7 +2205,7 @@ html.light .studio-hero {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   margin-top: 16px;
 }
 
@@ -2244,7 +2246,7 @@ html.light .studio-hero {
   border-radius: var(--radius);
   padding: 18px 22px;
   width: 100%;
-  max-width: 480px;
+  max-width: 680px;
   transition: border-color 0.4s ease;
 }
 
@@ -2347,7 +2349,7 @@ html.light .studio-hero {
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
 }
 
 .pain-silo {
@@ -2414,7 +2416,7 @@ html.light .pain-silo {
 /* Pain bottleneck */
 .pain-bottleneck {
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   border: 1px solid rgba(194, 124, 110, 0.25);
   border-radius: var(--radius);
   padding: 18px 22px;
@@ -2482,7 +2484,7 @@ html.light .pain-bottleneck {
   justify-content: center;
   gap: 24px;
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   padding: 4px 0;
 }
 
@@ -2513,7 +2515,7 @@ html.light .pain-bottleneck {
 /* Convergence dashed box */
 .pain-convergence {
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   border: 1px dashed rgba(194, 124, 110, 0.3);
   border-radius: var(--radius);
   padding: 12px 20px;
@@ -2558,7 +2560,7 @@ html.light .pain-convergence-label {
   justify-content: center;
   padding: 0;
   width: 100%;
-  max-width: 600px;
+  max-width: 860px;
   gap: 12px;
   margin: 8px 0 4px;
 }
@@ -2582,7 +2584,7 @@ html.light .pain-convergence-label {
 }
 
 /* Responsive */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .unidia-content { padding: 24px 16px 20px; }
   .pain-silos { grid-template-columns: 1fr; max-width: 320px; }
   .benefits-strip { grid-template-columns: repeat(2, 1fr); }
@@ -2827,6 +2829,464 @@ tbody tr:hover { background: var(--bg-card); }
 .io-panel li:last-child { border-bottom: none; }
 
 /* ═══════════════════════════════════════
+   TECHNICAL INTERFACE DIAGRAM
+   ═══════════════════════════════════════ */
+.arch-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.arch-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arch-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.arch-head .arch-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.arch-body {
+  padding: 36px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+}
+
+/* ── Platform hero (top bar) ── */
+.arch-platform {
+  width: 100%;
+  max-width: 860px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  text-align: center;
+  background: rgba(201,169,110,0.04);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+html.light .arch-platform {
+  background: rgba(154,123,62,0.04);
+}
+
+.arch-platform-name {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.arch-platform-engine {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent-dim);
+}
+
+/* ── Connector vertical lines ── */
+.arch-connectors-3 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 860px;
+  padding: 0 60px;
+}
+
+.arch-vc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arch-vc-line {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  transition: background 0.4s ease;
+}
+
+.arch-vc-arrow-up {
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid var(--border);
+  transition: border-color 0.4s ease;
+}
+
+.arch-vc-arrow-down {
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--border);
+  transition: border-color 0.4s ease;
+}
+
+/* ── Source cards row ── */
+.arch-sources {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 860px;
+}
+
+.arch-source {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.arch-source-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.arch-source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.arch-source-list li {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  padding: 2px 0;
+}
+
+/* ── Processing layers (full-width bars) ── */
+.arch-layer {
+  width: 100%;
+  max-width: 860px;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 14px 24px;
+  text-align: center;
+  background: var(--accent-glow);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.arch-layer-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.arch-layer-subtitle {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Signal pills row */
+.arch-signals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* ── Center single connector ── */
+.arch-vc-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 0;
+}
+
+/* ── Branch cards ── */
+.arch-branch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 860px;
+}
+
+.arch-branch-card {
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.arch-branch-card h5 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.arch-branch-card ul {
+  list-style: none;
+  padding: 0; margin: 0;
+}
+
+.arch-branch-card li {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 300;
+  padding: 1px 0;
+}
+
+/* ── Governance output bar ── */
+.arch-governance {
+  width: 100%;
+  max-width: 860px;
+  border: 1px solid rgba(107,158,122,0.3);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  background: var(--green-dim);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.arch-governance-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(107,158,122,0.15);
+}
+
+.arch-governance-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 16px;
+}
+
+.arch-governance-items li {
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ── Out of scope (execution) ── */
+.arch-oos {
+  width: 100%;
+  max-width: 860px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  text-align: center;
+  opacity: 0.4;
+  transition: border-color 0.4s ease;
+}
+
+.arch-oos-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+}
+
+.arch-oos-sub {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Merge connectors (converge lines) ── */
+.arch-converge {
+  width: 100%;
+  max-width: 860px;
+  position: relative;
+  height: 24px;
+}
+
+.arch-converge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: var(--border);
+}
+
+.arch-converge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+.arch-diverge {
+  width: 100%;
+  max-width: 860px;
+  position: relative;
+  height: 24px;
+}
+
+.arch-diverge::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: var(--border);
+}
+
+.arch-diverge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+/* Branch merge (from two cards to governance) */
+.arch-branch-merge {
+  width: 100%;
+  max-width: 860px;
+  position: relative;
+  height: 20px;
+}
+
+.arch-branch-merge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: var(--border);
+}
+
+.arch-branch-merge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+/* ── Explanation panels ── */
+.arch-explanation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 28px 0;
+}
+
+.arch-explanation-card {
+  background: var(--bg-card);
+  padding: 24px;
+  transition: background 0.4s ease;
+}
+
+.arch-explanation-card h5 {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent-dim);
+  margin-bottom: 12px;
+}
+
+.arch-explanation-card p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .arch-sources { grid-template-columns: 1fr; max-width: 360px; }
+  .arch-branch { grid-template-columns: 1fr; max-width: 360px; }
+  .arch-platform, .arch-layer, .arch-governance, .arch-oos,
+  .arch-converge, .arch-diverge, .arch-branch-merge { max-width: 360px; }
+  .arch-connectors-3 { padding: 0 20px; }
+  .arch-governance-items { grid-template-columns: 1fr; }
+  .arch-explanation-grid { grid-template-columns: 1fr; }
+  .arch-body { padding: 24px 16px 28px; }
+}
+
+@media print {
+  .arch-container { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .arch-platform { border-color: #c9a96e; background: #fdf8ef; }
+  .arch-layer { background: #fdf8ef; border-color: #c9a96e; }
+  .arch-governance { background: #eef8f1; border-color: #c5e0cc; }
+  .arch-source, .arch-branch-card { border-color: #ccc; }
+  .arch-oos { border-color: #bbb; }
+}
+
+/* ═══════════════════════════════════════
    NFR GRID
    ═══════════════════════════════════════ */
 .nfr-grid {
@@ -2966,23 +3426,51 @@ tbody tr:hover { background: var(--bg-card); }
   .sidebar.open { transform: translateX(0); }
   .main { margin-left: 0; }
   .mobile-toggle { display: flex; }
-  .content { padding: 0 32px 100px; }
+  .content { padding: 0 32px 100px; max-width: 100%; }
   .hero { padding-top: 80px; }
   .hero h1 { font-size: 38px; }
+  .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 640px) {
-  .content { padding: 0 20px 80px; }
-  .hero h1 { font-size: 30px; }
-  .section h2 { font-size: 26px; }
-  .summary-grid, .card-grid-2, .card-grid-3, .kpi-grid, .comparison, .io-grid, .cap-grid, .nfr-grid {
+@media (max-width: 768px) {
+  .content { padding: 0 24px 80px; }
+  .hero h1 { font-size: 32px; }
+  .section h2 { font-size: 28px; }
+  .summary-grid, .kpi-grid, .comparison, .io-grid, .nfr-grid {
     grid-template-columns: 1fr;
   }
+  .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
   .persona-grid { grid-template-columns: 1fr; }
   .kpi-card-full { grid-column: span 1; }
-  .hero-statement { padding-left: 18px; }
-  .persona { padding: 28px; }
-  .final-block { padding: 36px 24px; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .arch-explanation-grid { grid-template-columns: 1fr; }
+  .hero-statement { padding-left: 18px; max-width: 100%; }
+  .persona { padding: 24px; }
+  .final-block { padding: 32px 20px; }
+  .table-wrap { margin: 20px -24px; border-radius: 0; border-left: none; border-right: none; }
+}
+
+@media (max-width: 480px) {
+  .content { padding: 0 16px 60px; }
+  .hero { padding-top: 68px; }
+  .hero h1 { font-size: 26px; }
+  .hero-subtitle { font-size: 16px; }
+  .section h2 { font-size: 24px; }
+  .section h3 { font-size: 18px; }
+  .chip { font-size: 9px; padding: 4px 10px; }
+  .chip-row { gap: 6px; }
+  .persona { padding: 20px; }
+  .persona h4 { font-size: 18px; }
+  .summary-card, .kpi-card, .card { padding: 20px; }
+  .nfr-card, .cap-card { padding: 18px; }
+  .table-wrap { margin: 16px -16px; }
+  table { font-size: 12px; }
+  th, td { padding: 10px 12px; }
+  .section-num { margin-bottom: 10px; }
+  .callout { padding: 18px 0 18px 16px; }
+  .callout p { font-size: 14px; }
+  .callout-dark { padding: 24px 16px; }
+  .btt { bottom: 16px; right: 16px; width: 36px; height: 36px; }
 }
 
 /* ═══ Mobile theme toggle (visible when sidebar hidden) ═══ */
@@ -3114,11 +3602,8 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       <div class="sidebar-nav-group-label">Enterprise</div>
       <a href="#inputs-outputs">Inputs &amp; Outputs</a>
       <a href="#nonfunctional">Enterprise Readiness</a>
+      <a href="#technical-interface">Technical Interface</a>
       <a href="#dependencies">Dependencies</a>
-    </div>
-    <div class="sidebar-nav-group">
-      <div class="sidebar-nav-group-label">Closing</div>
-      <a href="#final-summary">Final Summary</a>
     </div>
   </nav>
   <div class="sidebar-footer">
@@ -3175,6 +3660,13 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
         <h4>The Positioning</h4>
         <p>Portfolio Studio is a Tech for Business solution. It positions advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
       </div>
+    </div>
+
+    <div class="final-block" style="margin-top:36px">
+      <h2>Executive Positioning</h2>
+      <p>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that helps investment organizations convert fragmented market information into structured, explainable business intelligence. Its value to a CIO lies in improving decision quality, strengthening consistency across investment functions, surfacing risk earlier, and increasing governance readiness — without replacing core execution infrastructure.</p>
+      <p>It should be positioned as a Tech for Business solution: one that uses advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
+      <p>For a CIO evaluating where technology investment can have the greatest impact on the investment operating model, Portfolio Studio targets the interpretation layer — the gap between information and action — where the greatest opportunity for measurable improvement resides.</p>
     </div>
   </section>
 
@@ -3278,7 +3770,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
               <span class="unidia-zone-tag unidia-tag-neutral" data-tip="The information layer is common to both the current and target operating models. The transformation does not change what data comes in — it changes how that data is interpreted." data-tip-pos="below">Information</span>
               <span class="unidia-zone-desc">Common across both operating models — unchanged by transformation</span>
             </div>
-            <div class="flow-sources" style="max-width:600px">
+            <div class="flow-sources" style="max-width:860px">
               <div class="flow-source" data-tip="Third-party information: financial news, macroeconomic releases, company earnings, regulatory announcements, and market commentary from sell-side and independent sources." data-tip-pos="below">
                 <div class="flow-source-title">External Sources</div>
                 <ul class="flow-source-list">
@@ -4164,9 +4656,229 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
   <hr class="section-sep">
 
-  <!-- 12. Dependencies -->
-  <section class="section fade-in" id="dependencies">
+  <!-- 12. Technical Interface Diagram -->
+  <section class="section fade-in" id="technical-interface">
     <div class="section-num">12</div>
+    <h2>Technical Interface Diagram</h2>
+    <p class="section-lead">AI Enabled Portfolio Studio is designed to sit as an intelligence and decision-support layer within the investment management operating model. To support enterprise adoption, the platform must integrate cleanly with upstream information sources, internal research inputs, portfolio systems, risk platforms, and governance workflows.</p>
+
+    <!-- Architecture Diagram -->
+    <div class="arch-container">
+      <div class="arch-head">
+        <span class="arch-badge" data-tip="This diagram illustrates how Portfolio Studio connects to existing investment infrastructure — absorbing upstream inputs, applying narrative intelligence, and distributing structured outputs to portfolio, risk, and governance workflows." data-tip-pos="below">Architecture</span>
+        <h4>Platform Interface Model — Integration and Data Flow</h4>
+      </div>
+      <div class="arch-body">
+
+        <!-- Platform hero -->
+        <div class="arch-platform" data-tip="The core platform. All inputs converge here; all structured outputs originate here. The Agentic AI Narrative Builder is the engine that transforms raw information into explainable portfolio intelligence.">
+          <div class="arch-platform-name">AI Enabled Portfolio Studio</div>
+          <div class="arch-platform-engine">Core: Agentic AI Narrative Builder</div>
+        </div>
+
+        <!-- Upward connectors (inputs flow up into platform) -->
+        <div class="arch-connectors-3">
+          <div class="arch-vc"><div class="arch-vc-line"></div><div class="arch-vc-arrow-up"></div></div>
+          <div class="arch-vc"><div class="arch-vc-line"></div><div class="arch-vc-arrow-up"></div></div>
+          <div class="arch-vc"><div class="arch-vc-line"></div><div class="arch-vc-arrow-up"></div></div>
+        </div>
+
+        <!-- Three source cards -->
+        <div class="arch-sources">
+          <div class="arch-source" data-tip="Third-party information feeds: financial news, macroeconomic data, company earnings, regulatory announcements, and market commentary. Ingested continuously by the Narrative Builder.">
+            <div class="arch-source-title">External Market Information</div>
+            <ul class="arch-source-list">
+              <li>Financial news</li>
+              <li>Macro commentary</li>
+              <li>Company updates</li>
+              <li>Regulatory events</li>
+              <li>Liquidity signals</li>
+            </ul>
+          </div>
+          <div class="arch-source" data-tip="Proprietary views from within the investment organisation: analyst research, PM outlooks, house investment views, committee minutes, and internal research notes.">
+            <div class="arch-source-title">Internal Intelligence Inputs</div>
+            <ul class="arch-source-list">
+              <li>Analyst views</li>
+              <li>PM views</li>
+              <li>House views</li>
+              <li>Committee inputs</li>
+              <li>Research notes</li>
+            </ul>
+          </div>
+          <div class="arch-source" data-tip="Structured data from existing portfolio management and risk infrastructure: current holdings, weights, exposure breakdowns, risk metrics, and performance attribution.">
+            <div class="arch-source-title">Portfolio &amp; Risk Systems</div>
+            <ul class="arch-source-list">
+              <li>Holdings</li>
+              <li>Weights</li>
+              <li>Exposure data</li>
+              <li>Risk metrics</li>
+              <li>Performance data</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Converge into ingestion layer -->
+        <div class="arch-converge"></div>
+        <div class="arch-vc-center"><div class="arch-vc-arrow-down"></div></div>
+
+        <!-- Ingestion Layer -->
+        <div class="arch-layer" data-tip="The first processing stage: raw inputs from all three source domains are ingested, normalised, and prepared for narrative interpretation. Handles both structured and unstructured data formats.">
+          <div class="arch-layer-title">Ingestion and Interpretation Layer</div>
+        </div>
+
+        <div class="arch-vc-center"><div class="arch-vc-line"></div><div class="arch-vc-arrow-down"></div></div>
+
+        <!-- Signal Framework Layer -->
+        <div class="arch-layer" data-tip="The translation engine: interpreted narratives are structured into repeatable business signals across five dimensions. This is what makes Portfolio Studio outputs consistent, comparable, and consumable by downstream functions.">
+          <div class="arch-layer-title">Narrative Structuring and Signal Framework</div>
+          <div class="arch-signals">
+            <span class="signal-pill" data-tip="Geopolitical risk, policy ambiguity, market volatility signals, and event-driven uncertainty.">Uncertainty</span>
+            <span class="signal-pill" data-tip="Earnings quality, revenue trajectory, balance sheet health, and valuation signals.">Fundamentals</span>
+            <span class="signal-pill" data-tip="Inflation trends, central bank policy, GDP outlook, and labour market signals.">Macro</span>
+            <span class="signal-pill" data-tip="Market depth, bid-ask dynamics, flow patterns, and funding conditions.">Liquidity</span>
+            <span class="signal-pill" data-tip="ESG developments, regulatory shifts, climate policy, and governance-related narratives.">ESG &amp; Regulation</span>
+          </div>
+        </div>
+
+        <!-- Diverge into two branches -->
+        <div class="arch-diverge"></div>
+
+        <!-- Branch: Optimizer + Risk -->
+        <div class="arch-branch">
+          <div class="arch-branch-card" data-tip="Consumes structured narrative signals alongside quantitative market data to support context-aware allocation decisions, scenario testing, and rebalance guidance.">
+            <h5>Portfolio Optimizer</h5>
+            <ul>
+              <li>Allocation support</li>
+              <li>Scenario support</li>
+              <li>Rebalance guidance</li>
+            </ul>
+          </div>
+          <div class="arch-branch-card" data-tip="Integrates narrative signals with traditional risk metrics to identify vulnerabilities earlier, provide forward-looking risk context, and generate portfolio-level risk insight.">
+            <h5>Risk Manager</h5>
+            <ul>
+              <li>Vulnerability review</li>
+              <li>Forward-looking context</li>
+              <li>Portfolio risk insight</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Branch merge -->
+        <div class="arch-branch-merge"></div>
+        <div class="arch-vc-center"><div class="arch-vc-arrow-down"></div></div>
+
+        <!-- Governance outputs -->
+        <div class="arch-governance" data-tip="The governance and decision output surface. Structured intelligence is formatted for PM decision support, analyst thesis reinforcement, investment committee briefings, executive summaries, and audit-ready review context.">
+          <div class="arch-governance-title">Decision Support and Governance Outputs</div>
+          <ul class="arch-governance-items">
+            <li>PM decision support</li>
+            <li>Analyst thesis reinforcement</li>
+            <li>Investment committee briefing</li>
+            <li>Executive summary outputs</li>
+            <li>Governance-ready review context</li>
+          </ul>
+        </div>
+
+        <div class="arch-vc-center"><div class="arch-vc-line"></div><div class="arch-vc-arrow-down"></div></div>
+
+        <!-- Out of scope -->
+        <div class="arch-oos" data-tip="Trade execution, order management, and operational processing remain outside Portfolio Studio's scope. The platform improves the quality of the decision — existing infrastructure handles everything downstream.">
+          <div class="arch-oos-text">Execution / OMS / EMS / Operations</div>
+          <div class="arch-oos-sub">Remains outside Portfolio Studio scope</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Explanation Panels -->
+    <div class="arch-explanation-grid">
+      <div class="arch-explanation-card">
+        <h5>Interface Interpretation</h5>
+        <p>This interface model shows that AI Enabled Portfolio Studio does not seek to replace existing investment systems. Instead, it introduces a structured intelligence layer between raw information, internal interpretation, and portfolio decision-making. The platform absorbs fragmented inputs, interprets them through the Agentic AI Narrative Builder, structures them into business signals, and exposes them to downstream portfolio, risk, and governance workflows.</p>
+      </div>
+      <div class="arch-explanation-card">
+        <h5>Enterprise Value</h5>
+        <p>For a CIO, this interface design matters because it supports adoption without requiring wholesale platform replacement. It allows the organization to preserve existing portfolio, risk, and execution infrastructure while improving the quality, consistency, and traceability of the decision layer that sits before execution. This reduces transformation friction and strengthens business confidence in the platform's operating role.</p>
+      </div>
+      <div class="arch-explanation-card">
+        <h5>Technical Positioning</h5>
+        <p>Technically, the platform should be understood as an orchestration and intelligence layer. It integrates upstream data and research inputs, applies narrative interpretation and signal structuring, and then distributes decision-ready outputs into portfolio construction, risk review, and governance workflows. This architecture supports modular adoption and aligns well with enterprise investment operating models.</p>
+      </div>
+    </div>
+
+    <!-- Interface Responsibility Table -->
+    <h3>Interface Responsibility Matrix</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Interface Domain</th>
+            <th>Example Inputs / Outputs</th>
+            <th>Role in Architecture</th>
+            <th>Business Relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>External Market Information</strong></td>
+            <td>Financial news, macro commentary, company updates, regulatory events, liquidity signals</td>
+            <td>Upstream unstructured input layer</td>
+            <td>Provides the raw narrative environment that must be interpreted before portfolio action</td>
+          </tr>
+          <tr>
+            <td><strong>Internal Intelligence Inputs</strong></td>
+            <td>Analyst views, PM views, house views, committee inputs, research notes</td>
+            <td>Internal interpretation and institutional context layer</td>
+            <td>Ensures firm-specific views and investment judgment are reflected in the platform</td>
+          </tr>
+          <tr>
+            <td><strong>Portfolio &amp; Risk Systems</strong></td>
+            <td>Holdings, weights, exposures, risk metrics, performance data</td>
+            <td>Structured downstream portfolio context layer</td>
+            <td>Connects narrative intelligence directly to portfolio and risk decision-making</td>
+          </tr>
+          <tr>
+            <td><strong>Signal Framework</strong></td>
+            <td>Uncertainty, Fundamentals, Macro, Liquidity, ESG &amp; Regulation</td>
+            <td>Translation layer between interpretation and application</td>
+            <td>Converts narrative complexity into repeatable business signals</td>
+          </tr>
+          <tr>
+            <td><strong>Portfolio Optimizer</strong></td>
+            <td>Allocation context, rebalancing support, scenario inputs</td>
+            <td>Portfolio application layer</td>
+            <td>Improves context-aware portfolio construction and pre-trade decision quality</td>
+          </tr>
+          <tr>
+            <td><strong>Risk Manager</strong></td>
+            <td>Vulnerability insights, forward-looking risk flags, exposure context</td>
+            <td>Risk application layer</td>
+            <td>Strengthens early risk visibility and proactive oversight</td>
+          </tr>
+          <tr>
+            <td><strong>Governance Outputs</strong></td>
+            <td>Committee briefings, executive summaries, review context</td>
+            <td>Decision and governance layer</td>
+            <td>Improves traceability, alignment, and investment committee readiness</td>
+          </tr>
+          <tr>
+            <td><strong>Execution / OMS / EMS</strong></td>
+            <td>Trade execution workflows, routing, operational processing</td>
+            <td>Downstream external system boundary</td>
+            <td>Clarifies that Portfolio Studio enhances decision-making without replacing execution infrastructure</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 13. Dependencies -->
+  <section class="section fade-in" id="dependencies">
+    <div class="section-num">13</div>
     <h2>Dependencies and Adoption Considerations</h2>
     <p class="section-lead">Key factors that will influence successful implementation and organizational adoption.</p>
 
@@ -4187,19 +4899,6 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
     <h3>Governance Integration</h3>
     <p>The platform's outputs must be integrated into existing governance frameworks, including investment committee processes, risk oversight structures, and compliance documentation requirements.</p>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- 13. Final Summary -->
-  <section class="section fade-in" id="final-summary">
-    <div class="section-num">13</div>
-    <div class="final-block">
-      <h2>Final Executive Summary</h2>
-      <p>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that helps investment organizations convert fragmented market information into structured, explainable business intelligence. Its value to a CIO lies in improving decision quality, strengthening consistency across investment functions, surfacing risk earlier, and increasing governance readiness — without replacing core execution infrastructure.</p>
-      <p>It should be positioned as a Tech for Business solution: one that uses advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
-      <p>For a CIO evaluating where technology investment can have the greatest impact on the investment operating model, Portfolio Studio targets the interpretation layer — the gap between information and action — where the greatest opportunity for measurable improvement resides.</p>
-    </div>
   </section>
 
 </div>
