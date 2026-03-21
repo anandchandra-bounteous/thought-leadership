@@ -198,7 +198,9 @@ html.light .flow-node-accent {
 .studio-hero, .studio-branch-card, .benefit-chip,
 .pain-bottleneck, .pain-silo, .pain-convergence,
 .outcome-node,
-.benefit-curve-container, .bc-phase {
+.benefit-curve-container, .bc-phase,
+.tlc, .tlc-office, .tlc-office-head, .tlc-stage,
+.tlc-coverage-fo, .tlc-coverage-empty {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -504,6 +506,127 @@ html.light .flow-node-accent {
 }
 
 /* ═══════════════════════════════════════
+   TOOLTIPS
+   ═══════════════════════════════════════ */
+[data-tip] {
+  position: relative;
+  cursor: default;
+}
+
+[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  white-space: normal;
+  width: max-content;
+  max-width: 260px;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+[data-tip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip appears below for elements near top of container */
+[data-tip-pos="below"]::after {
+  bottom: auto;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+[data-tip-pos="below"]:hover::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip left-aligned (for elements near right edge) */
+[data-tip-pos="left"]::after {
+  left: 0;
+  transform: translateX(0) translateY(4px);
+}
+
+[data-tip-pos="left"]:hover::after {
+  transform: translateX(0) translateY(0);
+}
+
+/* Tooltip right-aligned (for elements near left edge) */
+[data-tip-pos="right"]::after {
+  left: auto;
+  right: 0;
+  transform: translateX(0) translateY(4px);
+}
+
+[data-tip-pos="right"]:hover::after {
+  transform: translateX(0) translateY(0);
+}
+
+html.light [data-tip]::after {
+  background: #fff;
+  border-color: var(--border);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+  color: var(--text-secondary);
+}
+
+/* SVG tooltips via <title> are native; we also add
+   invisible hover regions for richer SVG interaction */
+.bc-hover-zone {
+  fill: transparent;
+  cursor: default;
+}
+.bc-hover-zone:hover + .bc-tooltip-g { opacity: 1; }
+
+.bc-tooltip-g {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.bc-tooltip-bg {
+  rx: 2;
+}
+
+.bc-tooltip-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+/* Pulse on milestone dots on hover */
+.milestone-dot { cursor: default; }
+.milestone-hover:hover + .milestone-dot {
+  r: 6;
+  transition: r 0.15s ease;
+}
+
+@media (max-width: 768px) {
+  [data-tip]::after { display: none; }
+}
+
+@media print {
+  [data-tip]::after { display: none; }
+}
+
+/* ═══════════════════════════════════════
    CARDS
    ═══════════════════════════════════════ */
 .card-grid {
@@ -764,6 +887,300 @@ html.light .bc-phase-optimize { background: rgba(61,122,80,0.04); }
   .bc-phase-pilot { background: #eef4fa; }
   .bc-phase-scale { background: #fdf8ef; }
   .bc-phase-optimize { background: #eef8f1; }
+}
+
+/* ═══════════════════════════════════════
+   TRADE LIFECYCLE VISUAL (FO–MO–BO)
+   ═══════════════════════════════════════ */
+.tlc {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.tlc-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tlc-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.tlc-head .tlc-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* ── Swim-lane container ── */
+.tlc-lanes {
+  display: grid;
+  grid-template-columns: 5fr 3fr 2fr;
+  min-height: 0;
+}
+
+/* ── Office column ── */
+.tlc-office {
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.4s ease;
+}
+
+.tlc-office:last-child { border-right: none; }
+
+/* Office header */
+.tlc-office-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  transition: background 0.4s ease;
+}
+
+.tlc-office-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.tlc-office-abbr {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.5;
+}
+
+.tlc-office-scope {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  letter-spacing: 0.02em;
+}
+
+/* FO styling */
+.tlc-fo .tlc-office-head {
+  background: var(--accent-glow);
+}
+.tlc-fo .tlc-office-name { color: var(--accent); }
+.tlc-fo .tlc-office-abbr { color: var(--accent-dim); }
+
+/* MO styling */
+.tlc-mo .tlc-office-head {
+  background: var(--bg-subtle);
+}
+.tlc-mo .tlc-office-name { color: var(--text-tertiary); }
+.tlc-mo .tlc-office-abbr { color: var(--text-muted); }
+
+/* BO styling */
+.tlc-bo .tlc-office-head {
+  background: var(--bg-subtle);
+}
+.tlc-bo .tlc-office-name { color: var(--text-tertiary); }
+.tlc-bo .tlc-office-abbr { color: var(--text-muted); }
+
+html.light .tlc-fo .tlc-office-head { background: rgba(154,123,62,0.05); }
+html.light .tlc-mo .tlc-office-head { background: #f3f1ed; }
+html.light .tlc-bo .tlc-office-head { background: #f3f1ed; }
+
+/* ── Stage rows ── */
+.tlc-office-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tlc-stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.4s ease;
+}
+
+.tlc-stage:last-child { border-bottom: none; }
+
+.tlc-stage-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 14px 20px;
+  align-items: start;
+}
+
+.tlc-stage-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tlc-stage-name {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.tlc-stage-role {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.tlc-stage-priority {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Priority tags reuse existing .tag-high etc */
+
+/* Active stages (FO with Portfolio Studio) */
+.tlc-stage-active {
+  background: var(--accent-glow);
+}
+
+html.light .tlc-stage-active {
+  background: rgba(154,123,62,0.03);
+}
+
+.tlc-stage-active .tlc-stage-name {
+  color: var(--accent);
+}
+
+/* Medium priority stages */
+.tlc-stage-medium {
+  background: transparent;
+}
+
+/* Dim stages (out of scope) */
+.tlc-stage-dim {
+  opacity: 0.4;
+}
+
+.tlc-stage-dim .tlc-stage-name {
+  color: var(--text-tertiary);
+}
+
+/* Portfolio Studio coverage bar */
+.tlc-coverage {
+  border-top: 1px solid var(--border-light);
+  padding: 0;
+}
+
+.tlc-coverage-inner {
+  display: grid;
+  grid-template-columns: 5fr 3fr 2fr;
+}
+
+.tlc-coverage-fo {
+  padding: 10px 20px;
+  background: var(--accent-glow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-right: 1px solid var(--border-light);
+}
+
+html.light .tlc-coverage-fo {
+  background: rgba(154,123,62,0.06);
+}
+
+.tlc-coverage-bar {
+  height: 3px;
+  flex: 1;
+  background: var(--accent);
+  border-radius: 1.5px;
+  opacity: 0.5;
+}
+
+.tlc-coverage-label {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.tlc-coverage-empty {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border-light);
+}
+
+.tlc-coverage-empty:last-child { border-right: none; }
+
+.tlc-coverage-dash {
+  height: 1px;
+  flex: 1;
+  border-top: 1px dashed var(--border);
+  opacity: 0.3;
+}
+
+.tlc-coverage-oos {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+/* Flow arrow between offices */
+.tlc-flow-arrow {
+  display: none; /* shown via the grid border structure */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tlc-lanes {
+    grid-template-columns: 1fr;
+  }
+  .tlc-office { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .tlc-office:last-child { border-bottom: none; }
+  .tlc-coverage-inner { grid-template-columns: 1fr; }
+  .tlc-coverage-fo { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .tlc-coverage-empty { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .tlc-coverage-empty:last-child { border-bottom: none; }
+}
+
+@media print {
+  .tlc { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .tlc-fo .tlc-office-head { background: #fdf8ef; }
+  .tlc-stage-active { background: #fdf8ef; }
+  .tlc-coverage-fo { background: #fdf8ef; }
 }
 
 /* ═══════════════════════════════════════
@@ -2698,8 +3115,6 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       <a href="#inputs-outputs">Inputs &amp; Outputs</a>
       <a href="#nonfunctional">Enterprise Readiness</a>
       <a href="#dependencies">Dependencies</a>
-      <a href="#out-of-scope">Out of Scope</a>
-      <a href="#open-questions">Open Questions</a>
     </div>
     <div class="sidebar-nav-group">
       <div class="sidebar-nav-group-label">Closing</div>
@@ -2728,12 +3143,12 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that uses the Agentic AI Narrative Builder to help investment organizations convert fragmented market information into structured business intelligence for portfolio construction, risk oversight, and governance-ready decision-making.
     </div>
     <div class="chip-row">
-      <span class="chip">Pre-Trade Intelligence</span>
-      <span class="chip">Narrative-Aware</span>
-      <span class="chip">Decision Support</span>
-      <span class="chip">Risk-Aware</span>
-      <span class="chip">Governance-Ready</span>
-      <span class="chip">Tech for Business</span>
+      <span class="chip" data-tip="Focused on the decision layer before trade execution — improving how investment professionals interpret, construct, and review portfolio positions." data-tip-pos="below">Pre-Trade Intelligence</span>
+      <span class="chip" data-tip="Built around the Agentic AI Narrative Builder, which interprets qualitative market narratives alongside quantitative data." data-tip-pos="below">Narrative-Aware</span>
+      <span class="chip" data-tip="Augments human judgment rather than replacing it. Portfolio Studio provides structured intelligence; investment professionals make the decisions." data-tip-pos="below">Decision Support</span>
+      <span class="chip" data-tip="The Risk Manager module surfaces narrative-driven vulnerabilities before they appear in traditional quantitative risk metrics." data-tip-pos="below">Risk-Aware</span>
+      <span class="chip" data-tip="All outputs are explainable, traceable, and structured for inclusion in investment committee briefings and governance documentation." data-tip-pos="below">Governance-Ready</span>
+      <span class="chip" data-tip="Positioned as a business transformation solution. AI is the engine, not the headline — the value is better decisions, not technology novelty." data-tip-pos="below">Tech for Business</span>
     </div>
   </header>
 
@@ -2833,11 +3248,11 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <p class="section-lead">Portfolio Studio transforms the investment operating model from fragmented manual interpretation to structured, narrative-aware intelligence.</p>
 
     <div class="comparison">
-      <div class="comp-panel as-is">
+      <div class="comp-panel as-is" data-tip="The current state: information flows through a manual bottleneck, is processed in disconnected silos, and converges late at the committee stage — creating inconsistency, delay, and governance gaps.">
         <h4>As-Is — Current State</h4>
         <p>Fragmented information → manual synthesis → delayed action → reactive risk review → inconsistent committee preparation → governance gaps.</p>
       </div>
-      <div class="comp-panel to-be">
+      <div class="comp-panel to-be" data-tip="The target state: Portfolio Studio introduces a shared intelligence layer that replaces manual interpretation with structured, explainable narrative signals — enabling proactive oversight and governance-ready decisions.">
         <h4>To-Be — With Portfolio Studio</h4>
         <p>Unified intake → agentic narrative interpretation → structured portfolio signals → informed allocation → proactive oversight → governance-ready decisions.</p>
       </div>
@@ -2850,7 +3265,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <!-- Unified Transformation Diagram -->
     <div class="unidia">
       <div class="unidia-head">
-        <span class="unidia-badge">Unified View</span>
+        <span class="unidia-badge" data-tip="This diagram combines the As-Is pain points and the To-Be target state into a single visual. Four colour-coded zones read top-to-bottom: Information (neutral), As-Is (red), Portfolio Studio (gold), and Outcome (green)." data-tip-pos="below">Unified View</span>
         <h4>Operating Model Transformation — From Fragmented to Narrative-Aware</h4>
       </div>
       <div class="unidia-body">
@@ -2860,11 +3275,11 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <div class="unidia-bar unidia-bar-neutral"></div>
           <div class="unidia-content">
             <div class="unidia-zone-label">
-              <span class="unidia-zone-tag unidia-tag-neutral">Information</span>
+              <span class="unidia-zone-tag unidia-tag-neutral" data-tip="The information layer is common to both the current and target operating models. The transformation does not change what data comes in — it changes how that data is interpreted." data-tip-pos="below">Information</span>
               <span class="unidia-zone-desc">Common across both operating models — unchanged by transformation</span>
             </div>
             <div class="flow-sources" style="max-width:600px">
-              <div class="flow-source">
+              <div class="flow-source" data-tip="Third-party information: financial news, macroeconomic releases, company earnings, regulatory announcements, and market commentary from sell-side and independent sources." data-tip-pos="below">
                 <div class="flow-source-title">External Sources</div>
                 <ul class="flow-source-list">
                   <li>News &amp; Macro</li>
@@ -2873,7 +3288,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
                   <li>Market commentary</li>
                 </ul>
               </div>
-              <div class="flow-source">
+              <div class="flow-source" data-tip="Proprietary views from within the investment organization: adviser notes, portfolio manager outlooks, analyst research, committee minutes, and house investment views." data-tip-pos="below">
                 <div class="flow-source-title">Internal Sources</div>
                 <ul class="flow-source-list">
                   <li>Adviser notes</li>
@@ -2882,7 +3297,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
                   <li>House views</li>
                 </ul>
               </div>
-              <div class="flow-source">
+              <div class="flow-source" data-tip="Structured data from portfolio management and risk systems: current holdings, weights, exposure data, risk metrics, and historical performance attribution." data-tip-pos="below">
                 <div class="flow-source-title">Quant / Portfolio Systems</div>
                 <ul class="flow-source-list">
                   <li>Holdings &amp; weights</li>
@@ -2901,13 +3316,13 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <div class="unidia-bar unidia-bar-pain"></div>
           <div class="unidia-content">
             <div class="unidia-zone-label">
-              <span class="unidia-zone-tag unidia-tag-pain">As-Is</span>
+              <span class="unidia-zone-tag unidia-tag-pain" data-tip="The current operating model: fragmented interpretation, manual synthesis, siloed workflows, and reactive risk review. This is the gap Portfolio Studio addresses." data-tip-pos="below">As-Is</span>
               <span class="unidia-zone-desc">Fragmented interpretation — the gap Portfolio Studio addresses</span>
             </div>
 
             <!-- Bottleneck -->
             <div class="pain-bottleneck">
-              <div class="pain-bottleneck-header">Manual Human Interpretation <span class="bneck-tag">Bottleneck</span></div>
+              <div class="pain-bottleneck-header">Manual Human Interpretation <span class="bneck-tag" data-tip="All information funnels through individual human synthesis before reaching any downstream function. This creates a single point of inconsistency, delay, and person-dependency." data-tip-pos="below">Bottleneck</span></div>
               <ul class="pain-bottleneck-items">
                 <li>Analysts synthesize inputs manually and independently</li>
                 <li>PMs form investment views in isolation</li>
@@ -2921,31 +3336,31 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
             <!-- Three Silos -->
             <div class="pain-silos">
               <div class="pain-silo">
-                <div class="pain-silo-header">Research / Thesis</div>
+                <div class="pain-silo-header" data-tip="Analysts produce qualitative notes and ad hoc scenarios without a shared signal framework. Output quality varies by individual." data-tip-pos="below">Research / Thesis</div>
                 <ul class="pain-silo-items">
                   <li>Qualitative notes</li>
                   <li>Ad hoc scenario thinking</li>
                   <li>Inconsistent signal structuring</li>
                 </ul>
-                <div class="pain-silo-friction">Manual &amp; unstructured</div>
+                <div class="pain-silo-friction" data-tip="Research outputs are narrative-rich but unstructured — they cannot be systematically consumed by portfolio or risk functions.">Manual &amp; unstructured</div>
               </div>
               <div class="pain-silo">
-                <div class="pain-silo-header">Portfolio Construction</div>
+                <div class="pain-silo-header" data-tip="Portfolio managers build positions using quantitative models and spreadsheets, with limited structured linkage to the narrative context driving market conditions." data-tip-pos="below">Portfolio Construction</div>
                 <ul class="pain-silo-items">
                   <li>Spreadsheet / OMS / models</li>
                   <li>Limited narrative linkage</li>
                   <li>Context added manually</li>
                 </ul>
-                <div class="pain-silo-friction">Disconnected from thesis</div>
+                <div class="pain-silo-friction" data-tip="Allocation decisions are made without systematic access to the research thesis or narrative signals — context is added manually, if at all.">Disconnected from thesis</div>
               </div>
               <div class="pain-silo">
-                <div class="pain-silo-header">Risk Review</div>
+                <div class="pain-silo-header" data-tip="Risk teams rely on backward-looking quantitative metrics. Narrative-driven risks (regime shifts, policy changes, thematic exposure) are under-modeled and often missed." data-tip-pos="below">Risk Review</div>
                 <ul class="pain-silo-items">
                   <li>Traditional risk metrics</li>
                   <li>Narrative risks under-modeled</li>
                   <li>Mostly reactive</li>
                 </ul>
-                <div class="pain-silo-friction">Lags emerging narrative</div>
+                <div class="pain-silo-friction" data-tip="Risk review reacts to developments after they've impacted markets rather than identifying vulnerabilities as narratives emerge.">Lags emerging narrative</div>
               </div>
             </div>
 
@@ -2959,14 +3374,14 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
             <!-- Late convergence -->
             <div class="pain-convergence">
-              <span class="pain-convergence-label">Late &amp; inconsistent convergence</span>
+              <span class="pain-convergence-label" data-tip="The three siloed functions attempt to merge at the committee stage without a common intelligence framework — leading to inconsistent preparation, uneven quality, and governance gaps." data-tip-pos="below">Late &amp; inconsistent convergence</span>
               <span class="pain-convergence-text">Trade Intent / Committee Action</span>
             </div>
 
             <!-- Transition line -->
             <div class="unidia-transition">
               <div class="unidia-transition-line"></div>
-              <div class="unidia-transition-text">Portfolio Studio replaces this layer</div>
+              <div class="unidia-transition-text" data-tip="In the target operating model, the entire red As-Is zone above — the manual bottleneck, the disconnected silos, the weak linkages, and the late convergence — is replaced by Portfolio Studio's structured intelligence layer below.">Portfolio Studio replaces this layer</div>
               <div class="unidia-transition-line"></div>
             </div>
 
@@ -2978,12 +3393,12 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <div class="unidia-bar unidia-bar-studio"></div>
           <div class="unidia-content">
             <div class="unidia-zone-label">
-              <span class="unidia-zone-tag unidia-tag-studio">Portfolio Studio</span>
+              <span class="unidia-zone-tag unidia-tag-studio" data-tip="The intelligence layer introduced by Portfolio Studio. Replaces manual interpretation with automated, structured, explainable narrative signals that feed downstream decisions." data-tip-pos="below">Portfolio Studio</span>
               <span class="unidia-zone-desc">The intelligence layer — replaces manual interpretation with structured, explainable signals</span>
             </div>
 
             <!-- Studio hero block -->
-            <div class="studio-hero">
+            <div class="studio-hero" data-tip="The core platform. The Agentic AI Narrative Builder is the engine that transforms unstructured market information into structured, explainable portfolio signals across five business dimensions — creating the shared intelligence layer that connects research, portfolio, and risk functions.">
               <div class="studio-hero-name">AI Enabled Portfolio Studio</div>
               <div class="studio-hero-engine">Core: Agentic AI Narrative Builder</div>
               <ul class="studio-hero-items">
@@ -2993,11 +3408,11 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
                 <li>Produces explainable, traceable portfolio context</li>
               </ul>
               <div class="signal-dimensions">
-                <span class="signal-pill">Uncertainty</span>
-                <span class="signal-pill">Fundamentals</span>
-                <span class="signal-pill">Macro</span>
-                <span class="signal-pill">Liquidity</span>
-                <span class="signal-pill">ESG &amp; Regulation</span>
+                <span class="signal-pill" data-tip="Geopolitical risk, policy ambiguity, market volatility signals, and event-driven uncertainty that may affect portfolio positioning.">Uncertainty</span>
+                <span class="signal-pill" data-tip="Earnings quality, revenue trajectory, balance sheet health, and valuation signals derived from company-level narratives.">Fundamentals</span>
+                <span class="signal-pill" data-tip="Inflation trends, central bank policy, GDP outlook, and labour market signals from macroeconomic commentary.">Macro</span>
+                <span class="signal-pill" data-tip="Market depth, bid-ask dynamics, flow patterns, and funding conditions that affect execution feasibility and timing.">Liquidity</span>
+                <span class="signal-pill" data-tip="ESG developments, regulatory shifts, climate policy, and governance-related narratives that create material portfolio risk or opportunity.">ESG &amp; Regulation</span>
               </div>
             </div>
 
@@ -3005,7 +3420,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
             <!-- Optimizer + Risk Manager branch -->
             <div class="studio-branch">
-              <div class="studio-branch-card">
+              <div class="studio-branch-card" data-tip="Combines narrative signals with quantitative market data to support context-aware allocation decisions and scenario-based portfolio construction.">
                 <h5>Portfolio Optimizer</h5>
                 <ul>
                   <li>Uses narrative + market data</li>
@@ -3013,7 +3428,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
                   <li>Improves scenario testing</li>
                 </ul>
               </div>
-              <div class="studio-branch-card">
+              <div class="studio-branch-card" data-tip="Integrates narrative signals with traditional risk metrics to identify vulnerabilities earlier and provide forward-looking risk context before trade execution.">
                 <h5>Risk Manager</h5>
                 <ul>
                   <li>Uses narrative + risk metrics</li>
@@ -3027,22 +3442,22 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
             <!-- Business Benefits Strip -->
             <div class="benefits-strip">
-              <div class="benefit-chip">
+              <div class="benefit-chip" data-tip="Automated narrative structuring replaces manual synthesis, cutting the time between market event and actionable portfolio context. Target KPI: Time to investment insight, Time to pre-trade decision.">
                 <div class="benefit-chip-icon">⚡</div>
                 <div class="benefit-chip-text">Faster Insight-to-Decision</div>
                 <div class="benefit-chip-kpi">Time to pre-trade decision</div>
               </div>
-              <div class="benefit-chip">
+              <div class="benefit-chip" data-tip="A shared signal framework ensures market developments are interpreted the same way across all analysts, PMs, and risk teams. Target KPI: Consistency of investment review process.">
                 <div class="benefit-chip-icon">◎</div>
                 <div class="benefit-chip-text">Consistent Interpretation</div>
                 <div class="benefit-chip-kpi">Review process consistency</div>
               </div>
-              <div class="benefit-chip">
+              <div class="benefit-chip" data-tip="Narrative-aware risk signals surface vulnerabilities before they appear in traditional quantitative risk metrics. Target KPI: Early identification of portfolio vulnerabilities.">
                 <div class="benefit-chip-icon">⬡</div>
                 <div class="benefit-chip-text">Earlier Risk Awareness</div>
                 <div class="benefit-chip-kpi">Vulnerability identification</div>
               </div>
-              <div class="benefit-chip">
+              <div class="benefit-chip" data-tip="Committee briefings are generated from structured, traceable intelligence — improving governance quality and audit readiness. Target KPI: Committee preparation efficiency, Governance traceability.">
                 <div class="benefit-chip-icon">◇</div>
                 <div class="benefit-chip-text">Committee Readiness</div>
                 <div class="benefit-chip-kpi">Governance traceability</div>
@@ -3057,12 +3472,12 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <div class="unidia-bar unidia-bar-outcome"></div>
           <div class="unidia-content">
             <div class="unidia-zone-label">
-              <span class="unidia-zone-tag unidia-tag-outcome">To-Be</span>
+              <span class="unidia-zone-tag unidia-tag-outcome" data-tip="The target operating model: structured decision support, governance-ready outputs, narrative-linked portfolio actions, and continuous feedback loops." data-tip-pos="below">To-Be</span>
               <span class="unidia-zone-desc">Structured, narrative-aware decision outputs</span>
             </div>
 
             <!-- Decision Support -->
-            <div class="outcome-node">
+            <div class="outcome-node" data-tip="The consolidated decision support surface for all personas. PMs get allocation context, analysts get thesis reinforcement, and the CIO gets governance-ready committee briefings — all from the same structured intelligence.">
               <div class="outcome-node-header">Decision Support Layer</div>
               <ul class="outcome-node-items">
                 <li>PM recommendation support with narrative context</li>
@@ -3075,21 +3490,21 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
             <div class="unidia-connector"><div class="unidia-line unidia-line-green"></div><div class="unidia-arrow unidia-arrow-green"></div></div>
 
             <!-- Portfolio Decision -->
-            <div class="outcome-node outcome-node-compact">
+            <div class="outcome-node outcome-node-compact" data-tip="The point at which a portfolio manager commits to a rebalance, allocation change, or trade intent — now supported by structured narrative context, risk awareness, and governance-ready rationale.">
               <div class="outcome-node-header">Portfolio Decision / Rebalance / Trade Intent</div>
             </div>
 
             <div class="unidia-connector"><div class="unidia-line unidia-line-green"></div><div class="unidia-arrow unidia-arrow-green"></div></div>
 
             <!-- Execution (out of scope) -->
-            <div class="outcome-node outcome-node-dim outcome-node-compact">
+            <div class="outcome-node outcome-node-dim outcome-node-compact" data-tip="Trade execution, order routing, and broker/dealer interaction remain outside Portfolio Studio's scope. The platform improves the quality of the decision — existing infrastructure handles the execution.">
               <div class="outcome-node-header">Execution / Routing / Operations <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px">&mdash; outside scope</span></div>
             </div>
 
             <div class="unidia-connector"><div class="unidia-line unidia-line-green" style="opacity:0.15"></div><div class="unidia-arrow unidia-arrow-green" style="opacity:0.2"></div></div>
 
             <!-- Feedback Loop -->
-            <div class="outcome-node outcome-node-feedback">
+            <div class="outcome-node outcome-node-feedback" data-tip="A continuous loop: Portfolio Studio monitors narrative drift after decisions are made, reviews portfolio posture against evolving themes, and feeds structured signals back into research and model refinement.">
               <div class="outcome-node-header">Ongoing Monitoring / Feedback Loop</div>
               <ul class="outcome-node-items">
                 <li>Narrative drift monitoring</li>
@@ -3116,7 +3531,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <!-- Benefit Realization Curve -->
     <div class="benefit-curve-container">
       <div class="benefit-curve-head">
-        <span class="bc-badge">Indicative</span>
+        <span class="bc-badge" data-tip="This chart shows indicative benefit trajectories based on typical enterprise adoption patterns. Actual realization rates will vary by organization size, data readiness, change management effectiveness, and implementation approach." data-tip-pos="below">Indicative</span>
         <h4>Benefit Realization Curve — 24-Month Horizon</h4>
       </div>
       <div class="benefit-curve-body">
@@ -3137,10 +3552,10 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           </defs>
 
           <!-- Phase background bands -->
-          <rect class="phase-bg" x="60" y="24" width="80" height="276" rx="0" fill="currentColor" style="color:var(--bg-subtle)" opacity="0.5"/>
-          <rect class="phase-bg" x="140" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--blue-dim)" opacity="0.6"/>
-          <rect class="phase-bg" x="300" y="24" width="240" height="276" rx="0" fill="currentColor" style="color:var(--accent-glow)" opacity="0.7"/>
-          <rect class="phase-bg" x="540" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--green-dim)" opacity="0.6"/>
+          <rect class="phase-bg" x="60" y="24" width="80" height="276" rx="0" fill="currentColor" style="color:var(--bg-subtle)" opacity="0.5"><title>Setup Phase (M0–M3): Data integration, platform configuration, and initial persona onboarding. No measurable benefit realization yet.</title></rect>
+          <rect class="phase-bg" x="140" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--blue-dim)" opacity="0.6"><title>Pilot Phase (M3–M9): Single-team deployment with workflow validation. Early insight-speed gains emerge. First KPI baselines established by M6.</title></rect>
+          <rect class="phase-bg" x="300" y="24" width="240" height="276" rx="0" fill="currentColor" style="color:var(--accent-glow)" opacity="0.7"><title>Scale Phase (M9–M18): Cross-team rollout and committee integration. Benefit curves accelerate as multiple personas adopt the platform. Most KPIs reach 50–75% realization.</title></rect>
+          <rect class="phase-bg" x="540" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--green-dim)" opacity="0.6"><title>Optimize Phase (M18–M24): Steady-state operations with feedback loop refinement. Curves plateau near full realization. Organizational alignment — the slowest benefit — continues to mature.</title></rect>
 
           <!-- Phase vertical dividers -->
           <line class="grid-line" x1="140" y1="24" x2="140" y2="300" stroke-dasharray="4,4" opacity="0.6"/>
@@ -3193,35 +3608,35 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <!-- ═══ BENEFIT CURVES ═══ -->
 
           <!-- Curve 5: Cross-Functional Alignment (purple) — slowest -->
-          <path class="bc-curve-5" d="M60,300 C90,300 120,299 140,299 C165,298 195,296 220,293 C250,288 275,280 300,273 C330,262 355,250 380,240 C410,225 435,208 460,192 C490,175 515,158 540,146 C570,130 595,116 620,106 C645,96 670,88 700,84" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <path class="bc-curve-5" d="M60,300 C90,300 120,299 140,299 C165,298 195,296 220,293 C250,288 275,280 300,273 C330,262 355,250 380,240 C410,225 435,208 460,192 C490,175 515,158 540,146 C570,130 595,116 620,106 C645,96 670,88 700,84" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.5"><title>Cross-Functional Alignment: The slowest benefit to realize — requires organizational change across research, portfolio, and risk teams. Meaningful improvement begins around M12 as shared workflows take hold. Reaches ~70% by M24.</title></path>
 
           <!-- Curve 4: Committee Readiness (rose) -->
-          <path class="bc-curve-4" d="M60,300 C90,300 120,300 140,300 C165,298 195,295 220,289 C250,280 275,268 300,260 C330,246 355,228 380,213 C410,195 435,176 460,160 C490,142 515,125 540,111 C570,97 595,84 620,74 C645,65 670,58 700,54" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+          <path class="bc-curve-4" d="M60,300 C90,300 120,300 140,300 C165,298 195,295 220,289 C250,280 275,268 300,260 C330,246 355,228 380,213 C410,195 435,176 460,160 C490,142 515,125 540,111 C570,97 595,84 620,74 C645,65 670,58 700,54" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.55"><title>Committee Readiness: Begins to improve once structured briefing outputs are integrated into committee workflows (~M6). Accelerates during the Scale phase as governance processes adapt. Reaches ~80% by M24.</title></path>
 
           <!-- Curve 3: Risk Visibility (green) -->
-          <path class="bc-curve-3" d="M60,300 C90,300 120,298 140,295 C165,290 195,283 220,278 C250,268 275,252 300,240 C330,220 355,196 380,178 C410,158 435,140 460,124 C490,108 515,92 540,84 C570,74 595,64 620,57 C645,50 670,44 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <path class="bc-curve-3" d="M60,300 C90,300 120,298 140,295 C165,290 195,283 220,278 C250,268 275,252 300,240 C330,220 355,196 380,178 C410,158 435,140 460,124 C490,108 515,92 540,84 C570,74 595,64 620,57 C645,50 670,44 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.7"><title>Risk Visibility: Narrative-aware risk signals begin surfacing vulnerabilities during the Pilot phase. Accelerates sharply once the Risk Manager module is fully calibrated (~M9). Reaches ~85% by M24.</title></path>
 
           <!-- Curve 2: Interpretation Consistency (blue) -->
-          <path class="bc-curve-2" d="M60,300 C90,299 120,297 140,292 C165,283 195,268 220,259 C250,245 275,225 300,206 C330,185 355,165 380,152 C410,135 435,118 460,105 C490,92 515,80 540,73 C570,65 595,57 620,52 C645,47 670,43 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+          <path class="bc-curve-2" d="M60,300 C90,299 120,297 140,292 C165,283 195,268 220,259 C250,245 275,225 300,206 C330,185 355,165 380,152 C410,135 435,118 460,105 C490,92 515,80 540,73 C570,65 595,57 620,52 C645,47 670,43 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.75"><title>Interpretation Consistency: Improves as soon as teams begin using the shared signal framework (~M3). Rises steadily through the Pilot and Scale phases as more personas adopt common narrative dimensions. Reaches ~85% by M24.</title></path>
 
           <!-- Curve 1: Insight-to-Decision Speed (gold) — primary -->
-          <path class="bc-curve-1" d="M60,300 C90,299 120,295 140,287 C165,275 195,250 220,233 C250,210 275,185 300,165 C330,142 355,120 380,106 C410,90 435,78 460,71 C490,62 515,55 540,52 C570,47 595,43 620,41 C645,38 670,36 700,35" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="bc-curve-1" d="M60,300 C90,299 120,295 140,287 C165,275 195,250 220,233 C250,210 275,185 300,165 C330,142 355,120 380,106 C410,90 435,78 460,71 C490,62 515,55 540,52 C570,47 595,43 620,41 C645,38 670,36 700,35" fill="none" stroke-width="2.2" stroke-linecap="round"><title>Insight-to-Decision Speed: The fastest benefit to realize — automated narrative structuring delivers immediate time savings from Pilot go-live. Significant gains by M6, approaching ~95% realization by M24.</title></path>
 
           <!-- ═══ MILESTONE MARKERS ═══ -->
 
           <!-- M3: Pilot go-live -->
-          <circle class="milestone-dot" cx="140" cy="287" r="4" fill="#7a9ec2" opacity="0.7"/>
+          <circle class="milestone-dot" cx="140" cy="287" r="4" fill="#7a9ec2" opacity="0.7"><title>Month 3 — Pilot Go-Live: First team begins using Portfolio Studio. Narrative interpretation is active. Insight speed shows first measurable improvement (~5% realization on lead KPI).</title></circle>
           <text class="milestone-text" x="140" y="280" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">Pilot Go-Live</text>
 
           <!-- M9: First measurable impact -->
-          <circle class="milestone-dot" cx="300" cy="165" r="4" fill="#c9a96e" opacity="0.7"/>
+          <circle class="milestone-dot" cx="300" cy="165" r="4" fill="#c9a96e" opacity="0.7"><title>Month 9 — First Measurable KPI Impact: Insight speed reaches ~50% realization. Consistency and risk visibility show clear improvement. Sufficient data to demonstrate ROI to CIO/leadership.</title></circle>
           <text class="milestone-text" x="300" y="155" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">First Measurable KPI Impact</text>
 
           <!-- M12: Cross-team rollout -->
-          <circle class="milestone-dot" cx="380" cy="106" r="4" fill="#c9a96e" opacity="0.7"/>
+          <circle class="milestone-dot" cx="380" cy="106" r="4" fill="#c9a96e" opacity="0.7"><title>Month 12 — Cross-Team Rollout: Portfolio Studio is deployed across multiple investment teams. Committee integration underway. All five benefit curves are in active acceleration.</title></circle>
 
           <!-- M18: Steady state -->
-          <circle class="milestone-dot" cx="540" cy="52" r="4" fill="#6b9e7a" opacity="0.7"/>
+          <circle class="milestone-dot" cx="540" cy="52" r="4" fill="#6b9e7a" opacity="0.7"><title>Month 18 — Steady-State Operations: Primary curves (insight speed, consistency, risk visibility) approach plateau. Feedback loop and model refinement processes are operational. Organizational alignment continues maturing.</title></circle>
           <text class="milestone-text" x="540" y="44" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">Steady-State Operations</text>
 
           <!-- ═══ END-STATE LABELS (right edge) ═══ -->
@@ -3241,23 +3656,23 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
       <!-- Legend -->
       <div class="bc-legend">
-        <div class="bc-legend-item">
+        <div class="bc-legend-item" data-tip="Time from market event to actionable portfolio context. The fastest benefit — automated structuring delivers immediate time savings from pilot go-live. Reaches ~95% by M24.">
           <div class="bc-legend-swatch" style="background:#c9a96e"></div>
           <span class="bc-legend-text">Insight-to-Decision Speed</span>
         </div>
-        <div class="bc-legend-item">
+        <div class="bc-legend-item" data-tip="Degree to which market developments are interpreted identically across analysts, PMs, and risk teams. Rises steadily as the shared signal framework replaces ad hoc synthesis. Reaches ~85% by M24.">
           <div class="bc-legend-swatch" style="background:#7a9ec2"></div>
           <span class="bc-legend-text">Interpretation Consistency</span>
         </div>
-        <div class="bc-legend-item">
+        <div class="bc-legend-item" data-tip="Ability to identify portfolio vulnerabilities driven by narrative themes before they appear in quantitative risk metrics. Accelerates after Risk Manager calibration (~M9). Reaches ~85% by M24.">
           <div class="bc-legend-swatch" style="background:#6b9e7a"></div>
           <span class="bc-legend-text">Risk Visibility</span>
         </div>
-        <div class="bc-legend-item">
+        <div class="bc-legend-item" data-tip="Quality and efficiency of investment committee preparation. Improves once structured briefing outputs are integrated into governance workflows. Reaches ~80% by M24.">
           <div class="bc-legend-swatch" style="background:#c27c9e"></div>
           <span class="bc-legend-text">Committee Readiness</span>
         </div>
-        <div class="bc-legend-item">
+        <div class="bc-legend-item" data-tip="Alignment between research, portfolio, and risk teams through a shared intelligence layer. The slowest benefit — requires organizational change and workflow adoption. Reaches ~70% by M24.">
           <div class="bc-legend-swatch" style="background:#9e8cc2"></div>
           <span class="bc-legend-text">Cross-Functional Alignment</span>
         </div>
@@ -3265,22 +3680,22 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
       <!-- Phase timeline strip -->
       <div class="bc-phases">
-        <div class="bc-phase bc-phase-setup">
+        <div class="bc-phase bc-phase-setup" data-tip="Foundation phase. Connect Portfolio Studio to data sources (market feeds, internal research, portfolio systems). Configure signal dimensions. Onboard initial pilot users. No benefit realization expected — this is infrastructure investment.">
           <div class="bc-phase-name">Setup</div>
           <div class="bc-phase-period">Months 0–3</div>
           <div class="bc-phase-desc">Data integration, configuration, initial persona onboarding</div>
         </div>
-        <div class="bc-phase bc-phase-pilot">
+        <div class="bc-phase bc-phase-pilot" data-tip="Validation phase. Deploy to a single investment team (e.g. one PM desk or one research group). Validate workflows, calibrate narrative interpretation, and establish KPI baselines. Insight speed shows first measurable gains.">
           <div class="bc-phase-name">Pilot</div>
           <div class="bc-phase-period">Months 3–9</div>
           <div class="bc-phase-desc">Single team deployment, workflow validation, first KPI baselines established</div>
         </div>
-        <div class="bc-phase bc-phase-scale">
+        <div class="bc-phase bc-phase-scale" data-tip="Acceleration phase. Roll out across multiple teams and integrate into investment committee processes. All five benefit curves are in active acceleration. First measurable KPI impact demonstrated to leadership by M9. Cross-team consistency gains compound.">
           <div class="bc-phase-name">Scale</div>
           <div class="bc-phase-period">Months 9–18</div>
           <div class="bc-phase-desc">Cross-team rollout, committee integration, measurable benefit acceleration</div>
         </div>
-        <div class="bc-phase bc-phase-optimize">
+        <div class="bc-phase bc-phase-optimize" data-tip="Maturity phase. Primary benefits approach steady state. Focus shifts to feedback loop refinement, model tuning, and extending adoption to remaining personas. Organizational alignment — the slowest curve — continues to deepen.">
           <div class="bc-phase-name">Optimize</div>
           <div class="bc-phase-period">Months 18–24</div>
           <div class="bc-phase-desc">Steady-state operations, feedback loop refinement, full organizational adoption</div>
@@ -3291,7 +3706,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Faster Insight-to-Decision Cycle</div>
+        <div class="kpi-title" data-tip="Corresponds to the gold curve in the Benefit Realization Chart. The fastest benefit to realize — measurable from Pilot go-live (M3), approaching ~95% by M24.">Faster Insight-to-Decision Cycle</div>
         <div class="kpi-desc">Market narratives are interpreted and structured automatically, reducing the time between information arrival and actionable portfolio context.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Automated narrative structuring replaces manual synthesis</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Faster response to market developments</div>
@@ -3299,7 +3714,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Improved Consistency of Interpretation</div>
+        <div class="kpi-title" data-tip="Corresponds to the blue curve in the Benefit Realization Chart. Rises steadily as teams adopt shared signal dimensions. Reaches ~85% by M24.">Improved Consistency of Interpretation</div>
         <div class="kpi-desc">A shared narrative framework ensures market developments are interpreted consistently across analysts, portfolio managers, and risk teams.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Common signal dimensions replace ad hoc interpretation</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Reduces person-dependency and interpretation variance</div>
@@ -3307,7 +3722,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">More Contextual Portfolio Decisions</div>
+        <div class="kpi-title" data-tip="Enabled by both the Portfolio Optimizer and the Agentic AI Narrative Builder. Improvement tracks closely with the Insight Speed and Consistency curves.">More Contextual Portfolio Decisions</div>
         <div class="kpi-desc">Portfolio construction and rebalancing decisions are supported by structured narrative context, not just quantitative inputs.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Narrative signals feed optimizer alongside market data</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Decisions reflect qualitative market reality</div>
@@ -3315,7 +3730,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Earlier Risk Awareness</div>
+        <div class="kpi-title" data-tip="Corresponds to the green curve in the Benefit Realization Chart. Accelerates after Risk Manager calibration (~M9). Reaches ~85% by M24.">Earlier Risk Awareness</div>
         <div class="kpi-desc">Narrative-aware risk analysis identifies vulnerabilities before they surface in traditional quantitative risk metrics.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Risk Manager incorporates narrative signals</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Proactive rather than reactive risk posture</div>
@@ -3323,7 +3738,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Reduced Manual Operating Friction</div>
+        <div class="kpi-title" data-tip="A cross-cutting benefit driven by automation of narrative structuring. Reduction is measurable from the Pilot phase as manual synthesis and briefing preparation effort decreases.">Reduced Manual Operating Friction</div>
         <div class="kpi-desc">Automated narrative structuring reduces the manual effort required to synthesize market information and prepare investment materials.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Structured outputs reduce manual research and briefing preparation</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Teams focus on judgment, not data assembly</div>
@@ -3331,7 +3746,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Improved Committee Readiness</div>
+        <div class="kpi-title" data-tip="Corresponds to the rose curve in the Benefit Realization Chart. Begins improving when structured outputs integrate into committee workflows (~M6). Reaches ~80% by M24.">Improved Committee Readiness</div>
         <div class="kpi-desc">Investment committee briefings are supported by structured, explainable, and narrative-linked portfolio context.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Committee materials draw from consistent structured intelligence</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Governance quality and decision traceability improve</div>
@@ -3339,7 +3754,7 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
       </div>
       <div class="kpi-card kpi-card-full">
         <div class="kpi-label">Benefit</div>
-        <div class="kpi-title">Stronger Cross-Functional Alignment</div>
+        <div class="kpi-title" data-tip="Corresponds to the purple curve in the Benefit Realization Chart — the slowest benefit. Requires organizational change across research, portfolio, and risk teams. Meaningful improvement from M12, reaching ~70% by M24.">Stronger Cross-Functional Alignment</div>
         <div class="kpi-desc">Research, portfolio construction, and risk teams share a common narrative intelligence layer, improving alignment and reducing information asymmetry across functions.</div>
         <div class="kpi-meta-item"><strong>Operational Change:</strong> Shared signal framework connects previously siloed workflows</div>
         <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Investment organization operates as a more coherent unit</div>
@@ -3354,25 +3769,222 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <section class="section fade-in" id="lifecycle">
     <div class="section-num">06</div>
     <h2>Product Positioning in the Trade Lifecycle</h2>
-    <p class="section-lead">Portfolio Studio strengthens the pre-trade decision layer. It does not extend into execution or operational trade processing.</p>
+    <p class="section-lead">Portfolio Studio strengthens the pre-trade decision layer across the Front Office. It does not extend into Middle Office or Back Office operations.</p>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Trade Lifecycle Stage</th><th>Portfolio Studio Role</th><th>Priority</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Market monitoring / information intake</td><td>Interprets unstructured information</td><td><span class="tag-high">High</span></td></tr>
-          <tr><td>Research / idea generation</td><td>Identifies themes and narratives</td><td><span class="tag-high">High</span></td></tr>
-          <tr><td>Thesis development</td><td>Structures narratives into decision signals</td><td><span class="tag-high">High</span></td></tr>
-          <tr><td>Portfolio construction / pre-trade allocation</td><td>Supports optimizer and contextual portfolio decisions</td><td><span class="tag-high">High</span></td></tr>
-          <tr><td>Pre-trade risk review</td><td>Highlights vulnerabilities and narrative-aware risks</td><td><span class="tag-high">High</span></td></tr>
-          <tr><td>Execution / routing</td><td>No direct role</td><td><span class="tag-out">Out of Scope</span></td></tr>
-          <tr><td>Post-trade operations</td><td>No direct role</td><td><span class="tag-out">Out of Scope</span></td></tr>
-          <tr><td>Ongoing portfolio monitoring</td><td>Supports risk and scenario review</td><td><span class="tag-medium">Medium</span></td></tr>
-          <tr><td>Strategy research / feedback loop</td><td>Supports model and research refinement</td><td><span class="tag-medium">Medium</span></td></tr>
-        </tbody>
-      </table>
+    <div class="tlc">
+      <div class="tlc-head">
+        <span class="tlc-badge" data-tip="Maps Portfolio Studio's role across the full trade lifecycle using the standard Front Office / Middle Office / Back Office structure. Gold-highlighted stages are within scope; dimmed stages are outside scope." data-tip-pos="below">Lifecycle Map</span>
+        <h4>Trade Lifecycle — Front Office · Middle Office · Back Office</h4>
+      </div>
+
+      <!-- Swim lanes -->
+      <div class="tlc-lanes">
+
+        <!-- ═══ FRONT OFFICE ═══ -->
+        <div class="tlc-office tlc-fo">
+          <div class="tlc-office-head">
+            <span class="tlc-office-name" data-tip="The Front Office encompasses all pre-trade investment functions: research, portfolio construction, risk review, and decision governance. This is where Portfolio Studio operates." data-tip-pos="below">Front Office</span>
+            <span class="tlc-office-abbr">FO</span>
+            <span class="tlc-office-scope" data-tip="All seven Front Office stages fall within Portfolio Studio's scope — five at High priority (core workflow) and two at Medium priority (ongoing monitoring and research feedback)." data-tip-pos="below">Portfolio Studio scope</span>
+          </div>
+          <div class="tlc-office-body">
+
+            <div class="tlc-stage tlc-stage-active">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="The entry point for Portfolio Studio. The Agentic AI Narrative Builder continuously ingests news, macro data, company updates, and regulatory signals — converting them into structured narratives in near-real-time.">Market Monitoring &amp; Information Intake</div>
+                  <div class="tlc-stage-role">Interprets unstructured information into structured narrative signals</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-high">High</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-active">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Portfolio Studio identifies dominant market themes and emerging narratives, providing analysts with structured starting points for idea generation rather than manual information synthesis.">Research &amp; Idea Generation</div>
+                  <div class="tlc-stage-role">Identifies dominant themes, narratives, and emerging developments</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-high">High</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-active">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Narratives are structured into decision signals across five dimensions (Uncertainty, Fundamentals, Macro, Liquidity, ESG). This creates a repeatable, explainable framework for investment thesis formulation.">Thesis Development</div>
+                  <div class="tlc-stage-role">Structures narratives into decision signals across five dimensions</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-high">High</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-active">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="The Portfolio Optimizer module feeds narrative signals alongside quantitative market data into allocation decisions — ensuring portfolio positioning reflects qualitative market context, not just numbers.">Portfolio Construction &amp; Pre-Trade Allocation</div>
+                  <div class="tlc-stage-role">Supports optimizer and contextual portfolio decisions with narrative context</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-high">High</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-active">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="The Risk Manager module integrates narrative signals with traditional risk metrics, flagging vulnerabilities driven by emerging themes — before they surface in quantitative exposure reports.">Pre-Trade Risk Review</div>
+                  <div class="tlc-stage-role">Highlights vulnerabilities and narrative-aware risks before execution</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-high">High</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-medium">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="After trade execution, Portfolio Studio continues monitoring narrative drift — alerting teams when the market context that justified a position has materially shifted.">Ongoing Portfolio Monitoring</div>
+                  <div class="tlc-stage-role">Supports risk and scenario review through narrative drift monitoring</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-medium">Medium</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-medium">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Structured narrative outputs feed back into research workflows — enabling quant researchers to test, refine, and incorporate narrative signals into models and strategy development.">Strategy Research &amp; Feedback Loop</div>
+                  <div class="tlc-stage-role">Supports model and research refinement using structured signal outputs</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-medium">Medium</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ MIDDLE OFFICE ═══ -->
+        <div class="tlc-office tlc-mo">
+          <div class="tlc-office-head">
+            <span class="tlc-office-name" data-tip="The Middle Office handles order management, execution, trade confirmation, and compliance checks. These are operational functions that Portfolio Studio does not touch." data-tip-pos="below">Middle Office</span>
+            <span class="tlc-office-abbr">MO</span>
+          </div>
+          <div class="tlc-office-body">
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Handled by existing OMS infrastructure. Portfolio Studio outputs feed the decision that creates the order, but order management itself is outside scope.">Order Management</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Handled by EMS and broker/dealer infrastructure. Portfolio Studio improves the quality of the decision before execution, but does not participate in routing or algo selection.">Execution &amp; Routing</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Post-execution matching and confirmation between counterparties. An operational function handled by existing Middle Office systems.">Trade Confirmation</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Pre- and post-trade compliance checks against investment mandates, regulatory limits, and internal policies. Handled by dedicated compliance systems.">Compliance &amp; Regulatory Checks</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ BACK OFFICE ═══ -->
+        <div class="tlc-office tlc-bo">
+          <div class="tlc-office-head">
+            <span class="tlc-office-name" data-tip="The Back Office handles settlement, reconciliation, custody, accounting, and NAV reporting. These are post-trade operational functions entirely outside Portfolio Studio's scope." data-tip-pos="below">Back Office</span>
+            <span class="tlc-office-abbr">BO</span>
+          </div>
+          <div class="tlc-office-body">
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="The exchange of cash and securities between counterparties on settlement date (T+1/T+2). Managed by custodians and settlement infrastructure.">Settlement</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Matching internal records against custodian, broker, and counterparty statements to identify and resolve discrepancies. A Back Office operational function.">Reconciliation</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Safekeeping of assets, corporate action processing, and fund accounting. Managed by custodian banks and fund administrators.">Custody &amp; Accounting</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+            <div class="tlc-stage tlc-stage-dim">
+              <div class="tlc-stage-inner">
+                <div class="tlc-stage-info">
+                  <div class="tlc-stage-name" data-tip="Net Asset Value calculation, client reporting, regulatory reporting, and performance attribution. Produced by fund administration and reporting systems.">Reporting &amp; NAV</div>
+                  <div class="tlc-stage-role">No direct role</div>
+                </div>
+                <div class="tlc-stage-priority"><span class="tag-out">Out of Scope</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coverage strip -->
+      <div class="tlc-coverage">
+        <div class="tlc-coverage-inner">
+          <div class="tlc-coverage-fo" data-tip="Portfolio Studio is active across the entire Front Office — from initial market monitoring through to ongoing portfolio surveillance and strategy feedback. Seven stages covered: five at High priority, two at Medium." data-tip-pos="right">
+            <span class="tlc-coverage-label">Portfolio Studio</span>
+            <div class="tlc-coverage-bar"></div>
+            <span class="tlc-coverage-label">Active</span>
+          </div>
+          <div class="tlc-coverage-empty" data-tip="Middle Office functions (order management, execution, confirmation, compliance) are handled by existing OMS/EMS infrastructure. Portfolio Studio improves the decision that creates the order — not the order itself.">
+            <div class="tlc-coverage-dash"></div>
+            <span class="tlc-coverage-oos">No direct role</span>
+          </div>
+          <div class="tlc-coverage-empty" data-tip="Back Office functions (settlement, reconciliation, custody, reporting) are handled by custodians, fund administrators, and operational systems. Entirely outside Portfolio Studio's scope.">
+            <div class="tlc-coverage-dash"></div>
+            <span class="tlc-coverage-oos">No direct role</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="callout">
@@ -3579,45 +4191,9 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
 
   <hr class="section-sep">
 
-  <!-- 13. Out of Scope -->
-  <section class="section fade-in" id="out-of-scope">
-    <div class="section-num">13</div>
-    <h2>Out of Scope</h2>
-    <p class="section-lead">Portfolio Studio is deliberately focused on pre-trade decision intelligence.</p>
-
-    <div class="card-grid card-grid-2">
-      <div class="card"><h4>Execution Management</h4><p>Trade execution, order routing, and execution algorithm selection are not within scope.</p></div>
-      <div class="card"><h4>OMS / EMS Functionality</h4><p>Order and execution management system capabilities are provided by existing infrastructure.</p></div>
-      <div class="card"><h4>Settlement &amp; Reconciliation</h4><p>Post-trade settlement, reconciliation, and operational processing are handled downstream.</p></div>
-      <div class="card"><h4>Compliance Automation</h4><p>Regulatory compliance automation and surveillance are separate functions.</p></div>
-      <div class="card"><h4>Operational Trade Processing</h4><p>Middle-office and back-office trade processing workflows are outside focus.</p></div>
-      <div class="card"><h4>Generic Conversational AI</h4><p>Portfolio Studio is not a general-purpose AI assistant. It is purpose-built for portfolio intelligence workflows.</p></div>
-    </div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- 14. Open Questions -->
-  <section class="section fade-in" id="open-questions">
-    <div class="section-num">14</div>
-    <h2>Open Questions for Leadership</h2>
-    <p class="section-lead">Strategic questions requiring input from senior investment leadership to guide product direction.</p>
-
-    <ol class="q-list">
-      <li>Which persona is the primary buyer versus the primary daily user? Understanding this distinction will shape go-to-market positioning and UX prioritization.</li>
-      <li>Should the Agentic AI Narrative Builder be a visible standalone module or an embedded capability that operates behind other functional surfaces?</li>
-      <li>What is the most important workflow entry point? Should the platform prioritize research intake, portfolio construction, risk review, or committee preparation?</li>
-      <li>Should the initial focus be portfolio-level intelligence only, or should it also include security-level narrative analysis from the outset?</li>
-      <li>What level of recommendation should the platform provide? Should it suggest portfolio actions, or remain purely an intelligence and context layer?</li>
-      <li>What governance model is needed for adoption? How should outputs be validated, approved, and integrated into existing decision governance frameworks?</li>
-    </ol>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- 15. Final Summary -->
+  <!-- 13. Final Summary -->
   <section class="section fade-in" id="final-summary">
-    <div class="section-num">15</div>
+    <div class="section-num">13</div>
     <div class="final-block">
       <h2>Final Executive Summary</h2>
       <p>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that helps investment organizations convert fragmented market information into structured, explainable business intelligence. Its value to a CIO lies in improving decision quality, strengthening consistency across investment functions, surfacing risk earlier, and increasing governance readiness — without replacing core execution infrastructure.</p>
