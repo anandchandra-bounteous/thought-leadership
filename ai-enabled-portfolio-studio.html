@@ -197,7 +197,8 @@ html.light .flow-node-accent {
 .unidia, .unidia-zone, .unidia-bar,
 .studio-hero, .studio-branch-card, .benefit-chip,
 .pain-bottleneck, .pain-silo, .pain-convergence,
-.outcome-node {
+.outcome-node,
+.benefit-curve-container, .bc-phase {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -583,6 +584,186 @@ html.light .flow-node-accent {
   line-height: 1.8;
   color: var(--text-secondary);
   font-weight: 300;
+}
+
+/* ═══════════════════════════════════════
+   BENEFIT REALIZATION CURVE
+   ═══════════════════════════════════════ */
+.benefit-curve-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.benefit-curve-head {
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.benefit-curve-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.benefit-curve-head .bc-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.benefit-curve-body {
+  padding: 28px 28px 20px;
+}
+
+/* SVG theming */
+.bc-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bc-svg .phase-bg { transition: fill 0.4s ease; }
+.bc-svg .axis-line { stroke: var(--border); transition: stroke 0.4s ease; }
+.bc-svg .axis-text { fill: var(--text-muted); font-family: var(--font-sans); }
+.bc-svg .phase-label { fill: var(--text-muted); font-family: var(--font-sans); }
+.bc-svg .phase-title { fill: var(--text-tertiary); font-family: var(--font-sans); }
+.bc-svg .grid-line { stroke: var(--border-light); transition: stroke 0.4s ease; }
+.bc-svg .milestone-dot { transition: fill 0.4s ease; }
+.bc-svg .milestone-text { fill: var(--text-secondary); font-family: var(--font-sans); }
+.bc-svg .curve-label { font-family: var(--font-sans); }
+
+/* Dark theme curve colors */
+.bc-curve-1 { stroke: #c9a96e; }
+.bc-curve-2 { stroke: #7a9ec2; }
+.bc-curve-3 { stroke: #6b9e7a; }
+.bc-curve-4 { stroke: #c27c9e; }
+.bc-curve-5 { stroke: #9e8cc2; }
+
+.bc-glow-1 { fill: url(#grad-1); }
+.bc-glow-2 { fill: url(#grad-2); }
+.bc-glow-3 { fill: url(#grad-3); }
+
+/* Legend */
+.bc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 28px 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.bc-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.bc-legend-swatch {
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.bc-legend-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+/* Phase timeline bar below chart */
+.bc-phases {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr 2fr;
+  gap: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.bc-phase {
+  padding: 14px 16px;
+  border-right: 1px solid var(--border-light);
+  transition: background 0.4s ease;
+}
+
+.bc-phase:last-child { border-right: none; }
+
+.bc-phase-name {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+
+.bc-phase-period {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.bc-phase-desc {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.bc-phase-setup { background: var(--bg-subtle); }
+.bc-phase-setup .bc-phase-name { color: var(--text-muted); }
+
+.bc-phase-pilot { background: var(--blue-dim); }
+.bc-phase-pilot .bc-phase-name { color: var(--blue); }
+
+.bc-phase-scale { background: var(--accent-glow); }
+.bc-phase-scale .bc-phase-name { color: var(--accent); }
+
+.bc-phase-optimize { background: var(--green-dim); }
+.bc-phase-optimize .bc-phase-name { color: var(--green); }
+
+html.light .bc-phase-setup { background: #f0eee9; }
+html.light .bc-phase-pilot { background: rgba(62,109,150,0.05); }
+html.light .bc-phase-scale { background: rgba(154,123,62,0.04); }
+html.light .bc-phase-optimize { background: rgba(61,122,80,0.04); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .bc-phases {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bc-phase:nth-child(2) { border-right: none; }
+  .benefit-curve-body { padding: 16px 12px 12px; }
+  .bc-legend { padding: 12px 16px 16px; gap: 10px; }
+}
+
+@media print {
+  .benefit-curve-container { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .bc-phase-pilot { background: #eef4fa; }
+  .bc-phase-scale { background: #fdf8ef; }
+  .bc-phase-optimize { background: #eef8f1; }
 }
 
 /* ═══════════════════════════════════════
@@ -2931,6 +3112,181 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <div class="section-num">05</div>
     <h2>CIO-Level Business Benefits</h2>
     <p class="section-lead">Each benefit is tied to measurable operational changes and the KPI categories a CIO can track.</p>
+
+    <!-- Benefit Realization Curve -->
+    <div class="benefit-curve-container">
+      <div class="benefit-curve-head">
+        <span class="bc-badge">Indicative</span>
+        <h4>Benefit Realization Curve — 24-Month Horizon</h4>
+      </div>
+      <div class="benefit-curve-body">
+        <svg class="bc-svg" viewBox="0 0 740 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Benefit realization curve showing five business benefits accruing over a 24-month implementation timeline across four phases: Setup, Pilot, Scale, and Optimize.">
+          <defs>
+            <linearGradient id="grad-1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#c9a96e" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#c9a96e" stop-opacity="0.01"/>
+            </linearGradient>
+            <linearGradient id="grad-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7a9ec2" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#7a9ec2" stop-opacity="0.01"/>
+            </linearGradient>
+            <linearGradient id="grad-3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6b9e7a" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#6b9e7a" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Phase background bands -->
+          <rect class="phase-bg" x="60" y="24" width="80" height="276" rx="0" fill="currentColor" style="color:var(--bg-subtle)" opacity="0.5"/>
+          <rect class="phase-bg" x="140" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--blue-dim)" opacity="0.6"/>
+          <rect class="phase-bg" x="300" y="24" width="240" height="276" rx="0" fill="currentColor" style="color:var(--accent-glow)" opacity="0.7"/>
+          <rect class="phase-bg" x="540" y="24" width="160" height="276" rx="0" fill="currentColor" style="color:var(--green-dim)" opacity="0.6"/>
+
+          <!-- Phase vertical dividers -->
+          <line class="grid-line" x1="140" y1="24" x2="140" y2="300" stroke-dasharray="4,4" opacity="0.6"/>
+          <line class="grid-line" x1="300" y1="24" x2="300" y2="300" stroke-dasharray="4,4" opacity="0.6"/>
+          <line class="grid-line" x1="540" y1="24" x2="540" y2="300" stroke-dasharray="4,4" opacity="0.6"/>
+
+          <!-- Phase titles at top -->
+          <text class="phase-label" x="100" y="18" text-anchor="middle" font-size="8" font-weight="500" letter-spacing="0.12em" text-transform="uppercase" opacity="0.4">SETUP</text>
+          <text class="phase-label" x="220" y="18" text-anchor="middle" font-size="8" font-weight="500" letter-spacing="0.12em" opacity="0.5" style="fill:var(--blue)">PILOT</text>
+          <text class="phase-label" x="420" y="18" text-anchor="middle" font-size="8" font-weight="500" letter-spacing="0.12em" opacity="0.5" style="fill:var(--accent)">SCALE</text>
+          <text class="phase-label" x="620" y="18" text-anchor="middle" font-size="8" font-weight="500" letter-spacing="0.12em" opacity="0.5" style="fill:var(--green)">OPTIMIZE</text>
+
+          <!-- Horizontal grid lines -->
+          <line class="grid-line" x1="60" y1="232.5" x2="700" y2="232.5" opacity="0.3"/>
+          <line class="grid-line" x1="60" y1="165" x2="700" y2="165" opacity="0.3"/>
+          <line class="grid-line" x1="60" y1="97.5" x2="700" y2="97.5" opacity="0.3"/>
+
+          <!-- Y-axis labels -->
+          <text class="axis-text" x="54" y="303" text-anchor="end" font-size="9" font-weight="300">0%</text>
+          <text class="axis-text" x="54" y="236" text-anchor="end" font-size="9" font-weight="300">25%</text>
+          <text class="axis-text" x="54" y="168.5" text-anchor="end" font-size="9" font-weight="300">50%</text>
+          <text class="axis-text" x="54" y="101" text-anchor="end" font-size="9" font-weight="300">75%</text>
+          <text class="axis-text" x="54" y="33.5" text-anchor="end" font-size="9" font-weight="300">100%</text>
+
+          <!-- X-axis labels (months) -->
+          <text class="axis-text" x="60" y="316" text-anchor="middle" font-size="9" font-weight="300">M0</text>
+          <text class="axis-text" x="140" y="316" text-anchor="middle" font-size="9" font-weight="300">M3</text>
+          <text class="axis-text" x="220" y="316" text-anchor="middle" font-size="9" font-weight="300">M6</text>
+          <text class="axis-text" x="300" y="316" text-anchor="middle" font-size="9" font-weight="300">M9</text>
+          <text class="axis-text" x="380" y="316" text-anchor="middle" font-size="9" font-weight="300">M12</text>
+          <text class="axis-text" x="460" y="316" text-anchor="middle" font-size="9" font-weight="300">M15</text>
+          <text class="axis-text" x="540" y="316" text-anchor="middle" font-size="9" font-weight="300">M18</text>
+          <text class="axis-text" x="620" y="316" text-anchor="middle" font-size="9" font-weight="300">M21</text>
+          <text class="axis-text" x="700" y="316" text-anchor="middle" font-size="9" font-weight="300">M24</text>
+
+          <!-- X-axis line -->
+          <line class="axis-line" x1="60" y1="300" x2="700" y2="300"/>
+          <!-- Y-axis line -->
+          <line class="axis-line" x1="60" y1="24" x2="60" y2="300"/>
+
+          <!-- Y-axis title -->
+          <text class="axis-text" x="16" y="162" text-anchor="middle" font-size="8" font-weight="400" letter-spacing="0.1em" transform="rotate(-90 16 162)" opacity="0.5">BENEFIT REALIZATION</text>
+
+          <!-- ═══ GRADIENT FILLS UNDER PRIMARY CURVES ═══ -->
+          <!-- Gold fill (Insight Speed) -->
+          <path class="bc-glow-1" d="M60,300 C90,299 120,295 140,287 C165,275 195,250 220,233 C250,210 275,185 300,165 C330,142 355,120 380,106 C410,90 435,78 460,71 C490,62 515,55 540,52 C570,47 595,43 620,41 C645,38 670,36 700,35 L700,300 Z" opacity="0.8"/>
+          <!-- Blue fill (Consistency) -->
+          <path class="bc-glow-2" d="M60,300 C90,299 120,297 140,292 C165,283 195,268 220,259 C250,245 275,225 300,206 C330,185 355,165 380,152 C410,135 435,118 460,105 C490,92 515,80 540,73 C570,65 595,57 620,52 C645,47 670,43 700,41 L700,300 Z" opacity="0.6"/>
+
+          <!-- ═══ BENEFIT CURVES ═══ -->
+
+          <!-- Curve 5: Cross-Functional Alignment (purple) — slowest -->
+          <path class="bc-curve-5" d="M60,300 C90,300 120,299 140,299 C165,298 195,296 220,293 C250,288 275,280 300,273 C330,262 355,250 380,240 C410,225 435,208 460,192 C490,175 515,158 540,146 C570,130 595,116 620,106 C645,96 670,88 700,84" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- Curve 4: Committee Readiness (rose) -->
+          <path class="bc-curve-4" d="M60,300 C90,300 120,300 140,300 C165,298 195,295 220,289 C250,280 275,268 300,260 C330,246 355,228 380,213 C410,195 435,176 460,160 C490,142 515,125 540,111 C570,97 595,84 620,74 C645,65 670,58 700,54" fill="none" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+
+          <!-- Curve 3: Risk Visibility (green) -->
+          <path class="bc-curve-3" d="M60,300 C90,300 120,298 140,295 C165,290 195,283 220,278 C250,268 275,252 300,240 C330,220 355,196 380,178 C410,158 435,140 460,124 C490,108 515,92 540,84 C570,74 595,64 620,57 C645,50 670,44 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+
+          <!-- Curve 2: Interpretation Consistency (blue) -->
+          <path class="bc-curve-2" d="M60,300 C90,299 120,297 140,292 C165,283 195,268 220,259 C250,245 275,225 300,206 C330,185 355,165 380,152 C410,135 435,118 460,105 C490,92 515,80 540,73 C570,65 595,57 620,52 C645,47 670,43 700,41" fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+
+          <!-- Curve 1: Insight-to-Decision Speed (gold) — primary -->
+          <path class="bc-curve-1" d="M60,300 C90,299 120,295 140,287 C165,275 195,250 220,233 C250,210 275,185 300,165 C330,142 355,120 380,106 C410,90 435,78 460,71 C490,62 515,55 540,52 C570,47 595,43 620,41 C645,38 670,36 700,35" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- ═══ MILESTONE MARKERS ═══ -->
+
+          <!-- M3: Pilot go-live -->
+          <circle class="milestone-dot" cx="140" cy="287" r="4" fill="#7a9ec2" opacity="0.7"/>
+          <text class="milestone-text" x="140" y="280" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">Pilot Go-Live</text>
+
+          <!-- M9: First measurable impact -->
+          <circle class="milestone-dot" cx="300" cy="165" r="4" fill="#c9a96e" opacity="0.7"/>
+          <text class="milestone-text" x="300" y="155" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">First Measurable KPI Impact</text>
+
+          <!-- M12: Cross-team rollout -->
+          <circle class="milestone-dot" cx="380" cy="106" r="4" fill="#c9a96e" opacity="0.7"/>
+
+          <!-- M18: Steady state -->
+          <circle class="milestone-dot" cx="540" cy="52" r="4" fill="#6b9e7a" opacity="0.7"/>
+          <text class="milestone-text" x="540" y="44" text-anchor="middle" font-size="7.5" font-weight="400" letter-spacing="0.02em" opacity="0.7">Steady-State Operations</text>
+
+          <!-- ═══ END-STATE LABELS (right edge) ═══ -->
+          <text class="curve-label" x="706" y="34" font-size="8" font-weight="500" fill="#c9a96e" opacity="0.8">98%</text>
+          <text class="curve-label" x="706" y="44" font-size="7" font-weight="300" fill="#c9a96e" opacity="0.5">Insight Speed</text>
+
+          <text class="curve-label" x="706" y="58" font-size="7" font-weight="300" fill="#7a9ec2" opacity="0.5">Consistency</text>
+
+          <text class="curve-label" x="706" y="69" font-size="7" font-weight="300" fill="#6b9e7a" opacity="0.5">Risk Visibility</text>
+
+          <text class="curve-label" x="706" y="80" font-size="7" font-weight="300" fill="#c27c9e" opacity="0.5">Committee</text>
+
+          <text class="curve-label" x="706" y="91" font-size="7" font-weight="300" fill="#9e8cc2" opacity="0.5">Alignment</text>
+
+        </svg>
+      </div>
+
+      <!-- Legend -->
+      <div class="bc-legend">
+        <div class="bc-legend-item">
+          <div class="bc-legend-swatch" style="background:#c9a96e"></div>
+          <span class="bc-legend-text">Insight-to-Decision Speed</span>
+        </div>
+        <div class="bc-legend-item">
+          <div class="bc-legend-swatch" style="background:#7a9ec2"></div>
+          <span class="bc-legend-text">Interpretation Consistency</span>
+        </div>
+        <div class="bc-legend-item">
+          <div class="bc-legend-swatch" style="background:#6b9e7a"></div>
+          <span class="bc-legend-text">Risk Visibility</span>
+        </div>
+        <div class="bc-legend-item">
+          <div class="bc-legend-swatch" style="background:#c27c9e"></div>
+          <span class="bc-legend-text">Committee Readiness</span>
+        </div>
+        <div class="bc-legend-item">
+          <div class="bc-legend-swatch" style="background:#9e8cc2"></div>
+          <span class="bc-legend-text">Cross-Functional Alignment</span>
+        </div>
+      </div>
+
+      <!-- Phase timeline strip -->
+      <div class="bc-phases">
+        <div class="bc-phase bc-phase-setup">
+          <div class="bc-phase-name">Setup</div>
+          <div class="bc-phase-period">Months 0–3</div>
+          <div class="bc-phase-desc">Data integration, configuration, initial persona onboarding</div>
+        </div>
+        <div class="bc-phase bc-phase-pilot">
+          <div class="bc-phase-name">Pilot</div>
+          <div class="bc-phase-period">Months 3–9</div>
+          <div class="bc-phase-desc">Single team deployment, workflow validation, first KPI baselines established</div>
+        </div>
+        <div class="bc-phase bc-phase-scale">
+          <div class="bc-phase-name">Scale</div>
+          <div class="bc-phase-period">Months 9–18</div>
+          <div class="bc-phase-desc">Cross-team rollout, committee integration, measurable benefit acceleration</div>
+        </div>
+        <div class="bc-phase bc-phase-optimize">
+          <div class="bc-phase-name">Optimize</div>
+          <div class="bc-phase-period">Months 18–24</div>
+          <div class="bc-phase-desc">Steady-state operations, feedback loop refinement, full organizational adoption</div>
+        </div>
+      </div>
+    </div>
 
     <div class="kpi-grid">
       <div class="kpi-card">
