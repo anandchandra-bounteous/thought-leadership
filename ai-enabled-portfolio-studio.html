@@ -202,7 +202,11 @@ html.light .flow-node-accent {
 .tlc, .tlc-office, .tlc-office-head, .tlc-stage,
 .tlc-coverage-fo, .tlc-coverage-empty,
 .arch-container, .arch-platform, .arch-source, .arch-layer,
-.arch-branch-card, .arch-governance, .arch-oos, .arch-explanation-card {
+.arch-branch-card, .arch-governance, .arch-oos, .arch-explanation-card,
+.pmatrix, .pmatrix-cell, .pmatrix-row-label, .pmatrix-detail, .pmatrix-mobile-card,
+.capradar, .capradar-detail, .capbar-track,
+.probcard, .prob-row, .prob-cascade-node, .prob-coi, .prob-impact-tag,
+.ciodash, .ciodash-pillar, .ciodash-dim, .ciodash-group-head, .ciodash-statement {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -1244,6 +1248,241 @@ html.light .tlc-coverage-fo {
 
 .kpi-card-full {
   grid-column: span 2;
+}
+
+/* ═══════════════════════════════════════
+   PROBLEM IMPACT SCORECARD
+   ═══════════════════════════════════════ */
+.probcard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.probcard-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.probcard-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.probcard-head .probcard-badge {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  padding: 3px 8px; border-radius: var(--radius);
+  background: var(--red-dim); color: var(--red);
+  border: 1px solid rgba(194,124,110,0.2);
+}
+
+html.light .probcard-badge { border-color: rgba(160,85,68,0.2); }
+
+/* ── Cascade strip ── */
+.prob-cascade {
+  display: flex;
+  align-items: center;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border-light);
+  overflow-x: auto;
+  gap: 0;
+}
+
+.prob-cascade-step {
+  display: flex; align-items: center; flex-shrink: 0;
+}
+
+.prob-cascade-node {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--red);
+  padding: 5px 12px;
+  border: 1px solid rgba(194,124,110,0.25);
+  border-radius: var(--radius);
+  white-space: nowrap;
+  background: var(--red-dim);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+html.light .prob-cascade-node { border-color: rgba(160,85,68,0.2); background: rgba(160,85,68,0.05); }
+
+.prob-cascade-arrow {
+  display: flex; align-items: center; padding: 0 6px; flex-shrink: 0;
+}
+
+.prob-cascade-arrow svg {
+  width: 16px; height: 10px;
+  stroke: var(--red); opacity: 0.3;
+  fill: none; stroke-width: 1.5;
+}
+
+/* ── Problem rows ── */
+.prob-rows {
+  display: flex; flex-direction: column;
+}
+
+.prob-row {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.prob-row:last-child { border-bottom: none; }
+.prob-row:hover { background: var(--bg-elevated); }
+
+/* Severity bar (left edge) */
+.prob-severity {
+  display: flex; align-items: stretch; justify-content: center;
+  border-right: 1px solid var(--border-light);
+  position: relative;
+}
+
+.prob-severity-bar {
+  width: 4px; border-radius: 2px;
+  margin: 16px 0;
+}
+
+.prob-severity-critical .prob-severity-bar { background: var(--red); }
+.prob-severity-high .prob-severity-bar { background: var(--accent); opacity: 0.7; }
+.prob-severity-medium .prob-severity-bar { background: var(--text-muted); opacity: 0.5; }
+
+.prob-severity-label {
+  position: absolute;
+  bottom: 4px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-sans);
+  font-size: 6.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.prob-severity-critical .prob-severity-label { color: var(--red); }
+.prob-severity-high .prob-severity-label { color: var(--accent-dim); }
+.prob-severity-medium .prob-severity-label { color: var(--text-muted); }
+
+/* Problem content */
+.prob-content {
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.prob-header {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+}
+
+.prob-title {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.005em;
+}
+
+.prob-desc {
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.65;
+}
+
+/* Impact dimension tags */
+.prob-impacts {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+
+.prob-impact-tag {
+  font-family: var(--font-sans);
+  font-size: 8.5px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--text-tertiary);
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.prob-impact-tag-who {
+  border-color: rgba(122,158,194,0.3);
+  color: var(--blue);
+}
+
+.prob-impact-tag-cost {
+  border-color: rgba(194,124,110,0.25);
+  color: var(--red);
+}
+
+.prob-impact-tag-kpi {
+  border-color: var(--accent-border);
+  color: var(--accent-dim);
+}
+
+/* ── Cost of Inaction callout ── */
+.prob-coi {
+  padding: 28px 28px 24px;
+  border-top: 1px solid var(--border-light);
+  background: var(--red-dim);
+  transition: background 0.4s ease;
+}
+
+html.light .prob-coi { background: rgba(160,85,68,0.04); }
+
+.prob-coi-label {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--red); margin-bottom: 12px;
+}
+
+.prob-coi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.prob-coi-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+.prob-coi-metric {
+  font-family: var(--font-serif);
+  font-size: 18px; font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.prob-coi-desc {
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .prob-cascade { padding: 12px 16px; }
+  .prob-row { grid-template-columns: 40px 1fr; }
+  .prob-content { padding: 16px; }
+  .prob-coi-grid { grid-template-columns: 1fr; gap: 12px; }
+  .prob-title { font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+  .prob-cascade-node { font-size: 8px; padding: 4px 8px; }
+  .prob-severity-label { font-size: 6px; }
+}
+
+@media print {
+  .probcard { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .prob-cascade-node { border-color: #ddd; background: #fef7f0; }
+  .prob-coi { background: #fef7f0; }
+  .prob-severity-critical .prob-severity-bar { background: #c27c6e; }
 }
 
 /* ═══════════════════════════════════════
@@ -2748,7 +2987,619 @@ tbody tr:hover { background: var(--bg-card); }
 }
 
 /* ═══════════════════════════════════════
-   CAPABILITY GRID
+   PERSONA × MODULE MATRIX
+   ═══════════════════════════════════════ */
+.pmatrix {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.pmatrix-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pmatrix-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.pmatrix-head .pmatrix-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* Grid: header row + 5 persona rows */
+.pmatrix-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(7, 1fr);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Column header row */
+.pmatrix-col-head {
+  padding: 14px 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  transition: background 0.4s ease;
+}
+
+.pmatrix-col-head:last-child { border-right: none; }
+
+.pmatrix-col-label {
+  font-family: var(--font-sans);
+  font-size: 8.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  line-height: 1.35;
+}
+
+.pmatrix-col-sub {
+  font-family: var(--font-sans);
+  font-size: 7.5px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* Corner cell */
+.pmatrix-corner {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-end;
+}
+
+.pmatrix-corner-label {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* Persona row label */
+.pmatrix-row-label {
+  padding: 16px 16px;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  transition: background 0.4s ease;
+}
+
+.pmatrix-row-label:hover {
+  background: var(--bg-elevated);
+}
+
+.pmatrix-persona-name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.pmatrix-persona-role {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Matrix cell */
+.pmatrix-cell {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.pmatrix-cell:last-child { border-right: none; }
+
+.pmatrix-cell:hover {
+  background: var(--accent-glow);
+}
+
+/* Dot indicators */
+.pmatrix-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.pmatrix-cell:hover .pmatrix-dot {
+  transform: scale(1.15);
+}
+
+/* Primary: filled gold */
+.pmatrix-dot-primary {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(201,169,110,0.25);
+}
+
+.pmatrix-dot-primary::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  opacity: 0;
+}
+
+/* Secondary: outlined */
+.pmatrix-dot-secondary {
+  border: 1.5px solid var(--accent-dim);
+  background: transparent;
+  opacity: 0.6;
+}
+
+/* Core: all personas use this — special style */
+.pmatrix-dot-core {
+  background: var(--accent);
+  width: 10px;
+  height: 10px;
+}
+
+/* Empty cell — just a subtle dash */
+.pmatrix-dot-empty {
+  width: 14px;
+  height: 1px;
+  background: var(--border);
+  border-radius: 0;
+  opacity: 0.3;
+}
+
+/* Row highlight on hover */
+.pmatrix-row-label:hover ~ .pmatrix-cell,
+.pmatrix-row-label:hover {
+  background: var(--accent-glow);
+}
+
+/* ── Persona detail cards below matrix ── */
+.pmatrix-details {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.pmatrix-detail {
+  padding: 20px 16px;
+  border-right: 1px solid var(--border-light);
+  transition: background 0.4s ease;
+}
+
+.pmatrix-detail:last-child { border-right: none; }
+
+.pmatrix-detail-name {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.pmatrix-detail-label {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  margin-top: 10px;
+}
+
+.pmatrix-detail-text {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.55;
+}
+
+/* Legend */
+.pmatrix-legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 28px;
+  border-top: 1px solid var(--border-light);
+}
+
+.pmatrix-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pmatrix-legend-dot-primary {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.pmatrix-legend-dot-core {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.pmatrix-legend-dot-empty {
+  width: 12px;
+  height: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.pmatrix-legend-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .pmatrix-grid { grid-template-columns: 150px repeat(7, 1fr); }
+  .pmatrix-col-label { font-size: 7.5px; }
+}
+
+@media (max-width: 768px) {
+  .pmatrix-grid {
+    display: none;
+  }
+  .pmatrix-details {
+    grid-template-columns: 1fr;
+    border-top: none;
+  }
+  .pmatrix-detail {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding: 20px;
+  }
+  .pmatrix-detail:last-child { border-bottom: none; }
+  .pmatrix-legend { flex-wrap: wrap; gap: 12px; }
+  /* Show a mobile-friendly stacked list instead */
+  .pmatrix-mobile {
+    display: block;
+  }
+}
+
+/* Mobile persona cards (hidden on desktop) */
+.pmatrix-mobile {
+  display: none;
+}
+
+.pmatrix-mobile-card {
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.pmatrix-mobile-card:last-child { border-bottom: none; }
+
+.pmatrix-mobile-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.pmatrix-mobile-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+
+.pmatrix-mobile-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.pmatrix-mobile-mod {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+}
+
+.pmatrix-mobile-section {
+  margin-top: 10px;
+}
+
+.pmatrix-mobile-label {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.pmatrix-mobile-value {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.55;
+}
+
+@media print {
+  .pmatrix { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .pmatrix-dot-primary { background: #c9a96e; }
+  .pmatrix-dot-core { background: #c9a96e; }
+  .pmatrix-mobile { display: none; }
+}
+
+/* ═══════════════════════════════════════
+   CAPABILITY RADAR + SCORECARDS
+   ═══════════════════════════════════════ */
+.capradar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.capradar-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.capradar-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.capradar-head .capradar-badge {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  padding: 3px 8px; border-radius: var(--radius);
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.capradar-body {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  min-height: 420px;
+}
+
+.capradar-chart {
+  padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border-light);
+}
+
+.capradar-chart svg {
+  width: 100%; height: auto; max-width: 380px;
+}
+
+/* SVG theming */
+.radar-grid { stroke: var(--border-light); fill: none; }
+.radar-axis { stroke: var(--border-light); }
+.radar-fill { fill: var(--accent); opacity: 0.1; }
+.radar-stroke { stroke: var(--accent); fill: none; stroke-width: 2; }
+.radar-dot { fill: var(--accent); }
+.radar-label { fill: var(--text-tertiary); font-family: var(--font-sans); font-size: 9px; font-weight: 400; }
+.radar-score { fill: var(--accent); font-family: var(--font-sans); font-size: 8px; font-weight: 600; }
+.radar-ring-label { fill: var(--text-muted); font-family: var(--font-sans); font-size: 7px; font-weight: 300; }
+
+html.light .radar-fill { opacity: 0.08; }
+
+/* ── Strength bars panel ── */
+.capradar-bars {
+  padding: 20px 24px;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 0;
+}
+
+.capbar-group {
+  margin-bottom: 16px;
+}
+
+.capbar-group:last-child { margin-bottom: 0; }
+
+.capbar-group-label {
+  font-family: var(--font-sans);
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.capbar {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.capbar-name {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.capbar-track {
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.capbar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+.capbar-fill-gold { background: var(--accent); }
+.capbar-fill-blue { background: var(--blue); }
+.capbar-fill-green { background: var(--green); }
+
+.capbar-score {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500;
+  color: var(--text-muted);
+  width: 28px;
+  text-align: right;
+}
+
+/* ── Capability detail strip ── */
+.capradar-details {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.capradar-detail {
+  padding: 18px 14px;
+  border-right: 1px solid var(--border-light);
+  transition: background 0.4s ease;
+}
+
+.capradar-detail:last-child { border-right: none; }
+
+.capradar-detail:hover { background: var(--bg-elevated); }
+
+.capradar-detail-score {
+  font-family: var(--font-mono);
+  font-size: 22px; font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.capradar-detail-name {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.capradar-detail-desc {
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Legend */
+.capradar-legend {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  padding: 14px 28px;
+  border-top: 1px solid var(--border-light);
+}
+
+.capradar-legend-item {
+  display: flex; align-items: center; gap: 7px;
+}
+
+.capradar-legend-swatch {
+  width: 16px; height: 4px; border-radius: 2px; flex-shrink: 0;
+}
+
+.capradar-legend-text {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .capradar-body { grid-template-columns: 1fr; }
+  .capradar-chart { border-right: none; border-bottom: 1px solid var(--border-light); padding: 28px; }
+  .capradar-chart svg { max-width: 340px; }
+}
+
+@media (max-width: 768px) {
+  .capradar-details { grid-template-columns: repeat(2, 1fr); }
+  .capradar-detail:nth-child(2) { border-right: none; }
+  .capradar-detail:nth-child(4) { border-right: none; }
+  .capbar { grid-template-columns: 110px 1fr auto; gap: 8px; }
+  .capbar-name { font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  .capradar-details { grid-template-columns: 1fr; }
+  .capradar-detail { border-right: none; border-bottom: 1px solid var(--border-light); }
+  .capradar-detail:last-child { border-bottom: none; }
+}
+
+@media print {
+  .capradar { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .capbar-fill-gold { background: #c9a96e; }
+  .capbar-fill-blue { background: #5a8ab5; }
+  .capbar-fill-green { background: #4a8a5e; }
+}
+
+/* ═══════════════════════════════════════
+   CAPABILITY GRID (legacy — kept for fallback)
    ═══════════════════════════════════════ */
 .cap-grid {
   display: grid;
@@ -3287,7 +4138,289 @@ html.light .arch-platform {
 }
 
 /* ═══════════════════════════════════════
-   NFR GRID
+   CIO CONFIDENCE DASHBOARD
+   ═══════════════════════════════════════ */
+.ciodash {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.ciodash-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.ciodash-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+}
+
+.ciodash-head .ciodash-badge {
+  font-size: 8px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  padding: 3px 8px; border-radius: var(--radius);
+  background: var(--green-dim); color: var(--green);
+  border: 1px solid rgba(107,158,122,0.25);
+}
+
+/* ── Hero row: ring + pillar scores ── */
+.ciodash-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ciodash-ring-panel {
+  display: flex; align-items: center; justify-content: center;
+  padding: 32px 24px;
+  border-right: 1px solid var(--border-light);
+}
+
+.ciodash-ring-panel svg {
+  width: 160px; height: 160px;
+}
+
+.ring-track { fill: none; stroke: var(--border-light); stroke-width: 6; }
+.ring-fill { fill: none; stroke-width: 6; stroke-linecap: round;
+  transform-origin: center; transform: rotate(-90deg);
+  transition: stroke-dasharray 1s ease, stroke 0.4s ease; }
+.ring-fill-green { stroke: var(--green); }
+.ring-score { fill: var(--text-primary); font-family: var(--font-serif); font-weight: 500; }
+.ring-label { fill: var(--text-muted); font-family: var(--font-sans); }
+
+.ciodash-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.ciodash-pillar {
+  padding: 28px 22px;
+  border-right: 1px solid var(--border-light);
+  display: flex; flex-direction: column; justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.ciodash-pillar:last-child { border-right: none; }
+.ciodash-pillar:hover { background: var(--bg-elevated); }
+
+.ciodash-pillar-score {
+  font-family: var(--font-serif);
+  font-size: 28px; font-weight: 500;
+  color: var(--green);
+  line-height: 1; margin-bottom: 6px;
+}
+
+.ciodash-pillar-name {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.ciodash-pillar-desc {
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* ── Dimension rows (grouped under pillars) ── */
+.ciodash-group {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ciodash-group:last-child { border-bottom: none; }
+
+.ciodash-group-head {
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  display: flex; align-items: center; gap: 10px;
+  transition: background 0.4s ease;
+}
+
+html.light .ciodash-group-head { background: #f3f1ed; }
+
+.ciodash-group-name {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.ciodash-group-score {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500;
+  color: var(--green);
+  margin-left: auto;
+}
+
+.ciodash-dims {
+  display: flex; flex-direction: column;
+}
+
+.ciodash-dim {
+  display: grid;
+  grid-template-columns: 1fr 120px 90px;
+  align-items: center;
+  padding: 0;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.ciodash-dim:last-child { border-bottom: none; }
+.ciodash-dim:hover { background: var(--bg-elevated); }
+
+.ciodash-dim-info {
+  padding: 16px 24px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+
+.ciodash-dim-name {
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.ciodash-dim-desc {
+  font-family: var(--font-sans);
+  font-size: 11.5px; font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.55;
+}
+
+/* Score bar cell */
+.ciodash-dim-bar-cell {
+  padding: 16px 16px 16px 0;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.ciodash-dim-bar-track {
+  flex: 1; height: 5px;
+  background: var(--border-light);
+  border-radius: 2.5px; overflow: hidden;
+}
+
+.ciodash-dim-bar-fill {
+  height: 100%; border-radius: 2.5px;
+  background: var(--green);
+  transition: width 0.8s ease;
+}
+
+.ciodash-dim-score {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  color: var(--text-tertiary);
+  width: 24px; text-align: right;
+}
+
+/* Status tag cell */
+.ciodash-dim-status-cell {
+  padding: 16px 20px 16px 0;
+}
+
+.ciodash-status {
+  font-family: var(--font-sans);
+  font-size: 8.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 3px 10px; border-radius: var(--radius);
+  text-align: center; display: inline-block;
+}
+
+.ciodash-status-ready {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(107,158,122,0.25);
+}
+
+.ciodash-status-maturing {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.ciodash-status-planned {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border: 1px solid rgba(122,158,194,0.25);
+}
+
+/* ── Confidence Statement ── */
+.ciodash-statement {
+  padding: 28px 28px 24px;
+  border-top: 1px solid var(--border-light);
+  background: var(--green-dim);
+  transition: background 0.4s ease;
+}
+
+html.light .ciodash-statement { background: rgba(61,122,80,0.04); }
+
+.ciodash-statement-label {
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--green); margin-bottom: 12px;
+}
+
+.ciodash-statement-text {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.ciodash-statement-text strong {
+  font-weight: 500; font-style: normal;
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ciodash-hero { grid-template-columns: 180px 1fr; }
+  .ciodash-ring-panel { padding: 24px 16px; }
+  .ciodash-ring-panel svg { width: 130px; height: 130px; }
+}
+
+@media (max-width: 768px) {
+  .ciodash-hero { grid-template-columns: 1fr; }
+  .ciodash-ring-panel { border-right: none; border-bottom: 1px solid var(--border-light); padding: 28px; }
+  .ciodash-pillars { grid-template-columns: 1fr; }
+  .ciodash-pillar { border-right: none; border-bottom: 1px solid var(--border-light); padding: 20px; }
+  .ciodash-pillar:last-child { border-bottom: none; }
+  .ciodash-dim { grid-template-columns: 1fr; }
+  .ciodash-dim-bar-cell { padding: 0 24px 8px; }
+  .ciodash-dim-status-cell { padding: 0 24px 16px; }
+}
+
+@media (max-width: 480px) {
+  .ciodash-dim-info { padding: 14px 16px 6px; }
+  .ciodash-dim-bar-cell { padding: 0 16px 6px; }
+  .ciodash-dim-status-cell { padding: 0 16px 14px; }
+}
+
+@media print {
+  .ciodash { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .ciodash-statement { background: #eef8f1; }
+  .ciodash-group-head { background: #f5f5f5; }
+  .ring-fill-green { stroke: #4a8a5e; }
+  .ciodash-dim-bar-fill { background: #4a8a5e; }
+  .ciodash-status-ready { background: #eef8f1; color: #2f855a; border-color: #c5e0cc; }
+  .ciodash-status-maturing { background: #fdf8ef; color: #806530; border-color: #c9a96e; }
+}
+
+/* ═══════════════════════════════════════
+   NFR GRID (legacy — kept for fallback)
    ═══════════════════════════════════════ */
 .nfr-grid {
   display: grid;
@@ -3697,37 +4830,177 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
     <h2>The Business Problem</h2>
     <p class="section-lead">Investment management organizations face a common structural challenge: information is abundant, but its interpretation and translation into portfolio decisions is fragmented and inconsistent.</p>
 
-    <div class="card-grid card-grid-2">
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Information Abundance, Interpretation Fragmentation</h4>
-        <p>Market data, research, news, and commentary are plentiful. But the synthesis of this information into a coherent portfolio view is manual, time-intensive, and dependent on individual judgment.</p>
+    <div class="probcard">
+      <div class="probcard-head">
+        <span class="probcard-badge" data-tip="Six interconnected problems that compound across the investment operating model. Each is scored by severity, mapped to the personas it impacts, and linked to the CIO-level cost it creates." data-tip-pos="below">Impact Assessment</span>
+        <h4>Problem Landscape — Operating Model Friction Points</h4>
       </div>
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Disconnected Workflows</h4>
-        <p>Research, portfolio construction, and risk review operate in separate tools and processes. Insight generated in one function is not consistently carried through to the next.</p>
+
+      <!-- Compounding Cascade -->
+      <div class="prob-cascade">
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="The root cause: information arrives from many sources but is never unified into a common interpretive framework.">Fragmented Information</div>
+        </div>
+        <div class="prob-cascade-arrow"><svg viewBox="0 0 16 10"><polyline points="1,5 12,5" /><polyline points="9,2 12,5 9,8" /></svg></div>
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="Manual synthesis creates a single-person bottleneck. Quality, speed, and consistency depend entirely on individual judgment.">Manual Interpretation</div>
+        </div>
+        <div class="prob-cascade-arrow"><svg viewBox="0 0 16 10"><polyline points="1,5 12,5" /><polyline points="9,2 12,5 9,8" /></svg></div>
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="Research, portfolio construction, and risk review operate in isolated tools and workflows — insight doesn't flow between them.">Siloed Workflows</div>
+        </div>
+        <div class="prob-cascade-arrow"><svg viewBox="0 0 16 10"><polyline points="1,5 12,5" /><polyline points="9,2 12,5 9,8" /></svg></div>
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="Risk review relies on backward-looking quantitative metrics and misses narrative-driven regime shifts until they've already impacted the portfolio.">Reactive Risk</div>
+        </div>
+        <div class="prob-cascade-arrow"><svg viewBox="0 0 16 10"><polyline points="1,5 12,5" /><polyline points="9,2 12,5 9,8" /></svg></div>
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="Committee materials are assembled manually from disconnected sources, resulting in uneven quality and gaps in narrative context.">Uneven Governance</div>
+        </div>
+        <div class="prob-cascade-arrow"><svg viewBox="0 0 16 10"><polyline points="1,5 12,5" /><polyline points="9,2 12,5 9,8" /></svg></div>
+        <div class="prob-cascade-step">
+          <div class="prob-cascade-node" data-tip="The final failure: qualitative insight is generated but never converted into structured signals that downstream systems can consume — value is lost.">Lost Signals</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Manual Narrative Interpretation</h4>
-        <p>Narrative interpretation — understanding what market developments mean for portfolio positioning — is largely manual and person-dependent. It does not scale and is difficult to make consistent.</p>
+
+      <!-- Problem Rows -->
+      <div class="prob-rows">
+
+        <!-- 1 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-critical" data-tip="Critical severity: this is the root cause that cascades into all other operating model problems.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">Critical</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Information Abundance, Interpretation Fragmentation</span>
+            </div>
+            <div class="prob-desc">Market data, research, news, and commentary are plentiful. But the synthesis of this information into a coherent portfolio view is manual, time-intensive, and dependent on individual judgment.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="Affects every investment professional who needs to interpret market context before making decisions.">All Personas</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Decision latency increases as teams wait for manual synthesis before acting on market developments.">Decision Latency</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Time to investment insight, Time to pre-trade decision.">KPI: Insight Speed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-critical" data-tip="Critical severity: person-dependency in interpretation creates the single biggest consistency risk across the investment function.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">Critical</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Manual Narrative Interpretation</span>
+            </div>
+            <div class="prob-desc">Narrative interpretation — understanding what market developments mean for portfolio positioning — is largely manual and person-dependent. It does not scale and is difficult to make consistent.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="Analysts and PMs are the primary bottleneck. CIO lacks visibility into interpretation consistency.">Analysts · PMs · CIO</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Person-dependency means key-person risk, inconsistent output quality, and inability to scale across teams.">Person-Dependency</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Consistency of investment review process.">KPI: Consistency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-high" data-tip="High severity: siloed workflows prevent cross-functional alignment and compound interpretation fragmentation.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">High</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Disconnected Workflows</span>
+            </div>
+            <div class="prob-desc">Research, portfolio construction, and risk review operate in separate tools and processes. Insight generated in one function is not consistently carried through to the next.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="Research, portfolio, and risk teams all suffer — but the CIO bears the organizational cost of misalignment.">Research · Portfolio · Risk</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Information asymmetry between functions leads to inconsistent decisions and duplicated effort.">Cross-Function Friction</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Portfolio review quality, Cross-functional alignment.">KPI: Alignment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-critical" data-tip="Critical severity: reactive risk review is the most dangerous consequence — vulnerabilities surface in P&L before they surface in risk reports.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">Critical</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Reactive Risk Review</span>
+            </div>
+            <div class="prob-desc">Risk review often lags emerging developments. Traditional risk metrics capture quantitative exposure but underweight the narrative and thematic risks that drive market regime changes.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="Risk analysts are directly impacted, but PMs and the CIO bear the portfolio-level consequence.">Risk · PMs · CIO</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Vulnerabilities surface in portfolio performance before they surface in risk reports — the worst possible sequence.">Blind Exposure</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Early identification of portfolio vulnerabilities.">KPI: Risk Visibility</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-high" data-tip="High severity: governance quality depends on committee preparation — inconsistency here creates audit and oversight risk.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">High</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Uneven Committee Preparation</span>
+            </div>
+            <div class="prob-desc">Investment committee preparation is time-intensive and varies in quality. The link between market context, portfolio rationale, and risk awareness is often presented inconsistently.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="CIO and committee members see inconsistent quality. Analysts and PMs bear the preparation burden.">CIO · Committee · Analysts</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Governance traceability gaps create audit risk and weaken oversight quality.">Governance Gaps</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Committee preparation efficiency, Governance traceability.">KPI: Governance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="prob-row">
+          <div class="prob-severity prob-severity-high" data-tip="High severity: this is the terminal failure — insight that was generated at cost is never structurally captured, so its value is lost.">
+            <div class="prob-severity-bar"></div>
+            <span class="prob-severity-label">High</span>
+          </div>
+          <div class="prob-content">
+            <div class="prob-header">
+              <span class="prob-title">Insight Not Converted to Signals</span>
+            </div>
+            <div class="prob-desc">Insight is frequently generated but not consistently converted into structured decision signals that can be consumed by downstream portfolio and risk processes.</div>
+            <div class="prob-impacts">
+              <span class="prob-impact-tag prob-impact-tag-who" data-tip="Researchers generate the insight; PMs and risk teams fail to receive it in a usable form.">Research · PMs · Risk</span>
+              <span class="prob-impact-tag prob-impact-tag-cost" data-tip="Effort invested in research and analysis is wasted when its outputs cannot be systematically consumed downstream.">Wasted Effort</span>
+              <span class="prob-impact-tag prob-impact-tag-kpi" data-tip="Directly degrades: Reduction in manual synthesis effort, Portfolio review quality.">KPI: Operating Efficiency</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Reactive Risk Review</h4>
-        <p>Risk review often lags emerging developments. Traditional risk metrics capture quantitative exposure but underweight the narrative and thematic risks that drive market regime changes.</p>
+
+      <!-- Cost of Inaction -->
+      <div class="prob-coi">
+        <div class="prob-coi-label">Cost of Inaction — What Staying with the Current Model Means</div>
+        <div class="prob-coi-grid">
+          <div class="prob-coi-item" data-tip="Every hour of delay between market event and portfolio response is an hour of unmanaged exposure to narrative-driven risk. Manual synthesis makes this delay structural, not incidental.">
+            <div class="prob-coi-metric">Decision Latency</div>
+            <div class="prob-coi-desc">Slow insight-to-action cycles leave portfolios exposed to developments that have already been identified but not yet acted upon</div>
+          </div>
+          <div class="prob-coi-item" data-tip="When interpretation depends on individual judgment without a shared framework, the investment function cannot demonstrate consistency to boards, regulators, or clients.">
+            <div class="prob-coi-metric">Person-Dependency</div>
+            <div class="prob-coi-desc">Key-person risk in interpretation creates fragility across the investment process — consistency cannot be demonstrated or audited</div>
+          </div>
+          <div class="prob-coi-item" data-tip="Without structured intelligence feeding governance workflows, committee materials vary in quality, decisions lack traceability, and the organization struggles to demonstrate disciplined oversight.">
+            <div class="prob-coi-metric">Governance Exposure</div>
+            <div class="prob-coi-desc">Inconsistent committee preparation and limited traceability create growing risk for oversight quality and regulatory confidence</div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Uneven Committee Preparation</h4>
-        <p>Investment committee preparation is time-intensive and varies in quality. The link between market context, portfolio rationale, and risk awareness is often presented inconsistently.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h4>Insight Not Converted to Signals</h4>
-        <p>Insight is frequently generated but not consistently converted into structured decision signals that can be consumed by downstream portfolio and risk processes.</p>
-      </div>
+
     </div>
   </section>
 
@@ -4554,19 +5827,205 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <section class="section fade-in" id="persona-mapping">
     <div class="section-num">08</div>
     <h2>Persona-to-Module Mapping</h2>
-    <p class="section-lead">A consolidated view of how each persona engages with Portfolio Studio modules.</p>
+    <p class="section-lead">A visual matrix showing how each persona engages with Portfolio Studio modules, and what decisions each relationship supports.</p>
 
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Persona</th><th>Primary Role</th><th>Primary Modules</th><th>Key Business Need</th><th>Decision Supported</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Portfolio Manager</strong></td><td>Pre-trade allocation, portfolio construction, rebalance decisions</td><td>Agentic AI Narrative Builder, Portfolio Optimizer, Risk Manager</td><td>Context-aware allocation support and confidence before changing portfolio positioning</td><td>Rebalance decisions, portfolio adjustments, allocation review</td></tr>
-          <tr><td><strong>Investment Analyst</strong></td><td>Research, idea generation, thesis development</td><td>Agentic AI Narrative Builder, Signal Structuring Layer, Strategy Research Layer</td><td>Convert large volumes of unstructured information into structured investment insight</td><td>Thesis support, investment recommendations, research outputs</td></tr>
-          <tr><td><strong>Risk Analyst</strong></td><td>Pre-trade risk review, ongoing portfolio surveillance</td><td>Agentic AI Narrative Builder, Risk Manager, Signal Structuring Layer</td><td>Earlier visibility into vulnerabilities and narrative-driven exposure risks</td><td>Risk review, vulnerability escalation, pre-trade risk insight</td></tr>
-          <tr><td><strong>CIO / Head of Investments</strong></td><td>Strategic oversight, portfolio governance, committee review</td><td>Agentic AI Narrative Builder, Executive Summary View, Risk Summary Outputs</td><td>High-level credible view of how narratives affect portfolio posture</td><td>Strategic alignment, oversight decisions, committee preparation</td></tr>
-          <tr><td><strong>Strategy Researcher</strong></td><td>Research support, model design, scenario analysis</td><td>Agentic AI Narrative Builder, Signal Structuring Layer, Strategy Research Layer</td><td>Reusable structured narrative inputs for testing and model refinement</td><td>Research experiments, factor exploration, strategy enhancement</td></tr>
-        </tbody>
-      </table>
+    <div class="pmatrix">
+      <div class="pmatrix-head">
+        <span class="pmatrix-badge" data-tip="Gold filled dots indicate primary modules for each persona. Small gold dots mark the Agentic AI Narrative Builder as the core engine used by all personas. Dashes indicate no direct usage." data-tip-pos="below">Matrix</span>
+        <h4>Persona × Module Engagement Map</h4>
+      </div>
+
+      <!-- Desktop Matrix Grid -->
+      <div class="pmatrix-grid">
+        <!-- Header row -->
+        <div class="pmatrix-corner"><span class="pmatrix-corner-label">Persona ↓ &nbsp; Module →</span></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Narrative Builder</div><div class="pmatrix-col-sub">Core Engine</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Signal Structuring</div><div class="pmatrix-col-sub">Framework</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Portfolio Optimizer</div><div class="pmatrix-col-sub">Allocation</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Risk Manager</div><div class="pmatrix-col-sub">Oversight</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Strategy Research</div><div class="pmatrix-col-sub">Feedback</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Executive Summary</div><div class="pmatrix-col-sub">Governance</div></div>
+        <div class="pmatrix-col-head"><div class="pmatrix-col-label">Risk Summary</div><div class="pmatrix-col-sub">Outputs</div></div>
+
+        <!-- Row 1: Portfolio Manager -->
+        <div class="pmatrix-row-label" data-tip="Pre-trade allocation, portfolio construction, rebalance decisions. Needs context-aware allocation support and confidence before changing portfolio positioning.">
+          <div class="pmatrix-persona-name">Portfolio Manager</div>
+          <div class="pmatrix-persona-role">Allocation &amp; Construction</div>
+        </div>
+        <div class="pmatrix-cell" data-tip="Core engine — provides interpreted narrative context for all PM workflows."><div class="pmatrix-dot pmatrix-dot-core"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — feeds narrative signals alongside market data into allocation decisions and scenario testing."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — provides narrative-aware risk context before trade execution."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+
+        <!-- Row 2: Investment Analyst -->
+        <div class="pmatrix-row-label" data-tip="Research, idea generation, thesis development. Needs to convert large volumes of unstructured information into structured investment insight.">
+          <div class="pmatrix-persona-name">Investment Analyst</div>
+          <div class="pmatrix-persona-role">Research &amp; Thesis</div>
+        </div>
+        <div class="pmatrix-cell" data-tip="Core engine — automates narrative interpretation across all information sources."><div class="pmatrix-dot pmatrix-dot-core"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — structures narratives into repeatable signal dimensions for thesis development."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — provides structured inputs for research experiments and strategy enhancement."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+
+        <!-- Row 3: Risk Analyst -->
+        <div class="pmatrix-row-label" data-tip="Pre-trade risk review, ongoing portfolio surveillance. Needs earlier visibility into vulnerabilities and narrative-driven exposure risks.">
+          <div class="pmatrix-persona-name">Risk Analyst</div>
+          <div class="pmatrix-persona-role">Risk &amp; Surveillance</div>
+        </div>
+        <div class="pmatrix-cell" data-tip="Core engine — identifies narrative-driven risks before they surface in quantitative metrics."><div class="pmatrix-dot pmatrix-dot-core"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — provides structured signal context for risk assessment across dimensions."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — the core risk application surface for vulnerability review and forward-looking context."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+
+        <!-- Row 4: CIO -->
+        <div class="pmatrix-row-label" data-tip="Strategic oversight, portfolio governance, investment committee review. Needs a high-level credible view of how narratives affect portfolio posture and risk stance.">
+          <div class="pmatrix-persona-name">CIO / Head of Investments</div>
+          <div class="pmatrix-persona-role">Oversight &amp; Governance</div>
+        </div>
+        <div class="pmatrix-cell" data-tip="Core engine — underpins all executive-level intelligence outputs."><div class="pmatrix-dot pmatrix-dot-core"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — provides narrative-linked executive summaries for committee preparation and strategic oversight."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — provides risk-aware portfolio posture summaries for governance review."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+
+        <!-- Row 5: Strategy Researcher -->
+        <div class="pmatrix-row-label" data-tip="Research support, model design, scenario analysis, feedback loop. Needs reusable structured narrative inputs for testing and model refinement.">
+          <div class="pmatrix-persona-name">Strategy Researcher</div>
+          <div class="pmatrix-persona-role">Quant &amp; Models</div>
+        </div>
+        <div class="pmatrix-cell" data-tip="Core engine — provides structured narrative data for quantitative research workflows."><div class="pmatrix-dot pmatrix-dot-core"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — outputs structured, reusable signals for factor exploration and model testing."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell" data-tip="Primary module — the core research feedback surface for strategy refinement and model enhancement."><div class="pmatrix-dot pmatrix-dot-primary"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+        <div class="pmatrix-cell"><div class="pmatrix-dot pmatrix-dot-empty"></div></div>
+      </div>
+
+      <!-- Mobile stacked cards (hidden on desktop) -->
+      <div class="pmatrix-mobile">
+        <div class="pmatrix-mobile-card">
+          <div class="pmatrix-mobile-name">Portfolio Manager</div>
+          <div class="pmatrix-mobile-role">Allocation &amp; Construction</div>
+          <div class="pmatrix-mobile-modules">
+            <span class="pmatrix-mobile-mod">Narrative Builder</span>
+            <span class="pmatrix-mobile-mod">Portfolio Optimizer</span>
+            <span class="pmatrix-mobile-mod">Risk Manager</span>
+          </div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Business Need</div><div class="pmatrix-mobile-value">Context-aware allocation support and confidence before changing portfolio positioning</div></div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Decision Supported</div><div class="pmatrix-mobile-value">Rebalance decisions, portfolio adjustments, allocation review</div></div>
+        </div>
+        <div class="pmatrix-mobile-card">
+          <div class="pmatrix-mobile-name">Investment Analyst</div>
+          <div class="pmatrix-mobile-role">Research &amp; Thesis</div>
+          <div class="pmatrix-mobile-modules">
+            <span class="pmatrix-mobile-mod">Narrative Builder</span>
+            <span class="pmatrix-mobile-mod">Signal Structuring</span>
+            <span class="pmatrix-mobile-mod">Strategy Research</span>
+          </div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Business Need</div><div class="pmatrix-mobile-value">Convert large volumes of unstructured information into structured investment insight</div></div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Decision Supported</div><div class="pmatrix-mobile-value">Thesis support, investment recommendations, research outputs</div></div>
+        </div>
+        <div class="pmatrix-mobile-card">
+          <div class="pmatrix-mobile-name">Risk Analyst</div>
+          <div class="pmatrix-mobile-role">Risk &amp; Surveillance</div>
+          <div class="pmatrix-mobile-modules">
+            <span class="pmatrix-mobile-mod">Narrative Builder</span>
+            <span class="pmatrix-mobile-mod">Signal Structuring</span>
+            <span class="pmatrix-mobile-mod">Risk Manager</span>
+          </div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Business Need</div><div class="pmatrix-mobile-value">Earlier visibility into vulnerabilities and narrative-driven exposure risks</div></div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Decision Supported</div><div class="pmatrix-mobile-value">Risk review, vulnerability escalation, pre-trade risk insight</div></div>
+        </div>
+        <div class="pmatrix-mobile-card">
+          <div class="pmatrix-mobile-name">CIO / Head of Investments</div>
+          <div class="pmatrix-mobile-role">Oversight &amp; Governance</div>
+          <div class="pmatrix-mobile-modules">
+            <span class="pmatrix-mobile-mod">Narrative Builder</span>
+            <span class="pmatrix-mobile-mod">Executive Summary</span>
+            <span class="pmatrix-mobile-mod">Risk Summary</span>
+          </div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Business Need</div><div class="pmatrix-mobile-value">High-level credible view of how narratives affect portfolio posture and risk stance</div></div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Decision Supported</div><div class="pmatrix-mobile-value">Strategic alignment, oversight decisions, committee preparation</div></div>
+        </div>
+        <div class="pmatrix-mobile-card">
+          <div class="pmatrix-mobile-name">Strategy Researcher</div>
+          <div class="pmatrix-mobile-role">Quant &amp; Models</div>
+          <div class="pmatrix-mobile-modules">
+            <span class="pmatrix-mobile-mod">Narrative Builder</span>
+            <span class="pmatrix-mobile-mod">Signal Structuring</span>
+            <span class="pmatrix-mobile-mod">Strategy Research</span>
+          </div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Business Need</div><div class="pmatrix-mobile-value">Reusable structured narrative inputs for testing and model refinement</div></div>
+          <div class="pmatrix-mobile-section"><div class="pmatrix-mobile-label">Decision Supported</div><div class="pmatrix-mobile-value">Research experiments, factor exploration, strategy enhancement</div></div>
+        </div>
+      </div>
+
+      <!-- Persona detail cards (desktop) -->
+      <div class="pmatrix-details">
+        <div class="pmatrix-detail">
+          <div class="pmatrix-detail-name">Portfolio Manager</div>
+          <div class="pmatrix-detail-label">Business Need</div>
+          <div class="pmatrix-detail-text">Context-aware allocation support and confidence before changing portfolio positioning</div>
+          <div class="pmatrix-detail-label">Decision Supported</div>
+          <div class="pmatrix-detail-text">Rebalance decisions, portfolio adjustments, allocation review</div>
+        </div>
+        <div class="pmatrix-detail">
+          <div class="pmatrix-detail-name">Investment Analyst</div>
+          <div class="pmatrix-detail-label">Business Need</div>
+          <div class="pmatrix-detail-text">Convert unstructured information into structured investment insight</div>
+          <div class="pmatrix-detail-label">Decision Supported</div>
+          <div class="pmatrix-detail-text">Thesis support, investment recommendations, research outputs</div>
+        </div>
+        <div class="pmatrix-detail">
+          <div class="pmatrix-detail-name">Risk Analyst</div>
+          <div class="pmatrix-detail-label">Business Need</div>
+          <div class="pmatrix-detail-text">Earlier visibility into vulnerabilities and narrative-driven exposure risks</div>
+          <div class="pmatrix-detail-label">Decision Supported</div>
+          <div class="pmatrix-detail-text">Risk review, vulnerability escalation, pre-trade risk insight</div>
+        </div>
+        <div class="pmatrix-detail">
+          <div class="pmatrix-detail-name">CIO</div>
+          <div class="pmatrix-detail-label">Business Need</div>
+          <div class="pmatrix-detail-text">Credible view of how narratives affect portfolio posture and risk stance</div>
+          <div class="pmatrix-detail-label">Decision Supported</div>
+          <div class="pmatrix-detail-text">Strategic alignment, oversight decisions, committee preparation</div>
+        </div>
+        <div class="pmatrix-detail">
+          <div class="pmatrix-detail-name">Researcher</div>
+          <div class="pmatrix-detail-label">Business Need</div>
+          <div class="pmatrix-detail-text">Reusable structured narrative inputs for model testing and refinement</div>
+          <div class="pmatrix-detail-label">Decision Supported</div>
+          <div class="pmatrix-detail-text">Research experiments, factor exploration, strategy enhancement</div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="pmatrix-legend">
+        <div class="pmatrix-legend-item">
+          <div class="pmatrix-legend-dot-primary"></div>
+          <span class="pmatrix-legend-text">Primary module</span>
+        </div>
+        <div class="pmatrix-legend-item">
+          <div class="pmatrix-legend-dot-core"></div>
+          <span class="pmatrix-legend-text">Core engine (all personas)</span>
+        </div>
+        <div class="pmatrix-legend-item">
+          <div class="pmatrix-legend-dot-empty"></div>
+          <span class="pmatrix-legend-text">Not directly used</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4576,19 +6035,209 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <section class="section fade-in" id="capabilities">
     <div class="section-num">09</div>
     <h2>Functional Capabilities</h2>
-    <p class="section-lead">The core capabilities that Portfolio Studio delivers, organized by function.</p>
+    <p class="section-lead">The core capabilities Portfolio Studio delivers — scored by capability depth across three functional domains.</p>
 
-    <div class="cap-grid">
-      <div class="cap-card"><h4>Narrative Interpretation</h4><p>Ingests unstructured market information and identifies dominant narratives, themes, and emerging developments relevant to portfolio positioning.</p></div>
-      <div class="cap-card"><h4>Narrative Structuring</h4><p>Transforms interpreted narratives into structured, consistent signals using a defined framework of business signal dimensions.</p></div>
-      <div class="cap-card"><h4>Signal Framework</h4><p>Maps narratives across five dimensions: Uncertainty, Fundamentals, Macro, Liquidity, and ESG &amp; Regulation.</p></div>
-      <div class="cap-card"><h4>Explainable Outputs</h4><p>All outputs include narrative provenance and reasoning. Signals are traceable to source information and interpretation logic.</p></div>
-      <div class="cap-card"><h4>Portfolio Application</h4><p>Structured signals feed portfolio construction and optimization processes, supporting context-aware allocation decisions.</p></div>
-      <div class="cap-card"><h4>Risk Application</h4><p>Narrative signals are integrated into risk review, enabling earlier identification of vulnerabilities and forward-looking risk context.</p></div>
-      <div class="cap-card"><h4>Governance Support</h4><p>Outputs support investment committee preparation, decision traceability, and governance documentation.</p></div>
-      <div class="cap-card"><h4>Decision Support Layer</h4><p>Provides PM recommendation support, analyst thesis reinforcement, committee briefings, and pre-trade challenge capabilities.</p></div>
-      <div class="cap-card"><h4>Cross-Module Consistency</h4><p>A shared narrative intelligence layer ensures research, portfolio, and risk functions operate from a common interpretation framework.</p></div>
-      <div class="cap-card"><h4>Human-in-the-Loop</h4><p>Designed as a decision-support platform, not a decision-making platform. Human judgment remains central to all portfolio actions.</p></div>
+    <div class="capradar">
+      <div class="capradar-head">
+        <span class="capradar-badge" data-tip="Scores reflect the assessed depth and maturity of each capability within the platform design. Intelligence Layer capabilities represent the core engine; Application Layer capabilities represent downstream consumption; Enterprise Layer capabilities represent governance and integration readiness." data-tip-pos="below">Capability Depth</span>
+        <h4>Functional Capability Radar — 10 Dimensions</h4>
+      </div>
+
+      <div class="capradar-body">
+
+        <!-- Radar chart -->
+        <div class="capradar-chart">
+          <svg viewBox="0 0 480 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Radar chart showing ten functional capabilities of Portfolio Studio scored by depth. Highest scores: Narrative Interpretation (95), Human-in-the-Loop (94), Signal Framework (90).">
+
+            <!-- Grid rings -->
+            <polygon class="radar-grid" points="240,161.3 262.8,168.7 276.9,188 276.9,212 262.8,231.3 240,238.8 217.2,231.3 203.1,212 203.1,188 217.2,168.7" stroke-dasharray="2,3" opacity="0.4"/>
+            <polygon class="radar-grid" points="240,122.5 285.6,137.3 313.7,176.1 313.7,223.9 285.6,262.7 240,277.5 194.4,262.7 166.3,223.9 166.3,176.1 194.4,137.3" stroke-dasharray="2,3" opacity="0.5"/>
+            <polygon class="radar-grid" points="240,83.8 308.3,106 350.6,164.1 350.6,235.9 308.3,294 240,316.3 171.7,294 129.4,235.9 129.4,164.1 171.7,106" stroke-dasharray="2,3" opacity="0.6"/>
+            <polygon class="radar-grid" points="240,45 331.1,74.6 387.4,152.1 387.4,247.9 331.1,325.4 240,355 148.9,325.4 92.6,247.9 92.6,152.1 148.9,74.6" opacity="0.7"/>
+
+            <!-- Ring labels -->
+            <text class="radar-ring-label" x="244" y="160" opacity="0.4">25</text>
+            <text class="radar-ring-label" x="244" y="121" opacity="0.4">50</text>
+            <text class="radar-ring-label" x="244" y="82" opacity="0.4">75</text>
+            <text class="radar-ring-label" x="244" y="43" opacity="0.4">100</text>
+
+            <!-- Axis lines -->
+            <line class="radar-axis" x1="240" y1="200" x2="240" y2="45" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="331.1" y2="74.6" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="387.4" y2="152.1" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="387.4" y2="247.9" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="331.1" y2="325.4" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="240" y2="355" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="148.9" y2="325.4" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="92.6" y2="247.9" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="92.6" y2="152.1" opacity="0.15"/>
+            <line class="radar-axis" x1="240" y1="200" x2="148.9" y2="74.6" opacity="0.15"/>
+
+            <!-- Score fill -->
+            <polygon class="radar-fill" points="240,52.8 323.8,84.6 372.7,156.9 371.2,242.6 319.3,309.1 240,336.4 163.5,305.3 105.8,243.6 113.2,158.8 154.4,82.1"/>
+
+            <!-- Score outline -->
+            <polygon class="radar-stroke" points="240,52.8 323.8,84.6 372.7,156.9 371.2,242.6 319.3,309.1 240,336.4 163.5,305.3 105.8,243.6 113.2,158.8 154.4,82.1" stroke-linejoin="round"/>
+
+            <!-- Score dots -->
+            <circle class="radar-dot" cx="240" cy="52.8" r="4"><title>Narrative Interpretation — 95/100: Ingests and interprets unstructured market information with high coverage and depth.</title></circle>
+            <circle class="radar-dot" cx="323.8" cy="84.6" r="4"><title>Narrative Structuring — 92/100: Transforms interpreted narratives into consistent, repeatable structured signals.</title></circle>
+            <circle class="radar-dot" cx="372.7" cy="156.9" r="3.5"><title>Signal Framework — 90/100: Maps narratives across five business dimensions with strong dimensional coverage.</title></circle>
+            <circle class="radar-dot" cx="371.2" cy="242.6" r="3.5"><title>Explainable Outputs — 89/100: All outputs include reasoning chains and source traceability for professional validation.</title></circle>
+            <circle class="radar-dot" cx="319.3" cy="309.1" r="3.5"><title>Portfolio Application — 87/100: Feeds structured signals into portfolio construction and optimization processes.</title></circle>
+            <circle class="radar-dot" cx="240" cy="336.4" r="3.5"><title>Risk Application — 88/100: Integrates narrative signals into risk review for earlier vulnerability identification.</title></circle>
+            <circle class="radar-dot" cx="163.5" cy="305.3" r="3.5"><title>Governance Support — 84/100: Supports committee preparation and governance documentation. Matures with adoption.</title></circle>
+            <circle class="radar-dot" cx="105.8" cy="243.6" r="4"><title>Decision Support — 91/100: PM recommendations, analyst thesis reinforcement, and committee briefing capabilities.</title></circle>
+            <circle class="radar-dot" cx="113.2" cy="158.8" r="3.5"><title>Cross-Module Consistency — 86/100: Shared signal framework across research, portfolio, and risk. Deepens over time.</title></circle>
+            <circle class="radar-dot" cx="154.4" cy="82.1" r="4"><title>Human-in-the-Loop — 94/100: All portfolio actions remain under human control. Strong augmentation, no autonomy.</title></circle>
+
+            <!-- Labels -->
+            <text class="radar-label" x="240" y="30" text-anchor="middle" font-weight="500">Narrative Interpretation</text>
+            <text class="radar-score" x="240" y="40" text-anchor="middle">95</text>
+
+            <text class="radar-label" x="345" y="70" text-anchor="start">Narrative Structuring</text>
+            <text class="radar-score" x="345" y="80" text-anchor="start">92</text>
+
+            <text class="radar-label" x="402" y="150" text-anchor="start">Signal Framework</text>
+            <text class="radar-score" x="402" y="160" text-anchor="start">90</text>
+
+            <text class="radar-label" x="402" y="246" text-anchor="start">Explainable Outputs</text>
+            <text class="radar-score" x="402" y="256" text-anchor="start">89</text>
+
+            <text class="radar-label" x="345" y="332" text-anchor="start">Portfolio Application</text>
+            <text class="radar-score" x="345" y="342" text-anchor="start">87</text>
+
+            <text class="radar-label" x="240" y="375" text-anchor="middle">Risk Application</text>
+            <text class="radar-score" x="240" y="385" text-anchor="middle">88</text>
+
+            <text class="radar-label" x="135" y="332" text-anchor="end">Governance Support</text>
+            <text class="radar-score" x="135" y="342" text-anchor="end">84</text>
+
+            <text class="radar-label" x="78" y="246" text-anchor="end">Decision Support</text>
+            <text class="radar-score" x="78" y="256" text-anchor="end">91</text>
+
+            <text class="radar-label" x="78" y="150" text-anchor="end">Cross-Module</text>
+            <text class="radar-score" x="78" y="160" text-anchor="end">86</text>
+
+            <text class="radar-label" x="135" y="70" text-anchor="end">Human-in-the-Loop</text>
+            <text class="radar-score" x="135" y="80" text-anchor="end">94</text>
+
+          </svg>
+        </div>
+
+        <!-- Strength bars -->
+        <div class="capradar-bars">
+
+          <div class="capbar-group">
+            <div class="capbar-group-label">Intelligence Layer</div>
+            <div class="capbar" data-tip="Ingests unstructured market information and identifies dominant narratives, themes, and emerging developments relevant to portfolio positioning.">
+              <div class="capbar-name">Narrative Interpretation</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-gold" style="width:95%"></div></div>
+              <div class="capbar-score">95</div>
+            </div>
+            <div class="capbar" data-tip="Transforms interpreted narratives into structured, consistent signals using a defined framework of business signal dimensions.">
+              <div class="capbar-name">Narrative Structuring</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-gold" style="width:92%"></div></div>
+              <div class="capbar-score">92</div>
+            </div>
+            <div class="capbar" data-tip="Maps narratives across five dimensions: Uncertainty, Fundamentals, Macro, Liquidity, and ESG & Regulation.">
+              <div class="capbar-name">Signal Framework</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-gold" style="width:90%"></div></div>
+              <div class="capbar-score">90</div>
+            </div>
+          </div>
+
+          <div class="capbar-group">
+            <div class="capbar-group-label">Application Layer</div>
+            <div class="capbar" data-tip="Provides PM recommendation support, analyst thesis reinforcement, committee briefings, and pre-trade challenge capabilities.">
+              <div class="capbar-name">Decision Support</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-blue" style="width:91%"></div></div>
+              <div class="capbar-score">91</div>
+            </div>
+            <div class="capbar" data-tip="Narrative signals are integrated into risk review, enabling earlier identification of vulnerabilities and forward-looking risk context.">
+              <div class="capbar-name">Risk Application</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-blue" style="width:88%"></div></div>
+              <div class="capbar-score">88</div>
+            </div>
+            <div class="capbar" data-tip="Structured signals feed portfolio construction and optimization processes, supporting context-aware allocation decisions.">
+              <div class="capbar-name">Portfolio Application</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-blue" style="width:87%"></div></div>
+              <div class="capbar-score">87</div>
+            </div>
+          </div>
+
+          <div class="capbar-group">
+            <div class="capbar-group-label">Enterprise Layer</div>
+            <div class="capbar" data-tip="Designed as a decision-support platform, not a decision-making platform. Human judgment remains central to all portfolio actions.">
+              <div class="capbar-name">Human-in-the-Loop</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-green" style="width:94%"></div></div>
+              <div class="capbar-score">94</div>
+            </div>
+            <div class="capbar" data-tip="All outputs include narrative provenance and reasoning. Signals are traceable to source information and interpretation logic.">
+              <div class="capbar-name">Explainable Outputs</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-green" style="width:89%"></div></div>
+              <div class="capbar-score">89</div>
+            </div>
+            <div class="capbar" data-tip="A shared narrative intelligence layer ensures research, portfolio, and risk functions operate from a common interpretation framework.">
+              <div class="capbar-name">Cross-Module Consistency</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-green" style="width:86%"></div></div>
+              <div class="capbar-score">86</div>
+            </div>
+            <div class="capbar" data-tip="Outputs support investment committee preparation, decision traceability, and governance documentation.">
+              <div class="capbar-name">Governance Support</div>
+              <div class="capbar-track"><div class="capbar-fill capbar-fill-green" style="width:84%"></div></div>
+              <div class="capbar-score">84</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Top 5 detail cards -->
+      <div class="capradar-details">
+        <div class="capradar-detail" data-tip="The highest-scoring Intelligence Layer capability. The Agentic AI Narrative Builder ingests and interprets unstructured information across all source domains continuously.">
+          <div class="capradar-detail-score">95</div>
+          <div class="capradar-detail-name">Narrative Interpretation</div>
+          <div class="capradar-detail-desc">Core engine capability — converts fragmented market information into interpreted narratives</div>
+        </div>
+        <div class="capradar-detail" data-tip="The highest-scoring Enterprise Layer capability. All portfolio actions remain under human control. The platform augments professional judgment — it never replaces it.">
+          <div class="capradar-detail-score">94</div>
+          <div class="capradar-detail-name">Human-in-the-Loop</div>
+          <div class="capradar-detail-desc">Decision-support design — human judgment remains central to every portfolio action</div>
+        </div>
+        <div class="capradar-detail" data-tip="Narratives are transformed into consistent, repeatable structured signals using the five-dimension business framework.">
+          <div class="capradar-detail-score">92</div>
+          <div class="capradar-detail-name">Narrative Structuring</div>
+          <div class="capradar-detail-desc">Transforms interpretation into repeatable, dimension-aligned business signals</div>
+        </div>
+        <div class="capradar-detail" data-tip="The highest-scoring Application Layer capability. Supports PM recommendations, analyst thesis, committee briefings, and pre-trade review.">
+          <div class="capradar-detail-score">91</div>
+          <div class="capradar-detail-name">Decision Support</div>
+          <div class="capradar-detail-desc">Supports PM, analyst, and committee decision workflows with structured context</div>
+        </div>
+        <div class="capradar-detail" data-tip="Five-dimension signal framework: Uncertainty, Fundamentals, Macro, Liquidity, and ESG & Regulation. The translation engine between raw narrative and structured application.">
+          <div class="capradar-detail-score">90</div>
+          <div class="capradar-detail-name">Signal Framework</div>
+          <div class="capradar-detail-desc">Five business dimensions provide the language connecting interpretation to action</div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="capradar-legend">
+        <div class="capradar-legend-item">
+          <div class="capradar-legend-swatch" style="background:var(--accent)"></div>
+          <span class="capradar-legend-text">Intelligence Layer</span>
+        </div>
+        <div class="capradar-legend-item">
+          <div class="capradar-legend-swatch" style="background:var(--blue)"></div>
+          <span class="capradar-legend-text">Application Layer</span>
+        </div>
+        <div class="capradar-legend-item">
+          <div class="capradar-legend-swatch" style="background:var(--green)"></div>
+          <span class="capradar-legend-text">Enterprise Layer</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4640,17 +6289,177 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
   <section class="section fade-in" id="nonfunctional">
     <div class="section-num">11</div>
     <h2>Enterprise Readiness</h2>
-    <p class="section-lead">Non-functional requirements that give a CIO confidence in adoption, governance, and operational viability.</p>
+    <p class="section-lead">An assessed readiness posture across the eight dimensions a CIO will be questioned on before approving enterprise adoption.</p>
 
-    <div class="nfr-grid">
-      <div class="nfr-card"><h4>Explainability</h4><p>All narrative interpretation and signal structuring must be explainable. Outputs include reasoning chains and source traceability so investment professionals can validate and trust the intelligence produced.</p></div>
-      <div class="nfr-card"><h4>Trust &amp; Consistency</h4><p>Outputs must be consistent across time, teams, and market conditions. The platform must produce reliable, repeatable results that investment professionals can depend on.</p></div>
-      <div class="nfr-card"><h4>Usability</h4><p>Interfaces and outputs are designed for investment professionals, not data scientists. Workflows integrate naturally into existing research, portfolio, and risk processes.</p></div>
-      <div class="nfr-card"><h4>Performance</h4><p>Narrative interpretation and signal structuring must operate at speeds compatible with pre-trade decision timelines. Latency must not impede the insight-to-action cycle.</p></div>
-      <div class="nfr-card"><h4>Extensibility</h4><p>The platform supports future expansion of signal dimensions, data sources, persona workflows, and integration points without fundamental architectural change.</p></div>
-      <div class="nfr-card"><h4>Governance Readiness</h4><p>Outputs must be auditable, traceable, and suitable for governance processes. The platform supports documentation and oversight requirements of investment committees.</p></div>
-      <div class="nfr-card"><h4>Human-in-the-Loop Design</h4><p>The platform is a decision-support tool, not autonomous. All portfolio actions remain under human control. Designed to augment, not replace, professional judgment.</p></div>
-      <div class="nfr-card"><h4>Security &amp; Data Integrity</h4><p>Meets institutional standards for data security, access control, and information integrity. Sensitive portfolio and client data handled per enterprise security policies.</p></div>
+    <div class="ciodash">
+      <div class="ciodash-head">
+        <span class="ciodash-badge" data-tip="Scores reflect assessed design-level readiness across eight enterprise dimensions, grouped into three pillars. Maturity status indicates production readiness: Ready (deployable), Maturing (active refinement), Planned (roadmap item)." data-tip-pos="below">Assessed</span>
+        <h4>CIO Confidence Dashboard — Enterprise Readiness Posture</h4>
+      </div>
+
+      <!-- Hero: Ring + Pillar Scores -->
+      <div class="ciodash-hero">
+
+        <!-- Score ring -->
+        <div class="ciodash-ring-panel" data-tip="Aggregate readiness score across all eight enterprise dimensions. Weighted by CIO impact priority: Trust & Transparency (35%), Operational Fitness (35%), Governance & Security (30%).">
+          <svg viewBox="0 0 160 160">
+            <!-- Track -->
+            <circle class="ring-track" cx="80" cy="80" r="62"/>
+            <!-- Fill: 91% = ~355 of ~389 circumference -->
+            <circle class="ring-fill ring-fill-green" cx="80" cy="80" r="62"
+              stroke-dasharray="354 389"/>
+            <!-- Score -->
+            <text class="ring-score" x="80" y="74" text-anchor="middle" font-size="36">91</text>
+            <text class="ring-label" x="80" y="92" text-anchor="middle" font-size="9" font-weight="500" letter-spacing="0.12em" text-transform="uppercase">OVERALL</text>
+            <text class="ring-label" x="80" y="104" text-anchor="middle" font-size="8" font-weight="300" letter-spacing="0.06em">out of 100</text>
+          </svg>
+        </div>
+
+        <!-- Three pillars -->
+        <div class="ciodash-pillars">
+          <div class="ciodash-pillar" data-tip="Trust & Transparency pillar covers Explainability (93), Trust & Consistency (90), and Human-in-the-Loop Design (95). These dimensions determine whether investment professionals will trust and adopt the platform's outputs.">
+            <div class="ciodash-pillar-score">93</div>
+            <div class="ciodash-pillar-name">Trust &amp; Transparency</div>
+            <div class="ciodash-pillar-desc">Can investment professionals trust, validate, and rely on the platform's outputs?</div>
+          </div>
+          <div class="ciodash-pillar" data-tip="Operational Fitness pillar covers Usability (88), Performance (90), and Extensibility (85). These dimensions determine whether the platform can operate at production grade within existing workflows.">
+            <div class="ciodash-pillar-score">88</div>
+            <div class="ciodash-pillar-name">Operational Fitness</div>
+            <div class="ciodash-pillar-desc">Can the platform operate at production grade within existing investment workflows?</div>
+          </div>
+          <div class="ciodash-pillar" data-tip="Governance & Security pillar covers Governance Readiness (91) and Security & Data Integrity (92). These dimensions determine whether the platform meets institutional oversight and regulatory standards.">
+            <div class="ciodash-pillar-score">91</div>
+            <div class="ciodash-pillar-name">Governance &amp; Security</div>
+            <div class="ciodash-pillar-desc">Does the platform meet institutional governance, audit, and security standards?</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pillar 1: Trust & Transparency -->
+      <div class="ciodash-group">
+        <div class="ciodash-group-head">
+          <span class="ciodash-group-name">Pillar 1 — Trust &amp; Transparency</span>
+          <span class="ciodash-group-score">93 avg</span>
+        </div>
+        <div class="ciodash-dims">
+          <div class="ciodash-dim" data-tip="All narrative interpretation and signal structuring includes reasoning chains and source traceability. Investment professionals can follow the logic from raw input to structured output and challenge any step.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Explainability</div>
+              <div class="ciodash-dim-desc">Outputs include reasoning chains and source traceability so investment professionals can validate and trust the intelligence produced</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:93%"></div></div>
+              <div class="ciodash-dim-score">93</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+          <div class="ciodash-dim" data-tip="The platform produces reliable, repeatable results across time periods, teams, and market conditions. The shared signal framework eliminates interpretation variance.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Trust &amp; Consistency</div>
+              <div class="ciodash-dim-desc">Outputs must be consistent across time, teams, and market conditions — producing reliable, repeatable results professionals can depend on</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:90%"></div></div>
+              <div class="ciodash-dim-score">90</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+          <div class="ciodash-dim" data-tip="The platform is a decision-support tool, not an autonomous decision-maker. All portfolio actions remain under human control. Designed to augment, not replace, professional judgment.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Human-in-the-Loop Design</div>
+              <div class="ciodash-dim-desc">All portfolio actions remain under human control — designed to augment, not replace, professional judgment</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:95%"></div></div>
+              <div class="ciodash-dim-score">95</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 2: Operational Fitness -->
+      <div class="ciodash-group">
+        <div class="ciodash-group-head">
+          <span class="ciodash-group-name">Pillar 2 — Operational Fitness</span>
+          <span class="ciodash-group-score">88 avg</span>
+        </div>
+        <div class="ciodash-dims">
+          <div class="ciodash-dim" data-tip="Interfaces and outputs are designed for investment professionals, not data scientists. Workflows integrate naturally into existing research, portfolio, and risk processes without requiring technical expertise.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Usability</div>
+              <div class="ciodash-dim-desc">Interfaces designed for investment professionals — workflows integrate naturally into existing research, portfolio, and risk processes</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:88%"></div></div>
+              <div class="ciodash-dim-score">88</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-maturing">Maturing</span></div>
+          </div>
+          <div class="ciodash-dim" data-tip="Narrative interpretation and signal structuring operate at speeds compatible with pre-trade decision timelines. Latency is designed not to impede the insight-to-action cycle.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Performance</div>
+              <div class="ciodash-dim-desc">Narrative interpretation and signal structuring operate at speeds compatible with pre-trade decision timelines</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:90%"></div></div>
+              <div class="ciodash-dim-score">90</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+          <div class="ciodash-dim" data-tip="The platform supports future expansion of signal dimensions, data sources, persona workflows, and integration points without requiring fundamental architectural change.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Extensibility</div>
+              <div class="ciodash-dim-desc">Supports future expansion of signal dimensions, data sources, and integration points without architectural change</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:85%"></div></div>
+              <div class="ciodash-dim-score">85</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-maturing">Maturing</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pillar 3: Governance & Security -->
+      <div class="ciodash-group">
+        <div class="ciodash-group-head">
+          <span class="ciodash-group-name">Pillar 3 — Governance &amp; Security</span>
+          <span class="ciodash-group-score">91 avg</span>
+        </div>
+        <div class="ciodash-dims">
+          <div class="ciodash-dim" data-tip="Outputs are auditable, traceable, and suitable for inclusion in governance processes. The platform supports the documentation and oversight requirements of investment committees and compliance functions.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Governance Readiness</div>
+              <div class="ciodash-dim-desc">Outputs are auditable, traceable, and suitable for governance processes — supporting investment committee and compliance requirements</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:91%"></div></div>
+              <div class="ciodash-dim-score">91</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+          <div class="ciodash-dim" data-tip="Meets institutional standards for data security, access control, and information integrity. Sensitive portfolio and client data handled in accordance with enterprise security policies.">
+            <div class="ciodash-dim-info">
+              <div class="ciodash-dim-name">Security &amp; Data Integrity</div>
+              <div class="ciodash-dim-desc">Meets institutional standards for data security, access control, and information integrity across all portfolio and client data</div>
+            </div>
+            <div class="ciodash-dim-bar-cell">
+              <div class="ciodash-dim-bar-track"><div class="ciodash-dim-bar-fill" style="width:92%"></div></div>
+              <div class="ciodash-dim-score">92</div>
+            </div>
+            <div class="ciodash-dim-status-cell"><span class="ciodash-status ciodash-status-ready">Ready</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CIO Confidence Statement -->
+      <div class="ciodash-statement">
+        <div class="ciodash-statement-label">CIO Confidence Assessment</div>
+        <div class="ciodash-statement-text"><strong>Portfolio Studio scores 91/100 on aggregate enterprise readiness</strong> across trust, operational fitness, and governance dimensions. Six of eight dimensions are assessed as production-ready. Usability and extensibility are in active maturation — reflecting the iterative design process with investment professionals that strengthens adoption quality. No dimension is below 85, and the three highest-weighted CIO concerns — explainability, human-in-the-loop design, and governance readiness — all score above 91. This readiness profile supports a confident recommendation for phased enterprise adoption.</div>
+      </div>
+
     </div>
   </section>
 
