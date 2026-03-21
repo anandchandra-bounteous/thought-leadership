@@ -1,0 +1,3346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Enabled Portfolio Studio — CIO Product Specification</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #111111;
+  --bg-card: #161616;
+  --bg-card-hover: #1a1a1a;
+  --bg-subtle: #0f0f0f;
+  --border: #222222;
+  --border-light: #1c1c1c;
+  --text-primary: #e8e6e3;
+  --text-secondary: #9a9590;
+  --text-tertiary: #5e5a56;
+  --text-muted: #3d3a37;
+  --accent: #c9a96e;
+  --accent-dim: #a08650;
+  --accent-glow: rgba(201, 169, 110, 0.08);
+  --accent-border: rgba(201, 169, 110, 0.2);
+  --green: #6b9e7a;
+  --green-dim: rgba(107, 158, 122, 0.12);
+  --red: #c27c6e;
+  --red-dim: rgba(194, 124, 110, 0.12);
+  --blue: #7a9ec2;
+  --blue-dim: rgba(122, 158, 194, 0.12);
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --sidebar-w: 260px;
+  --content-max: 780px;
+  --radius: 2px;
+  --transition: 0.2s ease;
+}
+
+/* ═══ Light Theme ═══ */
+html.light {
+  --bg: #f6f5f2;
+  --bg-elevated: #efede9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafaf8;
+  --bg-subtle: #f0eee9;
+  --border: #ddd9d3;
+  --border-light: #e8e5df;
+  --text-primary: #1a1816;
+  --text-secondary: #5c5650;
+  --text-tertiary: #8a847d;
+  --text-muted: #b5afa8;
+  --accent: #9a7b3e;
+  --accent-dim: #806530;
+  --accent-glow: rgba(154, 123, 62, 0.06);
+  --accent-border: rgba(154, 123, 62, 0.22);
+  --green: #3d7a50;
+  --green-dim: rgba(61, 122, 80, 0.08);
+  --red: #a05544;
+  --red-dim: rgba(160, 85, 68, 0.08);
+  --blue: #3e6d96;
+  --blue-dim: rgba(62, 109, 150, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ═══ Theme Toggle ═══ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 14px;
+}
+
+.theme-toggle-track {
+  position: relative;
+  width: 36px;
+  height: 18px;
+  background: var(--border);
+  border-radius: 9px;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-tertiary);
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+html.light .theme-toggle-thumb {
+  transform: translateX(18px);
+  background: var(--accent);
+}
+
+html.light .theme-toggle-track {
+  background: var(--accent-border);
+}
+
+/* Light-theme refinements */
+html.light .card-grid,
+html.light .summary-grid,
+html.light .kpi-grid,
+html.light .comparison,
+html.light .cap-grid,
+html.light .nfr-grid,
+html.light .io-grid {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+html.light .persona {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+html.light .diagram {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+html.light .table-wrap {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+html.light .mobile-overlay {
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(4px);
+}
+
+html.light ::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+html.light .comp-panel.as-is {
+  background: var(--red-dim);
+}
+
+html.light .comp-panel.to-be {
+  background: var(--green-dim);
+}
+
+html.light .flow-source {
+  background: var(--bg-subtle);
+}
+
+html.light .flow-node-accent {
+  background: rgba(154, 123, 62, 0.04);
+}
+
+.theme-toggle-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover .theme-toggle-label {
+  color: var(--text-tertiary);
+}
+
+/* Theme transition for all colored elements */
+.sidebar,
+.card, .summary-card, .kpi-card, .persona, .cap-card, .nfr-card, .io-panel,
+.comp-panel, .diagram, .diagram-head, .callout-dark, .final-block,
+.table-wrap, thead, .btt, .mobile-toggle, .mobile-theme-toggle,
+.chip, .tag-high, .tag-medium, .tag-out,
+.flow-source, .flow-node, .flow-node-accent, .signal-pill,
+.flow-silo, .flow-convergence, .flow-convergence-label, .flow-stage-label,
+.unidia, .unidia-zone, .unidia-bar,
+.studio-hero, .studio-branch-card, .benefit-chip,
+.pain-bottleneck, .pain-silo, .pain-convergence,
+.outcome-node {
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+.sidebar-nav a, .section-sep, hr {
+  transition: color 0.3s ease, border-color 0.4s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR
+   ═══════════════════════════════════════ */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--bg);
+  border-right: 1px solid var(--border-light);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar { width: 0; }
+
+.sidebar-header {
+  padding: 48px 28px 32px;
+}
+
+.sidebar-logo {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+}
+
+.sidebar-subtitle {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-tertiary);
+  margin-top: 10px;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 0 28px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 16px;
+  overflow-y: auto;
+}
+
+.sidebar-nav-group {
+  margin-bottom: 8px;
+}
+
+.sidebar-nav-group-label {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  padding: 16px 12px 8px;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: color var(--transition);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.sidebar-nav a:hover {
+  color: var(--text-secondary);
+}
+
+.sidebar-nav a.active {
+  color: var(--accent);
+}
+
+.sidebar-footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-light);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════
+   MOBILE NAV
+   ═══════════════════════════════════════ */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 20px; left: 20px;
+  z-index: 200;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-toggle span {
+  display: block;
+  width: 16px; height: 1px;
+  background: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+.mobile-overlay.visible { opacity: 1; }
+
+/* ═══════════════════════════════════════
+   MAIN
+   ═══════════════════════════════════════ */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+.content {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 56px 160px;
+}
+
+/* ═══════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════ */
+.hero {
+  padding: 120px 0 72px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 0;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-dim);
+  margin-bottom: 32px;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 48px;
+}
+
+.hero-statement {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  border-left: 1px solid var(--accent-dim);
+  padding-left: 24px;
+  max-width: 620px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.chip {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+}
+
+/* ═══════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════ */
+.section {
+  padding-top: 80px;
+  scroll-margin-top: 32px;
+}
+
+.section-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.section h2 {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.section-lead {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.section h3 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+
+.section p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.section ul, .section ol {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.section li {
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.section-sep {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════ */
+.card-grid {
+  display: grid;
+  gap: 1px;
+  margin: 32px 0;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.card {
+  background: var(--bg-card);
+  padding: 32px;
+  transition: background var(--transition);
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+}
+
+.card-icon {
+  font-size: 16px;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.card h4 {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: 0.005em;
+}
+
+.card p, .card .desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
+/* Summary cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.summary-card {
+  background: var(--bg-card);
+  padding: 36px;
+}
+
+.summary-card h4 {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-dim);
+  margin-bottom: 16px;
+}
+
+.summary-card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════
+   KPI CARDS
+   ═══════════════════════════════════════ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  padding: 32px;
+}
+
+.kpi-label {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.kpi-title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.kpi-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.kpi-meta-item {
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  line-height: 1.65;
+  margin-bottom: 3px;
+  font-weight: 300;
+}
+
+.kpi-meta-item strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.kpi-card-full {
+  grid-column: span 2;
+}
+
+/* ═══════════════════════════════════════
+   CALLOUT
+   ═══════════════════════════════════════ */
+.callout {
+  border-left: 1px solid var(--accent-dim);
+  padding: 24px 0 24px 24px;
+  margin: 36px 0;
+}
+
+.callout p {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.callout strong {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-style: normal;
+}
+
+.callout-dark {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 1px solid var(--accent-dim);
+  padding: 36px;
+  border-radius: var(--radius);
+}
+
+.callout-dark p {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════
+   COMPARISON
+   ═══════════════════════════════════════ */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.comp-panel {
+  padding: 36px;
+}
+
+.comp-panel.as-is {
+  background: var(--bg-card);
+}
+
+.comp-panel.to-be {
+  background: var(--bg-card);
+}
+
+.comp-panel h4 {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 16px;
+}
+
+.comp-panel.as-is h4 { color: var(--red); }
+.comp-panel.to-be h4 { color: var(--green); }
+
+.comp-panel p {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════
+   DIAGRAMS — Executive Flowcharts
+   ═══════════════════════════════════════ */
+.diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 36px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.diagram-head {
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.diagram-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.diagram-head .diagram-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.diagram-badge.badge-asis {
+  background: var(--red-dim);
+  color: var(--red);
+  border: 1px solid rgba(194, 124, 110, 0.2);
+}
+
+html.light .diagram-badge.badge-asis {
+  border-color: rgba(160, 85, 68, 0.2);
+}
+
+.diagram-badge.badge-tobe {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(107, 158, 122, 0.2);
+}
+
+html.light .diagram-badge.badge-tobe {
+  border-color: rgba(61, 122, 80, 0.2);
+}
+
+.diagram-body {
+  padding: 40px 32px 44px;
+  overflow-x: auto;
+}
+
+/* ── Flow layout ── */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-width: 520px;
+}
+
+.flow-sources {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.flow-source {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.flow-source-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.flow-source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flow-source-list li {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  padding: 2px 0;
+}
+
+/* ── Connector lines ── */
+.flow-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.flow-line {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  transition: background 0.4s ease;
+}
+
+.flow-line-short {
+  height: 16px;
+}
+
+.flow-arrow {
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--border);
+  transition: border-color 0.4s ease;
+}
+
+.flow-merge {
+  width: 60%;
+  max-width: 400px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  margin: 6px 0;
+  transition: background 0.4s ease;
+}
+
+.flow-merge::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 12px;
+  background: var(--border);
+}
+
+/* ── Flowchart Nodes ── */
+.flow-node {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  width: 100%;
+  max-width: 480px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.flow-node-header {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.flow-node-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flow-node-items li {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  padding: 2px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.flow-node-items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.flow-node-compact {
+  padding: 14px 24px;
+}
+
+.flow-node-compact .flow-node-header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* ── Accent nodes ── */
+.flow-node-accent {
+  border-color: var(--accent-border);
+  background: var(--accent-glow);
+}
+
+.flow-node-accent .flow-node-header {
+  color: var(--accent);
+  border-bottom-color: var(--accent-border);
+}
+
+.flow-node-accent .flow-node-items li {
+  color: var(--text-secondary);
+}
+
+.flow-node-accent .flow-node-items li::before {
+  background: var(--accent-dim);
+}
+
+/* ── Dimmed/scope-out nodes ── */
+.flow-node-dim {
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.flow-node-dim .flow-node-header {
+  color: var(--text-tertiary);
+}
+
+/* ── Signal dimension pills ── */
+.signal-dimensions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.signal-pill {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  background: transparent;
+}
+
+/* ── Branch layout ── */
+.flow-branch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.flow-branch .flow-node {
+  max-width: none;
+}
+
+.flow-branch-merge {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  padding: 0;
+}
+
+.flow-branch-merge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 1px;
+  background: var(--border);
+}
+
+.flow-branch-merge::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: var(--border);
+}
+
+/* ── Feedback loop ── */
+.flow-node-feedback {
+  border-color: var(--green);
+  border-style: dashed;
+}
+
+.flow-node-feedback .flow-node-header {
+  color: var(--green);
+  border-bottom-color: rgba(107, 158, 122, 0.2);
+}
+
+.flow-node-feedback .flow-node-items li::before {
+  background: var(--green);
+}
+
+/* ═══ SYSTEMIC AS-IS LAYOUT ═══ */
+
+/* Stage labels (left annotations) */
+.flow-staged {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-width: 520px;
+}
+
+.flow-stage {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.flow-stage-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+  padding: 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-light);
+  min-width: 32px;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.flow-stage-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* Silo container — three parallel tracks */
+.flow-silos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 640px;
+  position: relative;
+}
+
+.flow-silo {
+  padding: 0 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.flow-silo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--red) 0, var(--red) 4px,
+    transparent 4px, transparent 10px
+  );
+  opacity: 0.25;
+}
+
+.flow-silo:first-child::before {
+  display: none;
+}
+
+.flow-silo-tag {
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--red);
+  opacity: 0.55;
+  padding: 8px 0 4px;
+  text-align: center;
+}
+
+.flow-silo .flow-node {
+  max-width: none;
+  width: 100%;
+}
+
+.flow-silo .flow-connector {
+  padding: 4px 0;
+}
+
+.flow-silo .flow-line-short {
+  height: 12px;
+}
+
+/* Friction indicator */
+.flow-friction {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-size: 8.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  opacity: 0.65;
+  padding: 6px 0;
+}
+
+.flow-friction-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Weak convergence zone */
+.flow-convergence {
+  width: 100%;
+  max-width: 640px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  transition: border-color 0.4s ease;
+}
+
+.flow-convergence-label {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  opacity: 0.5;
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  background: var(--bg-card);
+  padding: 0 6px;
+  transition: background 0.4s ease;
+}
+
+html.light .flow-convergence-label {
+  background: var(--bg-card);
+}
+
+/* Silo node — slightly different from standard */
+.flow-node-silo {
+  border-color: var(--border);
+}
+
+.flow-node-silo .flow-node-header {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.flow-node-silo .flow-node-items li {
+  font-size: 10.5px;
+}
+
+/* Gap annotations between silos */
+.flow-silos-gap-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  max-width: 640px;
+  padding: 0;
+}
+
+.flow-gap-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.flow-gap-dash {
+  width: 40%;
+  height: 0;
+  border-top: 1px dashed var(--red);
+  opacity: 0.2;
+}
+
+.flow-gap-label {
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--red);
+  opacity: 0.35;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* Full-width connector for systemic diagram */
+.flow-connector-wide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0;
+  width: 100%;
+  max-width: 640px;
+}
+
+.flow-merge-wide {
+  width: 80%;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  margin: 4px 0;
+  transition: background 0.4s ease;
+}
+
+.flow-merge-wide::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 10px;
+  background: var(--border);
+}
+
+/* ── Responsive diagrams ── */
+@media (max-width: 640px) {
+  .flow-sources { grid-template-columns: 1fr; max-width: 320px; }
+  .flow-node { max-width: 100%; }
+  .flow-branch { grid-template-columns: 1fr; max-width: 100%; }
+  .flow-merge { width: 40%; }
+  .diagram-body { padding: 24px 16px 28px; }
+  .flow-silos { grid-template-columns: 1fr; max-width: 320px; }
+  .flow-silo::before { display: none; }
+  .flow-silos-gap-row { display: none; }
+  .flow-stage-label { display: none; }
+  .flow-staged { min-width: 0; }
+  .flow-convergence { max-width: 320px; }
+  .flow-connector-wide { max-width: 320px; }
+  .flow-merge-wide { width: 60%; }
+}
+
+/* ═══════════════════════════════════════
+   UNIFIED TRANSFORMATION DIAGRAM
+   ═══════════════════════════════════════ */
+
+/* The master container */
+.unidia {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 36px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.unidia-head {
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.unidia-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.unidia-head .unidia-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.unidia-body {
+  padding: 0;
+}
+
+/* Each zone is a full-width band with a left color bar */
+.unidia-zone {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.unidia-zone:last-child {
+  border-bottom: none;
+}
+
+/* Left color bar */
+.unidia-bar {
+  width: 4px;
+  flex-shrink: 0;
+  transition: background 0.4s ease;
+}
+
+.unidia-bar-neutral { background: var(--border); }
+.unidia-bar-pain { background: var(--red); }
+.unidia-bar-studio { background: var(--accent); }
+.unidia-bar-outcome { background: var(--green); }
+
+/* Zone content area */
+.unidia-content {
+  flex: 1;
+  padding: 32px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Zone label + sublabel row */
+.unidia-zone-label {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.unidia-zone-tag {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.unidia-tag-neutral {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.unidia-tag-pain {
+  background: var(--red-dim);
+  color: var(--red);
+  border: 1px solid rgba(194, 124, 110, 0.2);
+}
+
+html.light .unidia-tag-pain {
+  border-color: rgba(160, 85, 68, 0.2);
+}
+
+.unidia-tag-studio {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.unidia-tag-outcome {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(107, 158, 122, 0.2);
+}
+
+html.light .unidia-tag-outcome {
+  border-color: rgba(61, 122, 80, 0.2);
+}
+
+.unidia-zone-desc {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+
+/* ── Pain zone background tint ── */
+.unidia-zone-pain {
+  background: var(--red-dim);
+}
+
+html.light .unidia-zone-pain {
+  background: rgba(160, 85, 68, 0.04);
+}
+
+/* ── Studio zone background ── */
+.unidia-zone-studio {
+  background: var(--accent-glow);
+}
+
+html.light .unidia-zone-studio {
+  background: rgba(154, 123, 62, 0.04);
+}
+
+/* ── Outcome zone background ── */
+.unidia-zone-outcome {
+  background: var(--green-dim);
+}
+
+html.light .unidia-zone-outcome {
+  background: rgba(61, 122, 80, 0.03);
+}
+
+/* ── Studio hero block ── */
+.studio-hero {
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  background: rgba(201, 169, 110, 0.04);
+  position: relative;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+html.light .studio-hero {
+  background: rgba(154, 123, 62, 0.04);
+  border-color: var(--accent);
+}
+
+.studio-hero-name {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+
+.studio-hero-engine {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent-dim);
+  margin-bottom: 16px;
+}
+
+.studio-hero-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.studio-hero-items li {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-weight: 300;
+  padding: 2px 0 2px 16px;
+  position: relative;
+}
+
+.studio-hero-items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+/* Signal pills — reused from before */
+
+/* ── Benefits strip ── */
+.benefits-strip {
+  width: 100%;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.benefit-chip {
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  text-align: center;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.benefit-chip-icon {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 6px;
+  opacity: 0.6;
+}
+
+.benefit-chip-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  line-height: 1.35;
+}
+
+.benefit-chip-kpi {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+/* ── Optimizer + Risk branch within studio zone ── */
+.studio-branch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 16px;
+}
+
+.studio-branch-card {
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.studio-branch-card h5 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.studio-branch-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.studio-branch-card li {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 300;
+  padding: 1px 0;
+}
+
+/* ── Outcome nodes ── */
+.outcome-node {
+  border: 1px solid rgba(107, 158, 122, 0.3);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  width: 100%;
+  max-width: 480px;
+  transition: border-color 0.4s ease;
+}
+
+.outcome-node-header {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(107, 158, 122, 0.15);
+}
+
+.outcome-node-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.outcome-node-items li {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 300;
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+
+.outcome-node-items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.5;
+}
+
+.outcome-node-compact {
+  padding: 12px 22px;
+}
+
+.outcome-node-compact .outcome-node-header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.outcome-node-dim {
+  border-style: dashed;
+  opacity: 0.45;
+}
+
+.outcome-node-dim .outcome-node-header {
+  color: var(--text-tertiary);
+}
+
+.outcome-node-feedback {
+  border-color: rgba(107, 158, 122, 0.4);
+  border-style: dashed;
+}
+
+/* ── Connectors within unified diagram ── */
+.unidia-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.unidia-line {
+  width: 1px;
+  height: 16px;
+  transition: background 0.4s ease;
+}
+
+.unidia-line-neutral { background: var(--border); }
+.unidia-line-pain { background: var(--red); opacity: 0.35; }
+.unidia-line-accent { background: var(--accent); opacity: 0.4; }
+.unidia-line-green { background: var(--green); opacity: 0.35; }
+
+.unidia-arrow {
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.unidia-arrow-neutral { border-top: 6px solid var(--border); }
+.unidia-arrow-pain { border-top: 6px solid var(--red); opacity: 0.4; }
+.unidia-arrow-accent { border-top: 6px solid var(--accent); opacity: 0.5; }
+.unidia-arrow-green { border-top: 6px solid var(--green); opacity: 0.4; }
+
+/* ── Pain silo stripe (inside pain zone) ── */
+.pain-silos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.pain-silo {
+  border: 1px solid rgba(194, 124, 110, 0.2);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  transition: border-color 0.4s ease;
+}
+
+html.light .pain-silo {
+  border-color: rgba(160, 85, 68, 0.18);
+}
+
+.pain-silo-header {
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--red);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(194, 124, 110, 0.12);
+}
+
+.pain-silo-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pain-silo-items li {
+  font-size: 10.5px;
+  line-height: 1.55;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  padding: 1px 0;
+}
+
+.pain-silo-friction {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  opacity: 0.5;
+}
+
+.pain-silo-friction::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Pain bottleneck */
+.pain-bottleneck {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid rgba(194, 124, 110, 0.25);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  transition: border-color 0.4s ease;
+}
+
+html.light .pain-bottleneck {
+  border-color: rgba(160, 85, 68, 0.2);
+}
+
+.pain-bottleneck-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(194, 124, 110, 0.12);
+}
+
+.pain-bottleneck-header .bneck-tag {
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  background: rgba(194, 124, 110, 0.12);
+  color: var(--red);
+}
+
+.pain-bottleneck-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pain-bottleneck-items li {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+
+.pain-bottleneck-items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.3;
+}
+
+/* Weak linkage annotation */
+.pain-weak-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 600px;
+  padding: 4px 0;
+}
+
+.pain-weak {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pain-weak-dash {
+  width: 28px;
+  height: 0;
+  border-top: 1px dashed var(--red);
+  opacity: 0.2;
+}
+
+.pain-weak-text {
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  opacity: 0.3;
+  white-space: nowrap;
+}
+
+/* Convergence dashed box */
+.pain-convergence {
+  width: 100%;
+  max-width: 600px;
+  border: 1px dashed rgba(194, 124, 110, 0.3);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.4s ease;
+}
+
+.pain-convergence-label {
+  position: absolute;
+  top: -7px;
+  left: 20px;
+  font-family: var(--font-sans);
+  font-size: 7.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  opacity: 0.4;
+  background: var(--red-dim);
+  padding: 0 6px;
+  transition: background 0.4s ease;
+}
+
+html.light .pain-convergence-label {
+  background: rgba(160, 85, 68, 0.04);
+}
+
+.pain-convergence-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+/* Zone transition divider */
+.unidia-transition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  gap: 12px;
+  margin: 8px 0 4px;
+}
+
+.unidia-transition-line {
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.2;
+}
+
+.unidia-transition-text {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .unidia-content { padding: 24px 16px 20px; }
+  .pain-silos { grid-template-columns: 1fr; max-width: 320px; }
+  .benefits-strip { grid-template-columns: repeat(2, 1fr); }
+  .studio-branch { grid-template-columns: 1fr; max-width: 320px; }
+  .pain-weak-row { display: none; }
+  .unidia-bar { width: 3px; }
+  .outcome-node { max-width: 100%; }
+  .studio-hero { max-width: 100%; }
+  .pain-bottleneck { max-width: 100%; }
+  .pain-convergence { max-width: 100%; }
+}
+
+/* ═══════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 32px 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead { background: var(--bg-card); }
+
+th {
+  text-align: left;
+  padding: 14px 20px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  vertical-align: top;
+  line-height: 1.6;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--bg-card); }
+
+.tag-high {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  background: var(--blue-dim);
+  color: var(--blue);
+}
+
+.tag-medium {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent-dim);
+}
+
+.tag-out {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════
+   PERSONA CARDS
+   ═══════════════════════════════════════ */
+.persona {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin-bottom: 2px;
+}
+
+.persona h4 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.persona-role {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-dim);
+  margin-bottom: 28px;
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.persona-detail h5 {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.persona-detail p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-tertiary);
+  font-weight: 300;
+}
+
+.persona-detail ul {
+  padding-left: 16px;
+  list-style: none;
+}
+
+.persona-detail li {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  margin-bottom: 4px;
+  position: relative;
+  padding-left: 12px;
+}
+
+.persona-detail li::before {
+  content: '—';
+  position: absolute;
+  left: -12px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════
+   CAPABILITY GRID
+   ═══════════════════════════════════════ */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.cap-card {
+  background: var(--bg-card);
+  padding: 28px;
+}
+
+.cap-card h4 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.cap-card p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════
+   I/O GRID
+   ═══════════════════════════════════════ */
+.io-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.io-panel {
+  background: var(--bg-card);
+  padding: 32px;
+}
+
+.io-panel h4 {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+
+.io-panel.inputs h4 { color: var(--accent-dim); }
+.io-panel.outputs h4 { color: var(--green); }
+
+.io-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.io-panel li {
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 6px 0;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.io-panel li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════
+   NFR GRID
+   ═══════════════════════════════════════ */
+.nfr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.nfr-card {
+  background: var(--bg-card);
+  padding: 28px;
+}
+
+.nfr-card h4 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.nfr-card p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════
+   OPEN QUESTIONS
+   ═══════════════════════════════════════ */
+.q-list {
+  list-style: none;
+  padding: 0;
+  counter-reset: q;
+}
+
+.q-list li {
+  counter-increment: q;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  font-weight: 300;
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+}
+
+.q-list li::before {
+  content: counter(q, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.q-list li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════
+   FINAL SUMMARY
+   ═══════════════════════════════════════ */
+.final-block {
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 56px 48px;
+  margin: 56px 0 0;
+  background: var(--accent-glow);
+}
+
+.final-block h2 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.final-block p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+
+.final-block p:last-child { margin-bottom: 0; }
+
+/* ═══════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════ */
+.btt {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 40px; height: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 80;
+}
+
+.btt.visible { opacity: 1; visibility: visible; }
+.btt:hover { border-color: var(--text-muted); }
+.btt svg { width: 14px; height: 14px; stroke: var(--text-tertiary); }
+
+/* ═══════════════════════════════════════
+   FADE
+   ═══════════════════════════════════════ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.vis {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .mobile-toggle { display: flex; }
+  .content { padding: 0 32px 100px; }
+  .hero { padding-top: 80px; }
+  .hero h1 { font-size: 38px; }
+}
+
+@media (max-width: 640px) {
+  .content { padding: 0 20px 80px; }
+  .hero h1 { font-size: 30px; }
+  .section h2 { font-size: 26px; }
+  .summary-grid, .card-grid-2, .card-grid-3, .kpi-grid, .comparison, .io-grid, .cap-grid, .nfr-grid {
+    grid-template-columns: 1fr;
+  }
+  .persona-grid { grid-template-columns: 1fr; }
+  .kpi-card-full { grid-column: span 1; }
+  .hero-statement { padding-left: 18px; }
+  .persona { padding: 28px; }
+  .final-block { padding: 36px 24px; }
+}
+
+/* ═══ Mobile theme toggle (visible when sidebar hidden) ═══ */
+.mobile-theme-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.mobile-theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-tertiary);
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+.mobile-theme-toggle .icon-sun { display: none; }
+.mobile-theme-toggle .icon-moon { display: block; }
+html.light .mobile-theme-toggle .icon-sun { display: block; }
+html.light .mobile-theme-toggle .icon-moon { display: none; }
+
+@media (max-width: 1024px) {
+  .mobile-theme-toggle { display: flex; }
+}
+
+/* ═══════════════════════════════════════
+   PRINT
+   ═══════════════════════════════════════ */
+@media print {
+  .sidebar, .mobile-toggle, .btt, .mobile-overlay, .mobile-theme-toggle { display: none !important; }
+  .main { margin-left: 0; }
+  .content { max-width: 100%; padding: 0; }
+  body { background: #fff; color: #111; font-size: 11px; }
+  .hero { padding-top: 20px; }
+  .section { padding-top: 32px; }
+  .card, .kpi-card, .persona, .callout, .nfr-card, .cap-card, .summary-card {
+    break-inside: avoid;
+    background: #fafafa;
+    border-color: #ddd;
+  }
+  .diagram { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .flow-source, .flow-node { border-color: #ccc; }
+  .flow-node-accent { background: #f5f0e5; border-color: #c9a96e; }
+  .flow-node-dim { opacity: 0.4; }
+  .flow-line, .flow-merge, .flow-branch-merge::before, .flow-branch-merge::after, .flow-merge-wide { background: #bbb; }
+  .flow-arrow { border-top-color: #bbb; }
+  .signal-pill { border-color: #c9a96e; color: #806530; }
+  .flow-silo::before { opacity: 0.15; }
+  .flow-convergence { border-color: #bbb; }
+  .flow-convergence-label { background: #fafafa; color: #a05544; }
+  .flow-friction { color: #a05544; }
+  .flow-silo-tag { color: #a05544; }
+  .flow-stage-label { color: #999; border-color: #ddd; }
+  .unidia { break-inside: avoid; background: #fff; border-color: #ddd; }
+  .unidia-zone { border-color: #eee; }
+  .unidia-zone-pain { background: #fef7f0; }
+  .unidia-zone-studio { background: #fdf8ef; }
+  .unidia-zone-outcome { background: #f0faf3; }
+  .unidia-bar-neutral { background: #bbb; }
+  .unidia-bar-pain { background: #c27c6e; }
+  .unidia-bar-studio { background: #c9a96e; }
+  .unidia-bar-outcome { background: #6b9e7a; }
+  .studio-hero { border-color: #c9a96e; background: #fdf8ef; }
+  .pain-bottleneck, .pain-silo { border-color: #ddd; }
+  .outcome-node { border-color: #c5e0cc; }
+  .benefit-chip { border-color: #c9a96e; }
+  .pain-convergence { border-color: #ddd; }
+  .pain-convergence-label { background: #fef7f0; }
+  .hero h1, .section h2, .section h3, .persona h4, .card h4, .final-block h2 { color: #111; }
+  .section p, .card p, .kpi-desc, .persona-detail p, .nfr-card p, .cap-card p, .summary-card p, .final-block p { color: #333; }
+  .callout p { color: #333; }
+  .final-block { background: #f5f5f5; border-color: #ccc; }
+  table { font-size: 10px; }
+  td, th { padding: 6px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile nav toggle -->
+<button class="mobile-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+  <span></span><span></span><span></span>
+</button>
+<button class="mobile-theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+  <svg class="icon-moon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+</button>
+<div class="mobile-overlay" onclick="toggleNav()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" role="navigation" aria-label="Document navigation">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">AI Enabled<br>Portfolio Studio</div>
+    <div class="sidebar-subtitle">CIO Product Specification</div>
+  </div>
+  <div class="sidebar-divider"></div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-group-label">Overview</div>
+      <a href="#executive-summary">Executive Summary</a>
+      <a href="#cio-relevance">CIO Relevance</a>
+      <a href="#business-problem">Business Problem</a>
+    </div>
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-group-label">Transformation</div>
+      <a href="#transformation">As-Is vs To-Be</a>
+      <a href="#benefits">Business Benefits</a>
+      <a href="#lifecycle">Trade Lifecycle</a>
+    </div>
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-group-label">Operating Model</div>
+      <a href="#personas">Personas</a>
+      <a href="#persona-mapping">Persona Mapping</a>
+      <a href="#capabilities">Capabilities</a>
+    </div>
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-group-label">Enterprise</div>
+      <a href="#inputs-outputs">Inputs &amp; Outputs</a>
+      <a href="#nonfunctional">Enterprise Readiness</a>
+      <a href="#dependencies">Dependencies</a>
+      <a href="#out-of-scope">Out of Scope</a>
+      <a href="#open-questions">Open Questions</a>
+    </div>
+    <div class="sidebar-nav-group">
+      <div class="sidebar-nav-group-label">Closing</div>
+      <a href="#final-summary">Final Summary</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <span>v1.0 — Confidential</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light and dark theme">
+      <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      <span class="theme-toggle-label" id="theme-label">Light mode</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="main">
+<div class="content">
+
+  <!-- Hero -->
+  <header class="hero fade-in" id="top">
+    <div class="hero-eyebrow">Product Specification</div>
+    <h1>AI Enabled<br>Portfolio Studio</h1>
+    <p class="hero-subtitle">A CIO-facing Product Specification for Narrative-Aware Portfolio Intelligence</p>
+    <div class="hero-statement">
+      AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that uses the Agentic AI Narrative Builder to help investment organizations convert fragmented market information into structured business intelligence for portfolio construction, risk oversight, and governance-ready decision-making.
+    </div>
+    <div class="chip-row">
+      <span class="chip">Pre-Trade Intelligence</span>
+      <span class="chip">Narrative-Aware</span>
+      <span class="chip">Decision Support</span>
+      <span class="chip">Risk-Aware</span>
+      <span class="chip">Governance-Ready</span>
+      <span class="chip">Tech for Business</span>
+    </div>
+  </header>
+
+  <!-- 1. Executive Summary -->
+  <section class="section fade-in" id="executive-summary">
+    <div class="section-num">01</div>
+    <h2>Executive Summary</h2>
+    <p class="section-lead">A concise overview of what AI Enabled Portfolio Studio delivers and why it matters to senior investment leaders.</p>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h4>The Platform</h4>
+        <p>AI Enabled Portfolio Studio improves how investment organizations interpret market information, construct portfolio views, assess risk, and prepare decisions before execution. It introduces a common intelligence layer between raw market information and portfolio action.</p>
+      </div>
+      <div class="summary-card">
+        <h4>The Value to a CIO</h4>
+        <p>The value is not AI novelty. The value is better decision quality, stronger consistency across teams, faster insight-to-action cycles, earlier risk visibility, and improved governance readiness across the investment process.</p>
+      </div>
+      <div class="summary-card">
+        <h4>The Core Engine</h4>
+        <p>The platform is built around the Agentic AI Narrative Builder, which transforms unstructured market narratives into structured portfolio signals that can be consumed across research, portfolio construction, risk review, and investment committee workflows.</p>
+      </div>
+      <div class="summary-card">
+        <h4>The Positioning</h4>
+        <p>Portfolio Studio is a Tech for Business solution. It positions advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 2. CIO Relevance -->
+  <section class="section fade-in" id="cio-relevance">
+    <div class="section-num">02</div>
+    <h2>Why This Matters to a CIO</h2>
+    <p class="section-lead">CIOs are accountable for decision quality, consistency, performance discipline, risk visibility, and governance. Portfolio Studio addresses each of these imperatives directly.</p>
+
+    <p>Most investment organizations do not suffer from a lack of data. They suffer from fragmented interpretation. Market developments, macro shifts, company events, and regulatory signals flow continuously into the organization, but the translation of that information into portfolio action is inconsistent, manual, and often person-dependent.</p>
+
+    <p>Investment teams typically work across disconnected research, portfolio, and risk workflows. Narrative insight — the qualitative interpretation of what market developments mean for portfolio positioning — is often informal, unstructured, and difficult to scale across teams or time periods.</p>
+
+    <div class="callout">
+      <p><strong>Portfolio Studio creates a shared intelligence layer across research, portfolio construction, and risk oversight.</strong> The result is better-informed pre-trade decisions, stronger organizational alignment, and a more governable investment process.</p>
+    </div>
+
+    <p>For a CIO evaluating where to invest in operating model improvement, Portfolio Studio targets the precise gap between raw information and portfolio action — the interpretation layer — where the greatest inconsistency and the greatest opportunity for improvement typically reside.</p>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 3. Business Problem -->
+  <section class="section fade-in" id="business-problem">
+    <div class="section-num">03</div>
+    <h2>The Business Problem</h2>
+    <p class="section-lead">Investment management organizations face a common structural challenge: information is abundant, but its interpretation and translation into portfolio decisions is fragmented and inconsistent.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Information Abundance, Interpretation Fragmentation</h4>
+        <p>Market data, research, news, and commentary are plentiful. But the synthesis of this information into a coherent portfolio view is manual, time-intensive, and dependent on individual judgment.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Disconnected Workflows</h4>
+        <p>Research, portfolio construction, and risk review operate in separate tools and processes. Insight generated in one function is not consistently carried through to the next.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Manual Narrative Interpretation</h4>
+        <p>Narrative interpretation — understanding what market developments mean for portfolio positioning — is largely manual and person-dependent. It does not scale and is difficult to make consistent.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Reactive Risk Review</h4>
+        <p>Risk review often lags emerging developments. Traditional risk metrics capture quantitative exposure but underweight the narrative and thematic risks that drive market regime changes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Uneven Committee Preparation</h4>
+        <p>Investment committee preparation is time-intensive and varies in quality. The link between market context, portfolio rationale, and risk awareness is often presented inconsistently.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h4>Insight Not Converted to Signals</h4>
+        <p>Insight is frequently generated but not consistently converted into structured decision signals that can be consumed by downstream portfolio and risk processes.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 4. Transformation -->
+  <section class="section fade-in" id="transformation">
+    <div class="section-num">04</div>
+    <h2>As-Is vs To-Be Transformation</h2>
+    <p class="section-lead">Portfolio Studio transforms the investment operating model from fragmented manual interpretation to structured, narrative-aware intelligence.</p>
+
+    <div class="comparison">
+      <div class="comp-panel as-is">
+        <h4>As-Is — Current State</h4>
+        <p>Fragmented information → manual synthesis → delayed action → reactive risk review → inconsistent committee preparation → governance gaps.</p>
+      </div>
+      <div class="comp-panel to-be">
+        <h4>To-Be — With Portfolio Studio</h4>
+        <p>Unified intake → agentic narrative interpretation → structured portfolio signals → informed allocation → proactive oversight → governance-ready decisions.</p>
+      </div>
+    </div>
+
+    <div class="callout-dark">
+      <p><strong>The transformation is not about replacing human judgment.</strong> It is about giving investment professionals a structured, consistent, and explainable intelligence layer that improves the quality and speed of their decisions.</p>
+    </div>
+
+    <!-- Unified Transformation Diagram -->
+    <div class="unidia">
+      <div class="unidia-head">
+        <span class="unidia-badge">Unified View</span>
+        <h4>Operating Model Transformation — From Fragmented to Narrative-Aware</h4>
+      </div>
+      <div class="unidia-body">
+
+        <!-- ═══ ZONE 1: Information Layer (Neutral) ═══ -->
+        <div class="unidia-zone">
+          <div class="unidia-bar unidia-bar-neutral"></div>
+          <div class="unidia-content">
+            <div class="unidia-zone-label">
+              <span class="unidia-zone-tag unidia-tag-neutral">Information</span>
+              <span class="unidia-zone-desc">Common across both operating models — unchanged by transformation</span>
+            </div>
+            <div class="flow-sources" style="max-width:600px">
+              <div class="flow-source">
+                <div class="flow-source-title">External Sources</div>
+                <ul class="flow-source-list">
+                  <li>News &amp; Macro</li>
+                  <li>Company updates</li>
+                  <li>Regulatory events</li>
+                  <li>Market commentary</li>
+                </ul>
+              </div>
+              <div class="flow-source">
+                <div class="flow-source-title">Internal Sources</div>
+                <ul class="flow-source-list">
+                  <li>Adviser notes</li>
+                  <li>PM / Analyst views</li>
+                  <li>Committee inputs</li>
+                  <li>House views</li>
+                </ul>
+              </div>
+              <div class="flow-source">
+                <div class="flow-source-title">Quant / Portfolio Systems</div>
+                <ul class="flow-source-list">
+                  <li>Holdings &amp; weights</li>
+                  <li>Exposure &amp; risk data</li>
+                  <li>Risk metrics</li>
+                  <li>Performance data</li>
+                </ul>
+              </div>
+            </div>
+            <div class="unidia-connector"><div class="unidia-line unidia-line-neutral"></div><div class="unidia-arrow unidia-arrow-neutral"></div></div>
+          </div>
+        </div>
+
+        <!-- ═══ ZONE 2: Current Pain (As-Is) ═══ -->
+        <div class="unidia-zone unidia-zone-pain">
+          <div class="unidia-bar unidia-bar-pain"></div>
+          <div class="unidia-content">
+            <div class="unidia-zone-label">
+              <span class="unidia-zone-tag unidia-tag-pain">As-Is</span>
+              <span class="unidia-zone-desc">Fragmented interpretation — the gap Portfolio Studio addresses</span>
+            </div>
+
+            <!-- Bottleneck -->
+            <div class="pain-bottleneck">
+              <div class="pain-bottleneck-header">Manual Human Interpretation <span class="bneck-tag">Bottleneck</span></div>
+              <ul class="pain-bottleneck-items">
+                <li>Analysts synthesize inputs manually and independently</li>
+                <li>PMs form investment views in isolation</li>
+                <li>Risk reviews lag behind narrative developments</li>
+                <li>Teams work in separate tools with no shared signal framework</li>
+              </ul>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-pain"></div></div>
+
+            <!-- Three Silos -->
+            <div class="pain-silos">
+              <div class="pain-silo">
+                <div class="pain-silo-header">Research / Thesis</div>
+                <ul class="pain-silo-items">
+                  <li>Qualitative notes</li>
+                  <li>Ad hoc scenario thinking</li>
+                  <li>Inconsistent signal structuring</li>
+                </ul>
+                <div class="pain-silo-friction">Manual &amp; unstructured</div>
+              </div>
+              <div class="pain-silo">
+                <div class="pain-silo-header">Portfolio Construction</div>
+                <ul class="pain-silo-items">
+                  <li>Spreadsheet / OMS / models</li>
+                  <li>Limited narrative linkage</li>
+                  <li>Context added manually</li>
+                </ul>
+                <div class="pain-silo-friction">Disconnected from thesis</div>
+              </div>
+              <div class="pain-silo">
+                <div class="pain-silo-header">Risk Review</div>
+                <ul class="pain-silo-items">
+                  <li>Traditional risk metrics</li>
+                  <li>Narrative risks under-modeled</li>
+                  <li>Mostly reactive</li>
+                </ul>
+                <div class="pain-silo-friction">Lags emerging narrative</div>
+              </div>
+            </div>
+
+            <!-- Weak linkage -->
+            <div class="pain-weak-row">
+              <div class="pain-weak"><div class="pain-weak-dash"></div><div class="pain-weak-text">Weak linkage</div><div class="pain-weak-dash"></div></div>
+              <div class="pain-weak"><div class="pain-weak-dash"></div><div class="pain-weak-text">Weak linkage</div><div class="pain-weak-dash"></div></div>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-pain"></div></div>
+
+            <!-- Late convergence -->
+            <div class="pain-convergence">
+              <span class="pain-convergence-label">Late &amp; inconsistent convergence</span>
+              <span class="pain-convergence-text">Trade Intent / Committee Action</span>
+            </div>
+
+            <!-- Transition line -->
+            <div class="unidia-transition">
+              <div class="unidia-transition-line"></div>
+              <div class="unidia-transition-text">Portfolio Studio replaces this layer</div>
+              <div class="unidia-transition-line"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ ZONE 3: Portfolio Studio (Accent — the product) ═══ -->
+        <div class="unidia-zone unidia-zone-studio">
+          <div class="unidia-bar unidia-bar-studio"></div>
+          <div class="unidia-content">
+            <div class="unidia-zone-label">
+              <span class="unidia-zone-tag unidia-tag-studio">Portfolio Studio</span>
+              <span class="unidia-zone-desc">The intelligence layer — replaces manual interpretation with structured, explainable signals</span>
+            </div>
+
+            <!-- Studio hero block -->
+            <div class="studio-hero">
+              <div class="studio-hero-name">AI Enabled Portfolio Studio</div>
+              <div class="studio-hero-engine">Core: Agentic AI Narrative Builder</div>
+              <ul class="studio-hero-items">
+                <li>Ingests unstructured and structured inputs from all sources</li>
+                <li>Identifies dominant market narratives and emerging themes</li>
+                <li>Maps narratives into business signal dimensions</li>
+                <li>Produces explainable, traceable portfolio context</li>
+              </ul>
+              <div class="signal-dimensions">
+                <span class="signal-pill">Uncertainty</span>
+                <span class="signal-pill">Fundamentals</span>
+                <span class="signal-pill">Macro</span>
+                <span class="signal-pill">Liquidity</span>
+                <span class="signal-pill">ESG &amp; Regulation</span>
+              </div>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-accent"></div></div>
+
+            <!-- Optimizer + Risk Manager branch -->
+            <div class="studio-branch">
+              <div class="studio-branch-card">
+                <h5>Portfolio Optimizer</h5>
+                <ul>
+                  <li>Uses narrative + market data</li>
+                  <li>Supports allocation decisions</li>
+                  <li>Improves scenario testing</li>
+                </ul>
+              </div>
+              <div class="studio-branch-card">
+                <h5>Risk Manager</h5>
+                <ul>
+                  <li>Uses narrative + risk metrics</li>
+                  <li>Flags vulnerabilities early</li>
+                  <li>Adds forward-looking context</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-accent"></div></div>
+
+            <!-- Business Benefits Strip -->
+            <div class="benefits-strip">
+              <div class="benefit-chip">
+                <div class="benefit-chip-icon">⚡</div>
+                <div class="benefit-chip-text">Faster Insight-to-Decision</div>
+                <div class="benefit-chip-kpi">Time to pre-trade decision</div>
+              </div>
+              <div class="benefit-chip">
+                <div class="benefit-chip-icon">◎</div>
+                <div class="benefit-chip-text">Consistent Interpretation</div>
+                <div class="benefit-chip-kpi">Review process consistency</div>
+              </div>
+              <div class="benefit-chip">
+                <div class="benefit-chip-icon">⬡</div>
+                <div class="benefit-chip-text">Earlier Risk Awareness</div>
+                <div class="benefit-chip-kpi">Vulnerability identification</div>
+              </div>
+              <div class="benefit-chip">
+                <div class="benefit-chip-icon">◇</div>
+                <div class="benefit-chip-text">Committee Readiness</div>
+                <div class="benefit-chip-kpi">Governance traceability</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ ZONE 4: Transformed Output (Outcome) ═══ -->
+        <div class="unidia-zone unidia-zone-outcome">
+          <div class="unidia-bar unidia-bar-outcome"></div>
+          <div class="unidia-content">
+            <div class="unidia-zone-label">
+              <span class="unidia-zone-tag unidia-tag-outcome">To-Be</span>
+              <span class="unidia-zone-desc">Structured, narrative-aware decision outputs</span>
+            </div>
+
+            <!-- Decision Support -->
+            <div class="outcome-node">
+              <div class="outcome-node-header">Decision Support Layer</div>
+              <ul class="outcome-node-items">
+                <li>PM recommendation support with narrative context</li>
+                <li>Analyst thesis reinforcement and structured evidence</li>
+                <li>Investment committee briefings — governance-ready</li>
+                <li>Pre-trade challenge and review capabilities</li>
+              </ul>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-green"></div><div class="unidia-arrow unidia-arrow-green"></div></div>
+
+            <!-- Portfolio Decision -->
+            <div class="outcome-node outcome-node-compact">
+              <div class="outcome-node-header">Portfolio Decision / Rebalance / Trade Intent</div>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-green"></div><div class="unidia-arrow unidia-arrow-green"></div></div>
+
+            <!-- Execution (out of scope) -->
+            <div class="outcome-node outcome-node-dim outcome-node-compact">
+              <div class="outcome-node-header">Execution / Routing / Operations <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px">&mdash; outside scope</span></div>
+            </div>
+
+            <div class="unidia-connector"><div class="unidia-line unidia-line-green" style="opacity:0.15"></div><div class="unidia-arrow unidia-arrow-green" style="opacity:0.2"></div></div>
+
+            <!-- Feedback Loop -->
+            <div class="outcome-node outcome-node-feedback">
+              <div class="outcome-node-header">Ongoing Monitoring / Feedback Loop</div>
+              <ul class="outcome-node-items">
+                <li>Narrative drift monitoring</li>
+                <li>Portfolio posture review</li>
+                <li>Research and model refinement</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 5. Benefits -->
+  <section class="section fade-in" id="benefits">
+    <div class="section-num">05</div>
+    <h2>CIO-Level Business Benefits</h2>
+    <p class="section-lead">Each benefit is tied to measurable operational changes and the KPI categories a CIO can track.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Faster Insight-to-Decision Cycle</div>
+        <div class="kpi-desc">Market narratives are interpreted and structured automatically, reducing the time between information arrival and actionable portfolio context.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Automated narrative structuring replaces manual synthesis</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Faster response to market developments</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Time to investment insight · Time to pre-trade decision</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Improved Consistency of Interpretation</div>
+        <div class="kpi-desc">A shared narrative framework ensures market developments are interpreted consistently across analysts, portfolio managers, and risk teams.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Common signal dimensions replace ad hoc interpretation</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Reduces person-dependency and interpretation variance</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Consistency of investment review process</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">More Contextual Portfolio Decisions</div>
+        <div class="kpi-desc">Portfolio construction and rebalancing decisions are supported by structured narrative context, not just quantitative inputs.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Narrative signals feed optimizer alongside market data</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Decisions reflect qualitative market reality</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Portfolio review quality</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Earlier Risk Awareness</div>
+        <div class="kpi-desc">Narrative-aware risk analysis identifies vulnerabilities before they surface in traditional quantitative risk metrics.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Risk Manager incorporates narrative signals</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Proactive rather than reactive risk posture</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Early identification of portfolio vulnerabilities</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Reduced Manual Operating Friction</div>
+        <div class="kpi-desc">Automated narrative structuring reduces the manual effort required to synthesize market information and prepare investment materials.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Structured outputs reduce manual research and briefing preparation</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Teams focus on judgment, not data assembly</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Reduction in manual synthesis effort</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Improved Committee Readiness</div>
+        <div class="kpi-desc">Investment committee briefings are supported by structured, explainable, and narrative-linked portfolio context.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Committee materials draw from consistent structured intelligence</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Governance quality and decision traceability improve</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Committee preparation efficiency · Governance traceability</div>
+      </div>
+      <div class="kpi-card kpi-card-full">
+        <div class="kpi-label">Benefit</div>
+        <div class="kpi-title">Stronger Cross-Functional Alignment</div>
+        <div class="kpi-desc">Research, portfolio construction, and risk teams share a common narrative intelligence layer, improving alignment and reducing information asymmetry across functions.</div>
+        <div class="kpi-meta-item"><strong>Operational Change:</strong> Shared signal framework connects previously siloed workflows</div>
+        <div class="kpi-meta-item"><strong>CIO Relevance:</strong> Investment organization operates as a more coherent unit</div>
+        <div class="kpi-meta-item"><strong>KPI:</strong> Portfolio review quality · Consistency of investment review process</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 6. Trade Lifecycle -->
+  <section class="section fade-in" id="lifecycle">
+    <div class="section-num">06</div>
+    <h2>Product Positioning in the Trade Lifecycle</h2>
+    <p class="section-lead">Portfolio Studio strengthens the pre-trade decision layer. It does not extend into execution or operational trade processing.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Trade Lifecycle Stage</th><th>Portfolio Studio Role</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Market monitoring / information intake</td><td>Interprets unstructured information</td><td><span class="tag-high">High</span></td></tr>
+          <tr><td>Research / idea generation</td><td>Identifies themes and narratives</td><td><span class="tag-high">High</span></td></tr>
+          <tr><td>Thesis development</td><td>Structures narratives into decision signals</td><td><span class="tag-high">High</span></td></tr>
+          <tr><td>Portfolio construction / pre-trade allocation</td><td>Supports optimizer and contextual portfolio decisions</td><td><span class="tag-high">High</span></td></tr>
+          <tr><td>Pre-trade risk review</td><td>Highlights vulnerabilities and narrative-aware risks</td><td><span class="tag-high">High</span></td></tr>
+          <tr><td>Execution / routing</td><td>No direct role</td><td><span class="tag-out">Out of Scope</span></td></tr>
+          <tr><td>Post-trade operations</td><td>No direct role</td><td><span class="tag-out">Out of Scope</span></td></tr>
+          <tr><td>Ongoing portfolio monitoring</td><td>Supports risk and scenario review</td><td><span class="tag-medium">Medium</span></td></tr>
+          <tr><td>Strategy research / feedback loop</td><td>Supports model and research refinement</td><td><span class="tag-medium">Medium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>Portfolio Studio does not replace OMS, EMS, or operational trade infrastructure.</strong> It strengthens the decision layer before execution — ensuring that when a trade decision is made, it is better informed, better structured, and better supported by narrative context.</p>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 7. Personas -->
+  <section class="section fade-in" id="personas">
+    <div class="section-num">07</div>
+    <h2>Personas and Operating Model Fit</h2>
+    <p class="section-lead">Portfolio Studio serves multiple roles across the investment lifecycle, each with distinct needs and workflows.</p>
+
+    <div class="persona">
+      <h4>Portfolio Manager</h4>
+      <div class="persona-role">Pre-trade allocation · Portfolio construction · Rebalance decisions</div>
+      <div class="persona-grid">
+        <div class="persona-detail"><h5>Goals</h5><p>Make well-informed allocation decisions with confidence. Ensure portfolio positioning reflects the current market narrative and risk environment.</p></div>
+        <div class="persona-detail"><h5>Current Pain Points</h5><ul><li>Context assembly is manual and time-consuming</li><li>Narrative insight is informal and difficult to track</li><li>Limited structured linkage between market view and portfolio action</li></ul></div>
+        <div class="persona-detail"><h5>How Portfolio Studio Helps</h5><p>Provides structured narrative context for allocation decisions, supports scenario-aware portfolio construction, and links market intelligence to portfolio positioning.</p></div>
+        <div class="persona-detail"><h5>Modules Used</h5><ul><li>Agentic AI Narrative Builder</li><li>Portfolio Optimizer</li><li>Risk Manager</li></ul></div>
+      </div>
+    </div>
+
+    <div class="persona">
+      <h4>Investment Analyst</h4>
+      <div class="persona-role">Research · Idea generation · Thesis development</div>
+      <div class="persona-grid">
+        <div class="persona-detail"><h5>Goals</h5><p>Convert large volumes of unstructured information into structured investment insight. Build and support investment theses with evidence and narrative context.</p></div>
+        <div class="persona-detail"><h5>Current Pain Points</h5><ul><li>Information overload with limited structuring tools</li><li>Thesis documentation is ad hoc and inconsistent</li><li>Signal extraction is manual and difficult to repeat</li></ul></div>
+        <div class="persona-detail"><h5>How Portfolio Studio Helps</h5><p>Automates narrative interpretation, structures signals across consistent dimensions, and provides a repeatable framework for thesis development.</p></div>
+        <div class="persona-detail"><h5>Modules Used</h5><ul><li>Agentic AI Narrative Builder</li><li>Signal Structuring Layer</li><li>Strategy Research Layer</li></ul></div>
+      </div>
+    </div>
+
+    <div class="persona">
+      <h4>Risk Analyst</h4>
+      <div class="persona-role">Pre-trade risk review · Ongoing portfolio surveillance</div>
+      <div class="persona-grid">
+        <div class="persona-detail"><h5>Goals</h5><p>Identify portfolio vulnerabilities early. Ensure risk review incorporates forward-looking narrative context alongside traditional metrics.</p></div>
+        <div class="persona-detail"><h5>Current Pain Points</h5><ul><li>Risk review relies on backward-looking quantitative metrics</li><li>Narrative and thematic risks are under-represented</li><li>Visibility into emerging regime shifts is limited</li></ul></div>
+        <div class="persona-detail"><h5>How Portfolio Studio Helps</h5><p>Adds narrative-aware risk signals, enables earlier vulnerability detection, and provides forward-looking context that complements quantitative risk models.</p></div>
+        <div class="persona-detail"><h5>Modules Used</h5><ul><li>Agentic AI Narrative Builder</li><li>Risk Manager</li><li>Signal Structuring Layer</li></ul></div>
+      </div>
+    </div>
+
+    <div class="persona">
+      <h4>CIO / Head of Investments</h4>
+      <div class="persona-role">Strategic oversight · Portfolio governance · Investment committee review</div>
+      <div class="persona-grid">
+        <div class="persona-detail"><h5>Goals</h5><p>Maintain a credible, high-level view of how market narratives affect portfolio posture. Ensure governance-ready decision processes across the investment function.</p></div>
+        <div class="persona-detail"><h5>Current Pain Points</h5><ul><li>Committee materials vary in quality and narrative depth</li><li>Difficult to assess consistency across PM decisions</li><li>Limited traceability between market context and portfolio action</li></ul></div>
+        <div class="persona-detail"><h5>How Portfolio Studio Helps</h5><p>Provides executive-level summaries, narrative-linked portfolio context, and governance-ready outputs that strengthen oversight and committee quality.</p></div>
+        <div class="persona-detail"><h5>Modules Used</h5><ul><li>Agentic AI Narrative Builder</li><li>Executive Summary View</li><li>Risk Summary Outputs</li></ul></div>
+      </div>
+    </div>
+
+    <div class="persona">
+      <h4>Strategy Researcher</h4>
+      <div class="persona-role">Research support · Model design · Scenario analysis · Feedback loop</div>
+      <div class="persona-grid">
+        <div class="persona-detail"><h5>Goals</h5><p>Access structured narrative inputs for model testing, factor exploration, and strategy refinement. Build repeatable research workflows.</p></div>
+        <div class="persona-detail"><h5>Current Pain Points</h5><ul><li>Narrative data is unstructured and difficult to use in models</li><li>Limited reusable signal frameworks for qualitative inputs</li><li>Scenario analysis lacks narrative context</li></ul></div>
+        <div class="persona-detail"><h5>How Portfolio Studio Helps</h5><p>Provides structured, reusable narrative signals that can be tested, refined, and incorporated into quantitative research and strategy workflows.</p></div>
+        <div class="persona-detail"><h5>Modules Used</h5><ul><li>Agentic AI Narrative Builder</li><li>Signal Structuring Layer</li><li>Strategy Research Layer</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 8. Persona Mapping -->
+  <section class="section fade-in" id="persona-mapping">
+    <div class="section-num">08</div>
+    <h2>Persona-to-Module Mapping</h2>
+    <p class="section-lead">A consolidated view of how each persona engages with Portfolio Studio modules.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Persona</th><th>Primary Role</th><th>Primary Modules</th><th>Key Business Need</th><th>Decision Supported</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Portfolio Manager</strong></td><td>Pre-trade allocation, portfolio construction, rebalance decisions</td><td>Agentic AI Narrative Builder, Portfolio Optimizer, Risk Manager</td><td>Context-aware allocation support and confidence before changing portfolio positioning</td><td>Rebalance decisions, portfolio adjustments, allocation review</td></tr>
+          <tr><td><strong>Investment Analyst</strong></td><td>Research, idea generation, thesis development</td><td>Agentic AI Narrative Builder, Signal Structuring Layer, Strategy Research Layer</td><td>Convert large volumes of unstructured information into structured investment insight</td><td>Thesis support, investment recommendations, research outputs</td></tr>
+          <tr><td><strong>Risk Analyst</strong></td><td>Pre-trade risk review, ongoing portfolio surveillance</td><td>Agentic AI Narrative Builder, Risk Manager, Signal Structuring Layer</td><td>Earlier visibility into vulnerabilities and narrative-driven exposure risks</td><td>Risk review, vulnerability escalation, pre-trade risk insight</td></tr>
+          <tr><td><strong>CIO / Head of Investments</strong></td><td>Strategic oversight, portfolio governance, committee review</td><td>Agentic AI Narrative Builder, Executive Summary View, Risk Summary Outputs</td><td>High-level credible view of how narratives affect portfolio posture</td><td>Strategic alignment, oversight decisions, committee preparation</td></tr>
+          <tr><td><strong>Strategy Researcher</strong></td><td>Research support, model design, scenario analysis</td><td>Agentic AI Narrative Builder, Signal Structuring Layer, Strategy Research Layer</td><td>Reusable structured narrative inputs for testing and model refinement</td><td>Research experiments, factor exploration, strategy enhancement</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 9. Capabilities -->
+  <section class="section fade-in" id="capabilities">
+    <div class="section-num">09</div>
+    <h2>Functional Capabilities</h2>
+    <p class="section-lead">The core capabilities that Portfolio Studio delivers, organized by function.</p>
+
+    <div class="cap-grid">
+      <div class="cap-card"><h4>Narrative Interpretation</h4><p>Ingests unstructured market information and identifies dominant narratives, themes, and emerging developments relevant to portfolio positioning.</p></div>
+      <div class="cap-card"><h4>Narrative Structuring</h4><p>Transforms interpreted narratives into structured, consistent signals using a defined framework of business signal dimensions.</p></div>
+      <div class="cap-card"><h4>Signal Framework</h4><p>Maps narratives across five dimensions: Uncertainty, Fundamentals, Macro, Liquidity, and ESG &amp; Regulation.</p></div>
+      <div class="cap-card"><h4>Explainable Outputs</h4><p>All outputs include narrative provenance and reasoning. Signals are traceable to source information and interpretation logic.</p></div>
+      <div class="cap-card"><h4>Portfolio Application</h4><p>Structured signals feed portfolio construction and optimization processes, supporting context-aware allocation decisions.</p></div>
+      <div class="cap-card"><h4>Risk Application</h4><p>Narrative signals are integrated into risk review, enabling earlier identification of vulnerabilities and forward-looking risk context.</p></div>
+      <div class="cap-card"><h4>Governance Support</h4><p>Outputs support investment committee preparation, decision traceability, and governance documentation.</p></div>
+      <div class="cap-card"><h4>Decision Support Layer</h4><p>Provides PM recommendation support, analyst thesis reinforcement, committee briefings, and pre-trade challenge capabilities.</p></div>
+      <div class="cap-card"><h4>Cross-Module Consistency</h4><p>A shared narrative intelligence layer ensures research, portfolio, and risk functions operate from a common interpretation framework.</p></div>
+      <div class="cap-card"><h4>Human-in-the-Loop</h4><p>Designed as a decision-support platform, not a decision-making platform. Human judgment remains central to all portfolio actions.</p></div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 10. Inputs & Outputs -->
+  <section class="section fade-in" id="inputs-outputs">
+    <div class="section-num">10</div>
+    <h2>Inputs and Outputs</h2>
+    <p class="section-lead">A clear mapping of what Portfolio Studio consumes and what it produces.</p>
+
+    <div class="io-grid">
+      <div class="io-panel inputs">
+        <h4>Inputs</h4>
+        <ul>
+          <li>Financial news and market commentary</li>
+          <li>Macroeconomic commentary and data</li>
+          <li>Market narratives and thematic developments</li>
+          <li>Company updates and corporate actions</li>
+          <li>Regulatory developments and policy signals</li>
+          <li>Liquidity-related market information</li>
+          <li>Quantitative market data</li>
+          <li>Portfolio holdings, weights, and allocation data</li>
+          <li>Exposure and risk data</li>
+          <li>Internal analyst and portfolio manager views</li>
+          <li>Investment committee inputs and house views</li>
+        </ul>
+      </div>
+      <div class="io-panel outputs">
+        <h4>Outputs</h4>
+        <ul>
+          <li>Interpreted market narratives</li>
+          <li>Structured narrative signals by dimension</li>
+          <li>Theme-level insights and trend identification</li>
+          <li>Portfolio implications and positioning context</li>
+          <li>Vulnerability views and exposure assessments</li>
+          <li>Risk alerts, flags, and escalation triggers</li>
+          <li>Executive summaries for senior stakeholders</li>
+          <li>Committee briefing views</li>
+          <li>Research support views and thesis context</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 11. Enterprise Readiness -->
+  <section class="section fade-in" id="nonfunctional">
+    <div class="section-num">11</div>
+    <h2>Enterprise Readiness</h2>
+    <p class="section-lead">Non-functional requirements that give a CIO confidence in adoption, governance, and operational viability.</p>
+
+    <div class="nfr-grid">
+      <div class="nfr-card"><h4>Explainability</h4><p>All narrative interpretation and signal structuring must be explainable. Outputs include reasoning chains and source traceability so investment professionals can validate and trust the intelligence produced.</p></div>
+      <div class="nfr-card"><h4>Trust &amp; Consistency</h4><p>Outputs must be consistent across time, teams, and market conditions. The platform must produce reliable, repeatable results that investment professionals can depend on.</p></div>
+      <div class="nfr-card"><h4>Usability</h4><p>Interfaces and outputs are designed for investment professionals, not data scientists. Workflows integrate naturally into existing research, portfolio, and risk processes.</p></div>
+      <div class="nfr-card"><h4>Performance</h4><p>Narrative interpretation and signal structuring must operate at speeds compatible with pre-trade decision timelines. Latency must not impede the insight-to-action cycle.</p></div>
+      <div class="nfr-card"><h4>Extensibility</h4><p>The platform supports future expansion of signal dimensions, data sources, persona workflows, and integration points without fundamental architectural change.</p></div>
+      <div class="nfr-card"><h4>Governance Readiness</h4><p>Outputs must be auditable, traceable, and suitable for governance processes. The platform supports documentation and oversight requirements of investment committees.</p></div>
+      <div class="nfr-card"><h4>Human-in-the-Loop Design</h4><p>The platform is a decision-support tool, not autonomous. All portfolio actions remain under human control. Designed to augment, not replace, professional judgment.</p></div>
+      <div class="nfr-card"><h4>Security &amp; Data Integrity</h4><p>Meets institutional standards for data security, access control, and information integrity. Sensitive portfolio and client data handled per enterprise security policies.</p></div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 12. Dependencies -->
+  <section class="section fade-in" id="dependencies">
+    <div class="section-num">12</div>
+    <h2>Dependencies and Adoption Considerations</h2>
+    <p class="section-lead">Key factors that will influence successful implementation and organizational adoption.</p>
+
+    <h3>Data Dependencies</h3>
+    <p>Portfolio Studio requires access to both structured data (portfolio holdings, risk metrics, market data) and unstructured data (news, research, commentary). Data quality, timeliness, and coverage will directly influence the quality of narrative interpretation and signal structuring.</p>
+
+    <h3>Functional Dependencies</h3>
+    <p>Integration with existing portfolio management systems, risk platforms, and research tools is required to ensure Portfolio Studio outputs can be consumed within existing workflows.</p>
+
+    <h3>Organizational Dependencies</h3>
+    <p>Adoption depends on investment team willingness to incorporate structured narrative intelligence into their decision processes. Change management, training, and stakeholder engagement are critical.</p>
+
+    <h3>Design Dependencies</h3>
+    <p>The user experience must be designed in close collaboration with investment professionals to ensure outputs are relevant, consumable, and naturally integrated into daily workflows.</p>
+
+    <h3>Adoption Considerations</h3>
+    <p>A phased rollout is recommended, beginning with a focused pilot across a specific investment team or workflow before broader organizational adoption. Early wins and measurable improvements will be essential to building institutional confidence.</p>
+
+    <h3>Governance Integration</h3>
+    <p>The platform's outputs must be integrated into existing governance frameworks, including investment committee processes, risk oversight structures, and compliance documentation requirements.</p>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 13. Out of Scope -->
+  <section class="section fade-in" id="out-of-scope">
+    <div class="section-num">13</div>
+    <h2>Out of Scope</h2>
+    <p class="section-lead">Portfolio Studio is deliberately focused on pre-trade decision intelligence.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card"><h4>Execution Management</h4><p>Trade execution, order routing, and execution algorithm selection are not within scope.</p></div>
+      <div class="card"><h4>OMS / EMS Functionality</h4><p>Order and execution management system capabilities are provided by existing infrastructure.</p></div>
+      <div class="card"><h4>Settlement &amp; Reconciliation</h4><p>Post-trade settlement, reconciliation, and operational processing are handled downstream.</p></div>
+      <div class="card"><h4>Compliance Automation</h4><p>Regulatory compliance automation and surveillance are separate functions.</p></div>
+      <div class="card"><h4>Operational Trade Processing</h4><p>Middle-office and back-office trade processing workflows are outside focus.</p></div>
+      <div class="card"><h4>Generic Conversational AI</h4><p>Portfolio Studio is not a general-purpose AI assistant. It is purpose-built for portfolio intelligence workflows.</p></div>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 14. Open Questions -->
+  <section class="section fade-in" id="open-questions">
+    <div class="section-num">14</div>
+    <h2>Open Questions for Leadership</h2>
+    <p class="section-lead">Strategic questions requiring input from senior investment leadership to guide product direction.</p>
+
+    <ol class="q-list">
+      <li>Which persona is the primary buyer versus the primary daily user? Understanding this distinction will shape go-to-market positioning and UX prioritization.</li>
+      <li>Should the Agentic AI Narrative Builder be a visible standalone module or an embedded capability that operates behind other functional surfaces?</li>
+      <li>What is the most important workflow entry point? Should the platform prioritize research intake, portfolio construction, risk review, or committee preparation?</li>
+      <li>Should the initial focus be portfolio-level intelligence only, or should it also include security-level narrative analysis from the outset?</li>
+      <li>What level of recommendation should the platform provide? Should it suggest portfolio actions, or remain purely an intelligence and context layer?</li>
+      <li>What governance model is needed for adoption? How should outputs be validated, approved, and integrated into existing decision governance frameworks?</li>
+    </ol>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- 15. Final Summary -->
+  <section class="section fade-in" id="final-summary">
+    <div class="section-num">15</div>
+    <div class="final-block">
+      <h2>Final Executive Summary</h2>
+      <p>AI Enabled Portfolio Studio is a pre-trade portfolio intelligence platform that helps investment organizations convert fragmented market information into structured, explainable business intelligence. Its value to a CIO lies in improving decision quality, strengthening consistency across investment functions, surfacing risk earlier, and increasing governance readiness — without replacing core execution infrastructure.</p>
+      <p>It should be positioned as a Tech for Business solution: one that uses advanced AI not as the headline, but as the engine for better portfolio decisions, better risk awareness, and stronger investment operating discipline.</p>
+      <p>For a CIO evaluating where technology investment can have the greatest impact on the investment operating model, Portfolio Studio targets the interpretation layer — the gap between information and action — where the greatest opportunity for measurable improvement resides.</p>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- Back to top -->
+<button class="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<script>
+(function(){
+  // ── Theme Toggle ──
+  const html = document.documentElement;
+  const label = document.getElementById('theme-label');
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      html.classList.add('light');
+      if (label) label.textContent = 'Dark mode';
+    } else {
+      html.classList.remove('light');
+      if (label) label.textContent = 'Light mode';
+    }
+  }
+
+  // Check saved preference or system preference
+  const saved = localStorage.getItem('ps-theme');
+  if (saved) {
+    applyTheme(saved);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    applyTheme('light');
+  }
+
+  window.toggleTheme = function() {
+    const isLight = html.classList.contains('light');
+    const next = isLight ? 'dark' : 'light';
+    applyTheme(next);
+    localStorage.setItem('ps-theme', next);
+  };
+
+  // ── Sidebar Toggle ──
+  const sb=document.querySelector('.sidebar'),ov=document.querySelector('.mobile-overlay');
+  window.toggleNav=function(){
+    sb.classList.toggle('open');
+    if(sb.classList.contains('open')){ov.style.display='block';requestAnimationFrame(()=>ov.classList.add('visible'));}
+    else{ov.classList.remove('visible');setTimeout(()=>ov.style.display='none',300);}
+  };
+  document.querySelectorAll('.sidebar-nav a').forEach(a=>{
+    a.addEventListener('click',()=>{if(innerWidth<=1024){sb.classList.remove('open');ov.classList.remove('visible');setTimeout(()=>ov.style.display='none',300);}});
+  });
+
+  // ── Scrollspy ──
+  const secs=document.querySelectorAll('.section[id]'),links=document.querySelectorAll('.sidebar-nav a');
+  function spy(){
+    let cur='';
+    secs.forEach(s=>{if(scrollY>=s.offsetTop-140)cur=s.id;});
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+  }
+
+  // ── Back to Top ──
+  const btt=document.querySelector('.btt');
+  function bttVis(){btt.classList.toggle('visible',scrollY>500);}
+
+  // ── Fade In ──
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:0.06});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  // ── Scroll handler ──
+  let t=false;
+  addEventListener('scroll',()=>{if(!t){requestAnimationFrame(()=>{spy();bttVis();t=false;});t=true;}});
+  spy();bttVis();
+})();
+</script>
+</body>
+</html>
