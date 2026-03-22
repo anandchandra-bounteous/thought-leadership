@@ -210,7 +210,9 @@ html.light .flow-node-accent {
 .iflow, .iflow-card, .iflow-pill,
 .adopt, .adopt-dep, .adopt-gate, .adopt-runway-label, .adopt-statement, .adopt-progress-seg,
 .propensity, .propensity-composite, .propensity-bar-track, .cio-positioning,
-.txfm-shift, .txfm-shift-stat, .txfm-track-line {
+.txfm-shift, .txfm-shift-stat, .txfm-track-line,
+.techstack, .ts-stage, .ts-tech, .ts-method, .ts-training-cell,
+.platstack, .platstack-card, .platstack-layer-head, .platstack-footer {
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -1760,6 +1762,502 @@ html.light .cio-positioning {
   .propensity-composite { background: #fdf8ef; }
   .propensity-bar-fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .cio-positioning { background: #fdf8ef; border-color: #d6c8a0; }
+}
+
+/* ═══════════════════════════════════════
+   PLATFORM STACK — LOGO GRID
+   ═══════════════════════════════════════ */
+.platstack {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 36px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.platstack-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.platstack-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.platstack-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+/* ── Layer group ── */
+.platstack-layer {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.platstack-layer:last-child { border-bottom: none; }
+
+.platstack-layer-head {
+  padding: 14px 28px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.4s ease;
+}
+
+html.light .platstack-layer-head {
+  background: #f0eee9;
+}
+
+.platstack-layer-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.platstack-layer-tag-app {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.platstack-layer-tag-ml {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border: 1px solid rgba(122, 158, 194, 0.2);
+}
+
+html.light .platstack-layer-tag-ml {
+  border-color: rgba(62, 109, 150, 0.2);
+}
+
+.platstack-layer-name {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+/* ── Logo cards grid ── */
+.platstack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+}
+
+.platstack-card {
+  background: var(--bg-card);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: background 0.2s ease;
+  text-align: center;
+}
+
+.platstack-card:hover {
+  background: var(--bg-card-hover);
+}
+
+/* Logo container */
+.platstack-logo {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.platstack-logo svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Card text */
+.platstack-card-name {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.platstack-card-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+  max-width: 160px;
+}
+
+/* ── Footer ── */
+.platstack-footer {
+  padding: 16px 28px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  transition: background 0.4s ease;
+}
+
+html.light .platstack-footer {
+  background: #f0eee9;
+}
+
+.platstack-footer-text {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .platstack-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .platstack-card { padding: 20px 16px; }
+}
+
+@media (max-width: 480px) {
+  .platstack-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media print {
+  .platstack { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .platstack-layer-head { background: #f5f5f5; }
+  .platstack-logo svg { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* ═══════════════════════════════════════
+   TECHNOLOGY STACK PIPELINE
+   ═══════════════════════════════════════ */
+.techstack {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 36px 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.techstack-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.techstack-head h4 {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-bottom: 0;
+}
+
+.techstack-badge {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--blue-dim);
+  color: var(--blue);
+  border: 1px solid rgba(122, 158, 194, 0.2);
+}
+
+html.light .techstack-badge {
+  border-color: rgba(62, 109, 150, 0.2);
+}
+
+.techstack-body {
+  padding: 0;
+}
+
+/* ── Pipeline stage ── */
+.ts-stage {
+  display: grid;
+  grid-template-columns: 52px 200px 1fr;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.ts-stage:last-child { border-bottom: none; }
+
+.ts-stage:hover {
+  background: var(--bg-subtle);
+}
+
+html.light .ts-stage:hover {
+  background: var(--bg-subtle);
+}
+
+/* Stage sequence number column */
+.ts-seq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border-light);
+  position: relative;
+}
+
+.ts-seq-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  z-index: 1;
+}
+
+/* Vertical spine connecting stages */
+.ts-seq::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--border-light);
+  transform: translateX(-50%);
+}
+
+.ts-stage:first-child .ts-seq::before { top: 50%; }
+.ts-stage:last-child .ts-seq::before { bottom: 50%; }
+
+.ts-seq-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.ts-seq-dot-blue { background: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
+.ts-seq-dot-accent { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.ts-seq-dot-green { background: var(--green); box-shadow: 0 0 0 3px var(--green-dim); }
+
+/* Stage name column */
+.ts-name {
+  padding: 22px 20px;
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.ts-name-title {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.ts-name-sub {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
+/* Stage detail column */
+.ts-detail {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ts-desc {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Tech pills */
+.ts-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ts-tech {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--text-tertiary);
+  background: var(--bg-elevated);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.ts-tech-accent {
+  border-color: var(--accent-border);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.ts-tech-blue {
+  border-color: rgba(122, 158, 194, 0.2);
+  color: var(--blue);
+  background: var(--blue-dim);
+}
+
+.ts-tech-green {
+  border-color: rgba(107, 158, 122, 0.2);
+  color: var(--green);
+  background: var(--green-dim);
+}
+
+html.light .ts-tech {
+  background: var(--bg-elevated);
+}
+
+/* ── Methodology callout inside stack ── */
+.ts-method {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  transition: background 0.4s ease;
+}
+
+html.light .ts-method {
+  background: #f0eee9;
+}
+
+.ts-method-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.ts-method-text {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.ts-method-text strong {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ── Training detail grid ── */
+.ts-training-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border-top: 1px solid var(--border-light);
+}
+
+.ts-training-cell {
+  padding: 18px 20px;
+  background: var(--bg-card);
+  text-align: center;
+  transition: background 0.4s ease;
+}
+
+.ts-training-value {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.ts-training-value-accent { color: var(--accent); }
+.ts-training-value-blue { color: var(--blue); }
+.ts-training-value-green { color: var(--green); }
+
+.ts-training-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.ts-training-sub {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ts-stage {
+    grid-template-columns: 1fr;
+  }
+  .ts-seq { display: none; }
+  .ts-name { border-right: none; border-bottom: 1px solid var(--border-light); padding: 16px 20px; }
+  .ts-detail { padding: 16px 20px; }
+  .ts-training-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .techstack { break-inside: avoid; background: #fafafa; border-color: #ddd; }
+  .ts-tech { background: #f5f5f5; border-color: #ddd; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .ts-tech-accent { background: #fdf8ef; border-color: #d6c8a0; }
+  .ts-tech-blue { background: #eef4fa; border-color: #b8d0e8; }
+  .ts-training-cell { background: #fafafa; }
 }
 
 /* ═══════════════════════════════════════
@@ -7881,6 +8379,353 @@ html.light .mobile-theme-toggle .icon-moon { display: none; }
           <div class="arch-oos-sub">Remains outside Portfolio Studio scope</div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- Technology Stack Pipeline -->
+    <div class="techstack">
+      <div class="techstack-head">
+        <h4>Narrative Intelligence Pipeline — Technology Stack</h4>
+        <span class="techstack-badge">Implementation</span>
+      </div>
+
+      <div class="techstack-body">
+
+        <!-- Stage 1: Data Acquisition -->
+        <div class="ts-stage" data-tip="The platform constructs Boolean search queries tailored to each thematic agent — using exact-match phrases, exclusion terms, and sub-theme tagging to maximise relevant headline recall while minimising off-topic noise.">
+          <div class="ts-seq">
+            <div class="ts-seq-dot ts-seq-dot-blue"></div>
+          </div>
+          <div class="ts-name">
+            <span class="ts-name-title">Data Acquisition</span>
+            <span class="ts-name-sub">Headline extraction and source management</span>
+          </div>
+          <div class="ts-detail">
+            <div class="ts-desc">Thematic search queries are deployed across news RSS feeds using Boolean operators, exact-match phrases, and exclusion terms. Each headline is tagged with the sub-theme that captured it, enabling downstream decomposition of which narrative dimensions are driving aggregate scores.</div>
+            <div class="ts-techs">
+              <span class="ts-tech ts-tech-blue">Google News RSS</span>
+              <span class="ts-tech">Boolean Query Engine</span>
+              <span class="ts-tech">Sub-Theme Tagging</span>
+              <span class="ts-tech">Multi-Layer Query Architecture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 2: Pre-Processing -->
+        <div class="ts-stage" data-tip="A three-stage deterministic pipeline that removes noise before any model inference occurs. Deduplication eliminates identical headlines, a tiered source whitelist assigns credibility-based weight multipliers, and regex filters discard consumer content such as product reviews, deal roundups, and buying guides.">
+          <div class="ts-seq">
+            <div class="ts-seq-dot ts-seq-dot-blue"></div>
+          </div>
+          <div class="ts-name">
+            <span class="ts-name-title">Pre-Processing</span>
+            <span class="ts-name-sub">Deduplication, filtering, source weighting</span>
+          </div>
+          <div class="ts-detail">
+            <div class="ts-desc">Extracted headlines pass through a deterministic three-stage pipeline: deduplication removes identical content, a tiered source quality whitelist assigns weight multipliers based on outlet credibility and market relevance, and regex-based noise filters discard consumer and off-topic content before model inference.</div>
+            <div class="ts-techs">
+              <span class="ts-tech">Deduplication Engine</span>
+              <span class="ts-tech ts-tech-accent">Tiered Source Whitelist</span>
+              <span class="ts-tech">Regex Noise Filter</span>
+              <span class="ts-tech ts-tech-blue">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3: NLP Sentiment Engine -->
+        <div class="ts-stage" data-tip="The core ML layer. ProsusAI/FinBERT provides a BERT-based foundation pre-trained on financial text. Domain-specific fine-tuning uses an iterative error-driven methodology: base model errors are systematically catalogued, a curated correction dataset is constructed (~2–3k samples), and the model is retrained with low learning rate to preserve pre-trained weights while improving thematic accuracy.">
+          <div class="ts-seq">
+            <div class="ts-seq-dot ts-seq-dot-accent"></div>
+          </div>
+          <div class="ts-name">
+            <span class="ts-name-title">NLP Sentiment Engine</span>
+            <span class="ts-name-sub">Fine-tuned financial language model</span>
+          </div>
+          <div class="ts-detail">
+            <div class="ts-desc">The sentiment engine is built on ProsusAI/FinBERT — a BERT-based model pre-trained on financial text and fine-tuned for three-class classification (positive, negative, neutral). Domain-specific fine-tuning follows an iterative, error-driven methodology: a large headline corpus is scored, error patterns are systematically catalogued, and a curated correction dataset is constructed for supervised retraining with low learning rate and evaluation splits to prevent overfitting.</div>
+            <div class="ts-techs">
+              <span class="ts-tech ts-tech-accent">ProsusAI/FinBERT</span>
+              <span class="ts-tech ts-tech-accent">Hugging Face Transformers</span>
+              <span class="ts-tech ts-tech-blue">Python</span>
+              <span class="ts-tech">Cross-Entropy Loss</span>
+              <span class="ts-tech">Iterative Fine-Tuning</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 4: Signal Structuring -->
+        <div class="ts-stage" data-tip="Classified headlines are aggregated into the five business signal dimensions: Uncertainty, Fundamentals, Macro, Liquidity, and ESG &amp; Regulation. Source weighting, sub-theme decomposition, and confidence scoring produce structured, explainable portfolio context.">
+          <div class="ts-seq">
+            <div class="ts-seq-dot ts-seq-dot-accent"></div>
+          </div>
+          <div class="ts-name">
+            <span class="ts-name-title">Signal Structuring</span>
+            <span class="ts-name-sub">Narrative-to-signal translation</span>
+          </div>
+          <div class="ts-detail">
+            <div class="ts-desc">Classified headlines are aggregated into five business signal dimensions. Source credibility weights, sub-theme decomposition, and model confidence scores are combined to produce structured, explainable portfolio signals that downstream functions can consume consistently.</div>
+            <div class="ts-techs">
+              <span class="ts-tech ts-tech-accent">5 Signal Dimensions</span>
+              <span class="ts-tech">Source-Weighted Aggregation</span>
+              <span class="ts-tech">Confidence Scoring</span>
+              <span class="ts-tech ts-tech-green">Sub-Theme Decomposition</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5: Distribution -->
+        <div class="ts-stage" data-tip="Structured intelligence is distributed to portfolio construction, risk review, and governance workflows. Outputs are traceable, audit-ready, and designed for integration with existing PMS/OMS infrastructure.">
+          <div class="ts-seq">
+            <div class="ts-seq-dot ts-seq-dot-green"></div>
+          </div>
+          <div class="ts-name">
+            <span class="ts-name-title">Output Distribution</span>
+            <span class="ts-name-sub">Structured intelligence delivery</span>
+          </div>
+          <div class="ts-detail">
+            <div class="ts-desc">Structured signals and narrative context are distributed to portfolio, risk, and governance workflows. Every output is traceable to its source headlines, model confidence, and signal dimension — enabling audit-ready governance and integration with existing investment infrastructure.</div>
+            <div class="ts-techs">
+              <span class="ts-tech ts-tech-green">Portfolio Optimizer</span>
+              <span class="ts-tech ts-tech-green">Risk Manager</span>
+              <span class="ts-tech">Committee Briefing</span>
+              <span class="ts-tech">Audit Trail</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Fine-Tuning Methodology -->
+      <div class="ts-method">
+        <div class="ts-method-label">Fine-Tuning Methodology — Error-Driven Iteration</div>
+        <div class="ts-method-text">Model calibration follows an <strong>iterative error-driven methodology</strong> rather than random labelling. A large corpus of headlines (50,000–80,000) is scored by the base model, and the resulting classifications are systematically analysed to identify recurring error patterns: misclassified directional language, flattened sentiment, misinterpreted domain vocabulary, and low-confidence borderline cases. The curated training dataset comprises approximately <strong>50% corrections</strong> (where the base model was wrong), <strong>10% borderline cases</strong> requiring domain expertise, and <strong>40% retention samples</strong> (correctly classified, included to prevent catastrophic forgetting). Residual weaknesses are addressed through additional surgical fine-tuning rounds on smaller, targeted correction sets.</div>
+      </div>
+
+      <!-- Training metrics footer -->
+      <div class="ts-training-grid">
+        <div class="ts-training-cell">
+          <div class="ts-training-value ts-training-value-accent">50–80k</div>
+          <div class="ts-training-label">Headlines Scored</div>
+          <div class="ts-training-sub">Per thematic agent corpus</div>
+        </div>
+        <div class="ts-training-cell">
+          <div class="ts-training-value ts-training-value-blue">2–3k</div>
+          <div class="ts-training-label">Curated Training Samples</div>
+          <div class="ts-training-sub">Error-driven, domain-specific</div>
+        </div>
+        <div class="ts-training-cell">
+          <div class="ts-training-value ts-training-value-green">3-Class</div>
+          <div class="ts-training-label">Sentiment Classification</div>
+          <div class="ts-training-sub">Positive · Negative · Neutral</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platform Technology Stack — Logo Grid -->
+    <h3>Platform Technology Stack</h3>
+
+    <div class="platstack">
+      <div class="platstack-head">
+        <h4>Built With — Technology Components by Layer</h4>
+        <span class="platstack-badge">Stack</span>
+      </div>
+
+      <!-- Layer 1: Application Platform -->
+      <div class="platstack-layer">
+        <div class="platstack-layer-head">
+          <span class="platstack-layer-tag platstack-layer-tag-app">App</span>
+          <span class="platstack-layer-name">Application Platform &amp; Frontend</span>
+        </div>
+        <div class="platstack-grid">
+
+          <!-- Lovable -->
+          <div class="platstack-card" data-tip="AI-native full-stack development platform. Generates production-grade React/TypeScript applications from natural language prompts with autonomous agent capabilities, visual editing, and one-click deployment.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="40" height="40" rx="10" fill="#1a1a1a" stroke="#333" stroke-width="0.5"/>
+                <path d="M22 32c-1.2 0-10-7.2-10-13.5C12 14.4 14.7 12 18 12c1.8 0 3.3.8 4 2 .7-1.2 2.2-2 4-2 3.3 0 6 2.4 6 6.5C32 24.8 23.2 32 22 32z" fill="#FF385C"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Lovable</div>
+            <div class="platstack-card-role">AI Application Builder &amp; Deployment Platform</div>
+          </div>
+
+          <!-- React -->
+          <div class="platstack-card" data-tip="Industry-standard component library for building interactive user interfaces. Enables modular, reusable UI architecture with virtual DOM rendering for high-performance portfolio dashboards and real-time signal displays.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="22" r="3.5" fill="#61DAFB"/>
+                <ellipse cx="22" cy="22" rx="18" ry="7" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(0 22 22)"/>
+                <ellipse cx="22" cy="22" rx="18" ry="7" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(60 22 22)"/>
+                <ellipse cx="22" cy="22" rx="18" ry="7" stroke="#61DAFB" stroke-width="1.2" fill="none" transform="rotate(120 22 22)"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">React</div>
+            <div class="platstack-card-role">Frontend UI Framework</div>
+          </div>
+
+          <!-- TypeScript -->
+          <div class="platstack-card" data-tip="Strongly-typed superset of JavaScript. Provides compile-time type safety, improved IDE tooling, and better code maintainability — essential for complex financial data models and signal processing logic.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="36" height="36" rx="3" fill="#3178C6"/>
+                <text x="22" y="29" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">TS</text>
+              </svg>
+            </div>
+            <div class="platstack-card-name">TypeScript</div>
+            <div class="platstack-card-role">Type-Safe Language</div>
+          </div>
+
+          <!-- Tailwind CSS -->
+          <div class="platstack-card" data-tip="Utility-first CSS framework. Produces clean, maintainable styling without proprietary lock-in. Enables rapid UI iteration and consistent design system implementation across portfolio views, dashboards, and reporting surfaces.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 18c1.3-5.3 4.7-8 10-8 8 0 9 6 13 7 2.7.7 5-.3 7-3-1.3 5.3-4.7 8-10 8-8 0-9-6-13-7-2.7-.7-5 .3-7 3z" transform="translate(-6, 6) scale(0.85)" fill="#06B6D4"/>
+                <path d="M7 28c1.3-5.3 4.7-8 10-8 8 0 9 6 13 7 2.7.7 5-.3 7-3-1.3 5.3-4.7 8-10 8-8 0-9-6-13-7-2.7-.7-5 .3-7 3z" transform="translate(-6, 6) scale(0.85)" fill="#06B6D4"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Tailwind CSS</div>
+            <div class="platstack-card-role">Utility-First Styling</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Layer 1b: Backend & Infrastructure -->
+      <div class="platstack-layer">
+        <div class="platstack-layer-head">
+          <span class="platstack-layer-tag platstack-layer-tag-app">Infra</span>
+          <span class="platstack-layer-name">Backend, Storage &amp; Version Control</span>
+        </div>
+        <div class="platstack-grid">
+
+          <!-- Supabase -->
+          <div class="platstack-card" data-tip="Open-source backend-as-a-service built on PostgreSQL. Provides real-time database subscriptions, row-level security, authentication, and edge functions — handling user management, signal storage, and portfolio state persistence.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.5 38.2c-.7.9-2.2.4-2.2-.8V26h13.4c2.4 0 3.7 2.8 2.1 4.6L24.5 38.2z" fill="#3ECF8E" fill-opacity="0.7"/>
+                <path d="M19.5 5.8c.7-.9 2.2-.4 2.2.8V18H8.3c-2.4 0-3.7-2.8-2.1-4.6L19.5 5.8z" fill="#3ECF8E"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Supabase</div>
+            <div class="platstack-card-role">Backend, Database &amp; Auth</div>
+          </div>
+
+          <!-- Vite -->
+          <div class="platstack-card" data-tip="Next-generation build tool with instant hot module replacement. Provides sub-second development feedback loops and optimised production bundles — critical for iterating on complex financial interface components.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38 11L23.2 38c-.3.6-1.2.6-1.5-.1L7 11.4c-.3-.7.3-1.4 1-.3l14 2.8c.1 0 .3 0 .4 0l14.5-3c.8-.2 1.4.6 1 1.3z" fill="url(#vg1)"/>
+                <path d="M28.5 6l-8.3 1.6c-.3.1-.5.3-.5.6l-.5 8.7c0 .4.3.7.7.7l2.3-.5c.4-.1.8.3.7.7l-.7 3.4c-.1.4.3.8.7.7l1.4-.4c.5-.1.8.3.7.7l-1.1 5.2c-.1.5.6.8.9.4l.2-.3 5.8-11.6c.2-.4-.2-.9-.6-.8l-2.4.5c-.4.1-.8-.3-.7-.7l1.2-5.5c.1-.4-.2-.8-.7-.7z" fill="#FFD62E"/>
+                <defs><linearGradient id="vg1" x1="7" y1="8" x2="30" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#41D1FF"/><stop offset="1" stop-color="#BD34FE"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Vite</div>
+            <div class="platstack-card-role">Build Tool &amp; Dev Server</div>
+          </div>
+
+          <!-- GitHub -->
+          <div class="platstack-card" data-tip="Full version control integration with GitHub sync. Provides code ownership, export capability, collaborative development workflows, and CI/CD pipeline support — ensuring no vendor lock-in and enterprise-grade change management.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M22 6C13.2 6 6 13.2 6 22c0 7.1 4.6 13.1 10.9 15.2.8.1 1.1-.3 1.1-.8v-2.7c-4.5 1-5.4-2.2-5.4-2.2-.7-1.8-1.8-2.3-1.8-2.3-1.4-1 .1-1 .1-1 1.6.1 2.4 1.6 2.4 1.6 1.4 2.4 3.7 1.7 4.6 1.3.1-1 .6-1.7 1-2.1-3.6-.4-7.3-1.8-7.3-8 0-1.8.6-3.2 1.6-4.4-.2-.4-.7-2 .2-4.3 0 0 1.3-.4 4.4 1.7 1.3-.4 2.6-.5 4-.5s2.7.2 4 .5c3.1-2.1 4.4-1.7 4.4-1.7.9 2.2.3 3.9.2 4.3 1 1.1 1.6 2.6 1.6 4.4 0 6.3-3.8 7.6-7.4 8 .6.5 1.1 1.5 1.1 3v4.5c0 .4.3.9 1.1.8C33.4 35.1 38 29.1 38 22c0-8.8-7.2-16-16-16z" fill="var(--text-secondary)"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">GitHub</div>
+            <div class="platstack-card-role">Version Control &amp; CI/CD</div>
+          </div>
+
+          <!-- PostgreSQL (via Supabase) -->
+          <div class="platstack-card" data-tip="Enterprise-grade relational database underlying Supabase. Provides ACID compliance, row-level security policies, real-time subscriptions, and the query performance required for time-series signal data and portfolio state management.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="22" cy="14" rx="13" ry="5" fill="none" stroke="#336791" stroke-width="1.5"/>
+                <path d="M9 14v16c0 2.8 5.8 5 13 5s13-2.2 13-5V14" fill="none" stroke="#336791" stroke-width="1.5"/>
+                <path d="M9 22c0 2.8 5.8 5 13 5s13-2.2 13-5" fill="none" stroke="#336791" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.5"/>
+                <text x="22" y="33" font-family="Arial, sans-serif" font-size="7" font-weight="600" fill="#336791" text-anchor="middle">SQL</text>
+              </svg>
+            </div>
+            <div class="platstack-card-name">PostgreSQL</div>
+            <div class="platstack-card-role">Relational Database</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Layer 2: ML / NLP Engine -->
+      <div class="platstack-layer">
+        <div class="platstack-layer-head">
+          <span class="platstack-layer-tag platstack-layer-tag-ml">ML</span>
+          <span class="platstack-layer-name">Machine Learning &amp; NLP Intelligence</span>
+        </div>
+        <div class="platstack-grid">
+
+          <!-- Python -->
+          <div class="platstack-card" data-tip="Core language for the entire ML/NLP pipeline — from data acquisition and pre-processing through model training, evaluation, and signal aggregation. Python's ecosystem provides the foundation for all quantitative and NLP operations.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.8 6c-5.7 0-5.3 2.5-5.3 2.5v2.5h5.4v.8H12.6S8 11.2 8 17s3.6 5.5 3.6 5.5h2.1v-2.7s-.1-3.6 3.5-3.6h6.1s3.4.1 3.4-3.3V9.2S27.2 6 21.8 6zm-3 1.8a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z" fill="#3776AB"/>
+                <path d="M22.2 38c5.7 0 5.3-2.5 5.3-2.5v-2.5h-5.4v-.8h9.3S36 32.8 36 27s-3.6-5.5-3.6-5.5h-2.1v2.7s.1 3.6-3.5 3.6h-6.1s-3.4-.1-3.4 3.3v3.7S16.8 38 22.2 38zm3-1.8a1.1 1.1 0 110-2.2 1.1 1.1 0 010 2.2z" fill="#FFD43B"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Python</div>
+            <div class="platstack-card-role">ML Pipeline &amp; Data Processing</div>
+          </div>
+
+          <!-- Hugging Face -->
+          <div class="platstack-card" data-tip="Model hub and Transformers library powering the fine-tuning workflow. Provides the training infrastructure for supervised classification with cross-entropy loss, learning rate scheduling, and evaluation splits for the FinBERT fine-tuning process.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="22" r="17" fill="#FFD21E" stroke="#FF9D00" stroke-width="1"/>
+                <circle cx="16" cy="19" r="2.5" fill="#1a1a1a"/>
+                <circle cx="28" cy="19" r="2.5" fill="#1a1a1a"/>
+                <circle cx="15.2" cy="18.2" r="0.8" fill="#fff"/>
+                <circle cx="27.2" cy="18.2" r="0.8" fill="#fff"/>
+                <path d="M16 27c1.5 2.5 4.5 4 6 4s4.5-1.5 6-4" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <path d="M12 14c1-3 3-4 4-4M32 14c-1-3-3-4-4-4" stroke="#FF9D00" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Hugging Face</div>
+            <div class="platstack-card-role">Transformers &amp; Model Hub</div>
+          </div>
+
+          <!-- FinBERT -->
+          <div class="platstack-card" data-tip="ProsusAI/FinBERT — a BERT-based language model pre-trained on financial text and fine-tuned for three-class sentiment classification. The foundation model is then further fine-tuned per thematic agent using an iterative error-driven methodology with curated correction datasets.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="36" height="36" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+                <text x="22" y="18" font-family="Georgia, serif" font-size="8" font-weight="700" fill="var(--accent)" text-anchor="middle">Fin</text>
+                <text x="22" y="30" font-family="Georgia, serif" font-size="11" font-weight="400" fill="var(--accent)" text-anchor="middle">BERT</text>
+                <line x1="11" y1="21" x2="33" y2="21" stroke="var(--accent)" stroke-width="0.5" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="platstack-card-name">ProsusAI / FinBERT</div>
+            <div class="platstack-card-role">Financial Sentiment Model</div>
+          </div>
+
+          <!-- Google News RSS -->
+          <div class="platstack-card" data-tip="Primary data acquisition channel for real-time headline extraction. Boolean search queries are deployed per thematic agent, with sub-theme tagging, exact-match phrases, and exclusion terms to maximise recall while minimising off-topic noise.">
+            <div class="platstack-logo">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="8" width="32" height="28" rx="3" fill="none" stroke="var(--text-tertiary)" stroke-width="1.2"/>
+                <line x1="6" y1="16" x2="38" y2="16" stroke="var(--text-tertiary)" stroke-width="1"/>
+                <text x="22" y="13.5" font-family="Arial, sans-serif" font-size="5" font-weight="700" fill="var(--text-tertiary)" text-anchor="middle" letter-spacing="0.5">NEWS</text>
+                <rect x="10" y="20" width="11" height="2" rx="1" fill="var(--text-muted)"/>
+                <rect x="10" y="24" width="14" height="1.5" rx=".75" fill="var(--border)" opacity="0.6"/>
+                <rect x="10" y="27.5" width="12" height="1.5" rx=".75" fill="var(--border)" opacity="0.6"/>
+                <rect x="10" y="31" width="10" height="1.5" rx=".75" fill="var(--border)" opacity="0.6"/>
+                <rect x="27" y="20" width="8" height="8" rx="1" fill="var(--blue-dim)" stroke="var(--blue)" stroke-width="0.5" opacity="0.7"/>
+                <text x="31" y="25.5" font-family="Arial, sans-serif" font-size="5" fill="var(--blue)" text-anchor="middle">RSS</text>
+              </svg>
+            </div>
+            <div class="platstack-card-name">Google News RSS</div>
+            <div class="platstack-card-role">Real-Time Headline Extraction</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="platstack-footer">
+        <div class="platstack-footer-text">The application layer is built on Lovable's AI-native development platform, generating production-grade React/TypeScript with Supabase backend. The ML/NLP layer operates as an independent Python pipeline, with FinBERT fine-tuned per thematic agent. Both layers are version-controlled via GitHub and designed for modular enterprise adoption.</div>
       </div>
     </div>
 
