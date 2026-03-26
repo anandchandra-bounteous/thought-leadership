@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="autocomplete" content="off">
 <title>NextWave AI Innovation Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -449,9 +453,68 @@ body.wiz-open{overflow:hidden;position:fixed;width:100%;top:0}
 .footer{background:var(--n9);padding:24px 36px;text-align:center}.footer-t{font-size:.75rem;color:var(--dkm)}.footer-t a{color:var(--t4);text-decoration:none}.footer-t img{height:16px;opacity:.6;filter:brightness(0) invert(1);vertical-align:middle;margin-right:10px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.an{animation:fadeIn .3s ease both}
 @media(max-width:900px){.hero-stats{display:none}.pgrid,.acc-grid,.dom-grid,.scen-grid{grid-template-columns:1fr}.charts{grid-template-columns:1fr}.ac-weeks{flex-direction:column}.journey{flex-direction:column}.j-step{min-width:auto;padding-top:20px}}
+/* ═══ LOGIN ═══ */
+.login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,var(--n9) 0%,var(--n7) 40%,var(--n5) 100%);overflow:hidden}
+.login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 20% 80%,rgba(0,180,197,.1),transparent),radial-gradient(ellipse 40% 50% at 80% 20%,rgba(139,92,246,.06),transparent);pointer-events:none}
+.login-screen::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300b4c5' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.login-card{position:relative;z-index:1;width:100%;max-width:420px;background:rgba(255,255,255,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:48px 40px;animation:loginIn .6s cubic-bezier(.2,.8,.3,1) both}
+@keyframes loginIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:none}}
+.login-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.login-logo img{height:32px;filter:brightness(0) invert(1);opacity:.9;margin-bottom:16px}
+.login-logo-divider{width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(0,180,197,.4),transparent);margin-bottom:14px}
+.login-logo-title{font-size:1rem;font-weight:700;color:var(--w);letter-spacing:-.01em}
+.login-logo-sub{font-size:.65rem;color:var(--dkm);letter-spacing:.15em;text-transform:uppercase;margin-top:4px}
+.login-form{display:flex;flex-direction:column;gap:16px}
+.login-field{display:flex;flex-direction:column;gap:6px}
+.login-label{font-size:.7rem;font-weight:600;color:var(--dkm);text-transform:uppercase;letter-spacing:.06em}
+.login-input{padding:14px 16px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.04);font-family:var(--f);font-size:.95rem;color:var(--w);outline:none;transition:var(--tr)}
+.login-input::placeholder{color:rgba(255,255,255,.2)}
+.login-input:focus{border-color:var(--t5);background:rgba(0,180,197,.05);box-shadow:0 0 0 3px rgba(0,180,197,.1)}
+.login-btn{padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--t5),var(--t3));font-family:var(--f);font-size:.95rem;font-weight:700;color:var(--n9);cursor:pointer;transition:var(--tr);margin-top:4px;letter-spacing:.01em}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,180,197,.3)}
+.login-btn:active{transform:translateY(0)}
+.login-error{font-size:.8rem;color:#ff6b6b;text-align:center;padding:10px 14px;background:rgba(255,59,48,.08);border:1px solid rgba(255,59,48,.15);border-radius:10px;display:none;animation:shake .4s ease}
+.login-error.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.login-footer{text-align:center;margin-top:24px;font-size:.7rem;color:rgba(255,255,255,.2)}
+.login-glow{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.login-glow-1{top:-80px;right:-60px;background:rgba(0,180,197,.12)}
+.login-glow-2{bottom:-80px;left:-60px;background:rgba(139,92,246,.08)}
+#appWrap{display:none}
+#appWrap.show{display:block}
 </style>
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-glow login-glow-1"></div>
+  <div class="login-glow login-glow-2"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="https://www.nxwave.com/hs-fs/hubfs/1.02-500x1200-NextwaveConsultingLtd-AG-275325-1.png?width=250&height=58" alt="NextWave">
+      <div class="login-logo-divider"></div>
+      <div class="login-logo-title">AI Innovation Lab</div>
+      <div class="login-logo-sub">Strategy &bull; Specialists &bull; Solutions</div>
+    </div>
+    <div class="login-form" id="loginForm">
+      <div class="login-field">
+        <label class="login-label" for="loginUser">Username</label>
+        <input class="login-input" id="loginUser" type="text" placeholder="Enter username" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="login-field">
+        <label class="login-label" for="loginPass">Password</label>
+        <input class="login-input" id="loginPass" type="password" placeholder="Enter password" autocomplete="off">
+      </div>
+      <div class="login-error" id="loginErr">Invalid credentials. Please try again.</div>
+      <button class="login-btn" id="loginBtn" onclick="attemptLogin()">Sign In</button>
+    </div>
+    <div class="login-footer">Protected access &mdash; NextWave Consulting Ltd</div>
+  </div>
+</div>
+
+<!-- APP (hidden until login) -->
+<div id="appWrap">
 
 <nav class="topbar"><div class="tb">
   <a class="tb-logo" href="#"><img src="https://www.nxwave.com/hs-fs/hubfs/1.02-500x1200-NextwaveConsultingLtd-AG-275325-1.png?width=250&height=58" alt="NextWave"></a>
@@ -498,7 +561,7 @@ body.wiz-open{overflow:hidden;position:fixed;width:100%;top:0}
     <button class="wiz-close" onclick="closeWiz()">✕</button>
     <div class="wiz-header-icon">🧭</div>
     <div class="wiz-header-title">Find Your Starting Point</div>
-    <div class="wiz-header-sub">Three questions. Thirty seconds. One clear recommendation.</div>
+    <div class="wiz-header-sub">Five questions. One minute. One clear recommendation.</div>
   </div>
   <div class="wiz-progress" id="wizProg"></div>
   <div class="wiz-body" id="wizBody"></div>
@@ -516,8 +579,52 @@ body.wiz-open{overflow:hidden;position:fixed;width:100%;top:0}
 <div class="mo" id="mO"><div class="modal" id="mP"></div></div>
 
 <footer class="footer"><div class="footer-t"><img src="https://www.nxwave.com/hs-fs/hubfs/1.02-500x1200-NextwaveConsultingLtd-AG-275325-1.png?width=250&height=58" alt="NW">AI Innovation Lab &mdash; MAPS Catalogue &nbsp;|&nbsp; <a href="https://www.nxwave.com">nxwave.com</a></div></footer>
+</div><!-- /appWrap -->
 
 <script>
+// ═══ LOGIN ═══
+// Credentials are obfuscated — NOT stored in plain text
+// To add/change credentials: use the _h() function in browser console to generate hashes
+// then update the _C array below with new {u: userHash, p: passHash} pairs
+(function(){
+  function _h(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h.toString(36);}
+  // Pre-computed credential hashes (username hashed as lowercase, password as-is)
+  const _C=[
+    {u:'1j67nz',p:'-lx53oj'},
+    {u:'nko19o',p:'-a8o3j8'},
+    {u:'1u09v',p:'-pgho1w'}
+  ];
+  function _v(u,p){const uh=_h(u.toLowerCase());const ph=_h(p);return _C.some(c=>c.u===uh&&c.p===ph);}
+  window._authValid=_v;
+  if(window.PasswordCredential)try{navigator.credentials.preventSilentAccess();}catch(e){}
+})();
+
+function attemptLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  if(!u||!p){err.textContent='Please enter both username and password.';err.classList.add('show');return;}
+  if(window._authValid(u,p)){
+    // Success — hide login, show app
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appWrap').classList.add('show');
+    // Clear inputs immediately
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+    err.classList.remove('show');
+  }else{
+    err.textContent='Invalid credentials. Please try again.';
+    err.classList.add('show');
+    document.getElementById('loginPass').value='';
+    document.getElementById('loginPass').focus();
+  }
+}
+// Enter key support
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')attemptLogin();});
+document.getElementById('loginUser').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginPass').focus();});
+// Prevent form autocomplete caching
+document.getElementById('loginUser').setAttribute('autocomplete','off');
+document.getElementById('loginPass').setAttribute('autocomplete','new-password');
 const D=[{id:"RESET",name:"Intelligent Automation Portfolio Reset",pa:"Automation",personas:["COO","Head of Operations","Transformation Director"],problem:"Automation has plateaued—too many bots, brittle workflows, unclear ROI, rising operational risk.",metrics:["Cycle time reduction","Cost-to-serve","Automation success rate","Exception rate","STP uplift"],controls:["Change control","Auditability","Segregation of duties","Drift monitoring"],maps:{Map:{d:"Value pool + process heatmap + control hotspots; prioritised backlog",o:["Automation heatmap","Value pool analysis","Control hotspot register","Prioritised backlog"],t:["Alteryx","Celonis","NW Nexus"]},Activate:{d:"Target operating model for automation + governance",o:["Automation TOM blueprint","Governance framework","Control standards"],t:["Appian","ServiceNow","MethodGrid"]},Prove:{d:"1–2 processes redesigned with AI-assisted routing",o:["Redesigned flows","AI routing POV","Exception model"],t:["Appian","Camunda","Toca.io"]},Scale:{d:"Automation factory playbook, measures, QA gates",o:["Factory playbook","QA gates","BAU dashboard"],t:["Appian","Alteryx","Diffblue"]}},notes:"Executive-friendly MAPS sprint to restart automation ROI.",biz:["Efficiency","Risk & Control"],dom:["Operations","Finance"],eng:"Accelerator",dur:"3–4 wk",price:"£40–60k",acc:{sprint:"Automation Reset Sprint",weeks:3,team:["NW Practice Lead","Process Analyst","Automation Architect","Controls Specialist"],tl:[{w:"Wk 1",a:"Process inventory, value pool sizing, control hotspots",h:0},{w:"Wk 2",a:"Prioritisation matrix, TOM sketch, quick-win ID",h:1},{w:"Wk 3",a:"Executive playback, prioritised backlog, investment case",h:0}],del:["Automation value heatmap","Control hotspot register","Prioritised 90-day backlog","Executive investment case","TOM blueprint (draft)"],leads:"Full Automation TOM + 2-process POV",at:["Alteryx","Celonis","NW Nexus"]}},
 {id:"AGENTIC",name:"Agentic Workflow Orchestration Pilot",pa:"Automation",personas:["Head of Operations","Head of Service","CIO"],problem:"Knowledge work is slow—decisions rely on scattered data and manual judgement.",metrics:["Time-to-resolution","Tickets per FTE","Rework reduction","NPS uplift"],controls:["Human-in-the-loop","Evidence capture","Access controls","Prompt leakage protection"],maps:{Prove:{d:"POV demonstrating orchestration with guardrails",o:["Working agentic POV","Guardrail config","Evidence pack"],t:["Camunda","Azure OpenAI","LangChain"]},Scale:{d:"Scale as controlled operating capability",o:["Operating playbook","Governance framework","Monitoring"],t:["Camunda","ServiceNow","Datadog"]}},notes:"Focus on one workflow with explicit control posture.",biz:["Efficiency"],dom:["Operations"],eng:"Proposition",dur:"8–12 wk",price:"£120–200k",acc:{sprint:"Agentic Workflow Discovery",weeks:3,team:["NW AI Lead","Workflow Analyst","Solutions Architect"],tl:[{w:"Wk 1",a:"Map workflow; identify decision points & data sources",h:0},{w:"Wk 2",a:"Design agentic architecture with guardrails",h:1},{w:"Wk 3",a:"Prototype demo & feasibility report",h:0}],del:["Workflow decision map","Architecture blueprint","Guardrail design","Feasibility assessment","POV business case"],leads:"Full Agentic POV build (8–12 wk)",at:["Camunda","Azure OpenAI","NW Nexus"]}},
 {id:"DOC2DEC",name:"Document-to-Decision Automation",pa:"Automation",personas:["Operations Executive","Compliance/Risk Sponsor"],problem:"Onboarding/KYC/claims constrained by document handling and audit trails.",metrics:["Turnaround time reduction","Accuracy uplift","Drop-off reduction","Audit exceptions reduction"],controls:["Source-of-truth controls","Retention policies","Explainability","QA sampling"],maps:{Map:{d:"E2E journey assessment and control hotspots",o:["Journey map","Control gap analysis","Feasibility scorecard"],t:["Celonis","Alteryx","NW Nexus"]},Prove:{d:"Redesigned journey with evidence and exception handling",o:["Redesigned journey","IDP model","Evidence framework"],t:["Appian","Azure Doc Intelligence","Alteryx"]},Scale:{d:"Industrialised controls-as-process and BAU handover",o:["BAU run book","Monitoring dashboard","Handover pack"],t:["Appian","ServiceNow","Alteryx"]}},notes:"Redesign the journey with audit-ready evidence.",biz:["Efficiency","Risk & Control"],dom:["Operations","Compliance"],eng:"Proposition",dur:"10–16 wk",price:"£150–280k",acc:{sprint:"Document Journey Diagnostic",weeks:3,team:["NW Ops Lead","Journey Analyst","IDP Specialist","Controls Advisor"],tl:[{w:"Wk 1",a:"E2E journey mapping; pain points; control gaps",h:0},{w:"Wk 2",a:"Document classification; IDP feasibility; redesign options",h:1},{w:"Wk 3",a:"Target journey design; business case; POV scope",h:0}],del:["As-is journey map","Document taxonomy","Control gap assessment","Target journey blueprint","POV scope"],leads:"Document-to-Decision POV + Scale",at:["Celonis","Alteryx","Azure Doc Intelligence"]}},
@@ -884,9 +991,21 @@ const WIZ_DOMAINS=[
   {key:'tech',icon:'🏗️',name:'Data & Technology',desc:'Platform architecture, data products, test engineering'}
 ];
 const WIZ_PRESSURES=[
-  {key:'Growth',icon:'🚀',name:'Growth',desc:'We need to do new things — enter markets, launch products, win deals'},
-  {key:'Efficiency',icon:'⚡',name:'Efficiency',desc:'We need to do things better, faster or cheaper — reduce cost, increase STP'},
-  {key:'Risk & Control',icon:'🛡️',name:'Risk & Control',desc:'We need to stay safe — satisfy the regulator, close audit findings, govern AI'}
+  {key:'Growth',icon:'🚀',name:'Growth',desc:'Enter markets, launch products, win deals, scale capabilities'},
+  {key:'Efficiency',icon:'⚡',name:'Efficiency',desc:'Reduce cost, increase STP, compress cycle times, automate'},
+  {key:'Risk & Control',icon:'🛡️',name:'Risk & Control',desc:'Satisfy the regulator, close audit findings, govern AI safely'}
+];
+const WIZ_VALUE=[
+  {key:'cost_roi',icon:'💷',name:'Measurable cost reduction & ROI',desc:'Show the CFO hard numbers — cost-to-serve, benefits realised, FTE redeployment'},
+  {key:'reg_audit',icon:'📋',name:'Regulatory readiness & audit evidence',desc:'Close findings, evidence compliance, satisfy MRM and internal audit'},
+  {key:'speed',icon:'⏱',name:'Speed-to-delivery & time-to-value',desc:'Compress onboarding, reduce cycle times, get AI into production faster'},
+  {key:'revenue',icon:'📈',name:'Revenue growth & commercial capability',desc:'Win more AI deals, enable partners, grow pipeline and deal size'}
+];
+const WIZ_ARCH=[
+  {key:'govern',icon:'🏛️',name:'Governance & controls framework',desc:'We lack AI governance, approval flows, release controls or evidence standards'},
+  {key:'data',icon:'🗄️',name:'Data foundation & trust layer',desc:'Data quality unknown, no lineage, no observability — AI can\'t scale on bad data'},
+  {key:'platform',icon:'🏗️',name:'Platform & integration architecture',desc:'No standard patterns, fragmented builds, AI isn\'t embedded in core systems'},
+  {key:'process',icon:'⚙️',name:'Process automation & AI delivery',desc:'Automation stalled, knowledge work is manual, document journeys are bottlenecks'}
 ];
 const WIZ_READINESS=[
   {key:'explore',icon:'🔍',name:'We need to explore & build the case',desc:'No budget yet — we need a diagnostic, scorecard or strategy to secure funding'},
@@ -894,29 +1013,40 @@ const WIZ_READINESS=[
   {key:'unsure',icon:'🤔',name:'We\'re not sure yet',desc:'Help us figure out the right starting point — low risk, high insight'}
 ];
 
-// Recommendation engine
-const WIZ_RECS={
-  'risk|Growth|explore':'AISTRAT','risk|Growth|deliver':'AISAFE','risk|Growth|unsure':'AISTRAT',
-  'risk|Efficiency|explore':'AIGOV','risk|Efficiency|deliver':'AISAFE','risk|Efficiency|unsure':'AIGOV',
-  'risk|Risk & Control|explore':'AIGOV','risk|Risk & Control|deliver':'AISAFE','risk|Risk & Control|unsure':'AIGOV',
-  'finance|Growth|explore':'AISTRAT','finance|Growth|deliver':'ADOPTENG','finance|Growth|unsure':'AISTRAT',
-  'finance|Efficiency|explore':'RESET','finance|Efficiency|deliver':'RESET','finance|Efficiency|unsure':'VALUEOFF',
-  'finance|Risk & Control|explore':'VALUEOFF','finance|Risk & Control|deliver':'VALUEOFF','finance|Risk & Control|unsure':'VALUEOFF',
-  'ops|Growth|explore':'RESET','ops|Growth|deliver':'AGENTIC','ops|Growth|unsure':'RESET',
-  'ops|Efficiency|explore':'RESET','ops|Efficiency|deliver':'DOC2DEC','ops|Efficiency|unsure':'RESET',
-  'ops|Risk & Control|explore':'RELGOV','ops|Risk & Control|deliver':'DOC2DEC','ops|Risk & Control|unsure':'RELGOV',
-  'compliance|Growth|explore':'VENDORAI','compliance|Growth|deliver':'DOC2DEC','compliance|Growth|unsure':'VENDORAI',
-  'compliance|Efficiency|explore':'RELGOV','compliance|Efficiency|deliver':'DOC2DEC','compliance|Efficiency|unsure':'RELGOV',
-  'compliance|Risk & Control|explore':'AIGOV','compliance|Risk & Control|deliver':'AISAFE','compliance|Risk & Control|unsure':'AIGOV',
-  'commercial|Growth|explore':'SELLAI','commercial|Growth|deliver':'GENPROVE','commercial|Growth|unsure':'SELLAI',
-  'commercial|Efficiency|explore':'SELLAI','commercial|Efficiency|deliver':'AIEMBED','commercial|Efficiency|unsure':'SELLAI',
-  'commercial|Risk & Control|explore':'AISTRAT','commercial|Risk & Control|deliver':'GENPROVE','commercial|Risk & Control|unsure':'AISTRAT',
-  'tech|Growth|explore':'DATAREADY','tech|Growth|deliver':'GOLDPATH','tech|Growth|unsure':'DATAREADY',
-  'tech|Efficiency|explore':'DATAREADY','tech|Efficiency|deliver':'GOLDPATH','tech|Efficiency|unsure':'DATAREADY',
-  'tech|Risk & Control|explore':'TRUSTLAYER','tech|Risk & Control|deliver':'TRUSTLAYER','tech|Risk & Control|unsure':'DATAREADY'
+// Scoring engine — each answer adds weight to packages
+const WIZ_SCORES={
+  domain:{
+    risk:{AIGOV:10,AISAFE:8,TRUSTLAYER:6,AISTRAT:5,VENDORAI:6,RELGOV:5,VALUEOFF:4},
+    finance:{AISTRAT:8,VALUEOFF:9,RESET:7,DATAREADY:5,ADOPTENG:6},
+    ops:{RESET:9,AGENTIC:7,DOC2DEC:8,ADOPTENG:5,KNOWFABRIC:4,RELGOV:4},
+    compliance:{AIGOV:9,RELGOV:8,DOC2DEC:6,VENDORAI:7,AISAFE:6},
+    commercial:{SELLAI:9,GENPROVE:7,KNOWFABRIC:5,AIEMBED:4,AISTRAT:6},
+    tech:{DATAREADY:9,GOLDPATH:8,TRUSTLAYER:7,QAUPLIFT:6,KNOWFABRIC:5,AIEMBED:5}
+  },
+  pressure:{
+    Growth:{AISTRAT:6,SELLAI:5,GENPROVE:5,DATAREADY:4,AIEMBED:4,KNOWFABRIC:4,GOLDPATH:3,ADOPTENG:3},
+    Efficiency:{RESET:6,DOC2DEC:5,AGENTIC:5,DATAREADY:4,QAUPLIFT:3,KNOWFABRIC:3,VALUEOFF:3,ADOPTENG:3},
+    'Risk & Control':{AIGOV:7,AISAFE:6,RELGOV:5,TRUSTLAYER:5,VENDORAI:4,VALUEOFF:4,DOC2DEC:3}
+  },
+  value:{
+    cost_roi:{RESET:6,VALUEOFF:7,DOC2DEC:5,ADOPTENG:4,AGENTIC:4,DATAREADY:3},
+    reg_audit:{AIGOV:7,AISAFE:6,RELGOV:5,TRUSTLAYER:4,VENDORAI:4,VALUEOFF:3},
+    speed:{DATAREADY:5,GOLDPATH:5,QAUPLIFT:4,AGENTIC:4,DOC2DEC:4,RESET:3,GENPROVE:3},
+    revenue:{SELLAI:7,GENPROVE:5,AISTRAT:5,AIEMBED:4,KNOWFABRIC:3,ADOPTENG:3}
+  },
+  arch:{
+    govern:{AIGOV:7,RELGOV:6,AISAFE:5,VALUEOFF:3,VENDORAI:3},
+    data:{DATAREADY:7,TRUSTLAYER:6,KNOWFABRIC:4,GOLDPATH:3},
+    platform:{GOLDPATH:7,AIEMBED:6,KNOWFABRIC:4,QAUPLIFT:3,DATAREADY:3},
+    process:{RESET:7,DOC2DEC:6,AGENTIC:6,ADOPTENG:3,RELGOV:3}
+  },
+  readiness:{
+    explore:{AISTRAT:5,RESET:4,AIGOV:4,DATAREADY:4,SELLAI:4,RELGOV:3,VENDORAI:4,QAUPLIFT:3,VALUEOFF:3},
+    deliver:{GENPROVE:5,DOC2DEC:5,AGENTIC:5,AISAFE:5,GOLDPATH:5,AIEMBED:5,TRUSTLAYER:4,ADOPTENG:4},
+    unsure:{AISTRAT:5,RESET:4,AIGOV:4,DATAREADY:4,SELLAI:3,VALUEOFF:3,VENDORAI:3,QAUPLIFT:3}
+  }
 };
 
-// Journey after recommendation
 const WIZ_JOURNEYS={
   'RESET':['RESET','DOC2DEC','AGENTIC','ADOPTENG'],
   'AGENTIC':['AGENTIC','KNOWFABRIC','ADOPTENG'],
@@ -945,81 +1075,82 @@ function openWiz(){wizStep=0;wizAnswers={};wizScrollY=window.scrollY;document.bo
 function closeWiz(){document.body.classList.remove('wiz-open');document.body.style.top='';window.scrollTo(0,wizScrollY);$('wizO').classList.remove('show');}
 $('wizO').addEventListener('click',e=>{if(e.target===$('wizO'))closeWiz();});
 
+const WIZ_STEPS=5;
 function renderWiz(){
-  // Progress
   const prog=$('wizProg');
-  prog.innerHTML=[0,1,2].map((s,i)=>`${i>0?`<div class="wiz-bar ${wizStep>i?'done':''}"></div>`:''}
+  prog.innerHTML=Array.from({length:WIZ_STEPS},(_, i)=>`${i>0?`<div class="wiz-bar ${wizStep>i?'done':''}"></div>`:''}
     <div class="wiz-dot ${wizStep===i?'active':''} ${wizStep>i?'done':''}"></div>`).join('')+
-    `<div class="wiz-bar ${wizStep>2?'done':''}"></div><div class="wiz-dot ${wizStep>2?'done':''}"></div>`;
+    `<div class="wiz-bar ${wizStep>=WIZ_STEPS?'done':''}"></div><div class="wiz-dot ${wizStep>=WIZ_STEPS?'done':''}"></div>`;
 
   const body=$('wizBody');
-  if(wizStep===0)renderWizStep1(body);
-  else if(wizStep===1)renderWizStep2(body);
-  else if(wizStep===2)renderWizStep3(body);
+  if(wizStep===0)renderWizQ(body,{num:'1 of 5',q:"What's your world?",sub:'Select the business domain closest to your current priorities.',key:'domain',opts:WIZ_DOMAINS});
+  else if(wizStep===1)renderWizQ(body,{num:'2 of 5',q:"What's your biggest pressure right now?",sub:"What's driving the urgency in your organisation today?",key:'pressure',opts:WIZ_PRESSURES});
+  else if(wizStep===2)renderWizQ(body,{num:'3 of 5',q:'What value matters most right now?',sub:'This shapes which benefit curve we optimise your recommendation for.',key:'value',opts:WIZ_VALUE});
+  else if(wizStep===3)renderWizQ(body,{num:'4 of 5',q:"What's your biggest architecture gap?",sub:'This maps your recommendation to the right layer of the target architecture.',key:'arch',opts:WIZ_ARCH});
+  else if(wizStep===4)renderWizQ(body,{num:'5 of 5',q:'Where are you on the journey?',sub:'This helps us recommend an accelerator or a full proposition.',key:'readiness',opts:WIZ_READINESS});
   else renderWizResult(body);
 }
 
-function renderWizStep1(el){
+function renderWizQ(el,cfg){
   el.innerHTML=`<div class="wiz-step active">
-    <div class="wiz-q">What's your world?</div>
-    <div class="wiz-q-sub">Select the business domain closest to your current priorities.</div>
-    <div class="wiz-options">${WIZ_DOMAINS.map(d=>`
-      <div class="wiz-opt ${wizAnswers.domain===d.key?'selected':''}" onclick="wizSelect(0,'domain','${d.key}')">
-        <div class="wiz-opt-icon">${d.icon}</div>
-        <div class="wiz-opt-text"><div class="wiz-opt-title">${d.name}</div><div class="wiz-opt-desc">${d.desc}</div></div>
-        <div class="wiz-opt-check">${wizAnswers.domain===d.key?'✓':''}</div>
-      </div>`).join('')}
-    </div></div>`;
-}
-
-function renderWizStep2(el){
-  el.innerHTML=`<div class="wiz-step active">
-    <div class="wiz-q">What's your biggest pressure right now?</div>
-    <div class="wiz-q-sub">What's driving the urgency in your organisation today?</div>
-    <div class="wiz-options">${WIZ_PRESSURES.map(p=>`
-      <div class="wiz-opt ${wizAnswers.pressure===p.key?'selected':''}" onclick="wizSelect(1,'pressure','${p.key}')">
-        <div class="wiz-opt-icon">${p.icon}</div>
-        <div class="wiz-opt-text"><div class="wiz-opt-title">${p.name}</div><div class="wiz-opt-desc">${p.desc}</div></div>
-        <div class="wiz-opt-check">${wizAnswers.pressure===p.key?'✓':''}</div>
-      </div>`).join('')}
-    </div></div>`;
-}
-
-function renderWizStep3(el){
-  el.innerHTML=`<div class="wiz-step active">
-    <div class="wiz-q">Where are you on the journey?</div>
-    <div class="wiz-q-sub">This helps us recommend an accelerator or a full proposition.</div>
-    <div class="wiz-options">${WIZ_READINESS.map(r=>`
-      <div class="wiz-opt ${wizAnswers.readiness===r.key?'selected':''}" onclick="wizSelect(2,'readiness','${r.key}')">
-        <div class="wiz-opt-icon">${r.icon}</div>
-        <div class="wiz-opt-text"><div class="wiz-opt-title">${r.name}</div><div class="wiz-opt-desc">${r.desc}</div></div>
-        <div class="wiz-opt-check">${wizAnswers.readiness===r.key?'✓':''}</div>
+    <div style="font-size:.65rem;font-weight:700;color:var(--t6);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Question ${cfg.num}</div>
+    <div class="wiz-q">${cfg.q}</div>
+    <div class="wiz-q-sub">${cfg.sub}</div>
+    <div class="wiz-options">${cfg.opts.map(o=>`
+      <div class="wiz-opt ${wizAnswers[cfg.key]===o.key?'selected':''}" onclick="wizSelect(${wizStep},'${cfg.key}','${o.key}')">
+        <div class="wiz-opt-icon">${o.icon}</div>
+        <div class="wiz-opt-text"><div class="wiz-opt-title">${o.name}</div><div class="wiz-opt-desc">${o.desc}</div></div>
+        <div class="wiz-opt-check">${wizAnswers[cfg.key]===o.key?'✓':''}</div>
       </div>`).join('')}
     </div></div>`;
 }
 
 function wizSelect(step,key,val){
   wizAnswers[key]=val;
-  setTimeout(()=>{wizStep=step+1;renderWiz();},250);
+  setTimeout(()=>{wizStep=step+1;renderWiz();$('wizO').scrollTop=0;},250);
+}
+
+function computeRec(){
+  // Score every package across all 5 dimensions
+  const scores={};
+  D.forEach(p=>scores[p.id]=0);
+  const dims=['domain','pressure','value','arch','readiness'];
+  dims.forEach(dim=>{
+    const ans=wizAnswers[dim];
+    if(ans && WIZ_SCORES[dim]?.[ans]){
+      Object.entries(WIZ_SCORES[dim][ans]).forEach(([id,sc])=>{
+        if(scores[id]!==undefined)scores[id]+=sc;
+      });
+    }
+  });
+  // Sort by score descending
+  const ranked=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  return{topId:ranked[0][0],topScore:ranked[0][1],runnerUp:ranked[1]?{id:ranked[1][0],score:ranked[1][1]}:null,scores};
 }
 
 function renderWizResult(el){
-  const recKey=`${wizAnswers.domain}|${wizAnswers.pressure}|${wizAnswers.readiness}`;
-  const recId=WIZ_RECS[recKey]||'AISTRAT';
-  const pkg=D.find(d=>d.id===recId);
+  const {topId,topScore,runnerUp}=computeRec();
+  const pkg=D.find(d=>d.id===topId);
   if(!pkg){el.innerHTML='<div class="wiz-step active"><p>Something went wrong.</p></div>';return;}
   const isA=pkg.eng==='Accelerator';
-  const journey=(WIZ_JOURNEYS[recId]||[recId]).map(id=>D.find(d=>d.id===id)).filter(Boolean);
+  const journey=(WIZ_JOURNEYS[topId]||[topId]).map(id=>D.find(d=>d.id===id)).filter(Boolean);
   const domObj=WIZ_DOMAINS.find(d=>d.key===wizAnswers.domain);
   const pressObj=WIZ_PRESSURES.find(p=>p.key===wizAnswers.pressure);
+  const valObj=WIZ_VALUE.find(v=>v.key===wizAnswers.value);
+  const archObj=WIZ_ARCH.find(a=>a.key===wizAnswers.arch);
   const readObj=WIZ_READINESS.find(r=>r.key===wizAnswers.readiness);
+
+  // Runner up info
+  const runner=runnerUp?D.find(d=>d.id===runnerUp.id):null;
 
   el.innerHTML=`<div class="wiz-result active">
     <div class="wiz-result-badge">✅ Recommendation ready</div>
 
-    <div class="wiz-domains">
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px">
       <span class="tag-dom">${domObj?domObj.icon+' '+domObj.name:''}</span>
       <span class="tag-biz tag-${wizAnswers.pressure==='Growth'?'growth':wizAnswers.pressure==='Efficiency'?'eff':'risk'}">${pressObj?pressObj.icon+' '+pressObj.name:''}</span>
+      <span class="tag-dom">${valObj?valObj.icon+' '+valObj.name:''}</span>
+      <span class="tag-dom">${archObj?archObj.icon+' '+archObj.name:''}</span>
       <span class="tag-dom">${readObj?readObj.icon+' '+readObj.name:''}</span>
     </div>
 
@@ -1039,11 +1170,21 @@ function renderWizResult(el){
           <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Duration</div><div class="wiz-rec-meta-val">${pkg.dur}</div></div>
           <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Investment</div><div class="wiz-rec-meta-val">${pkg.price}</div></div>
           <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Type</div><div class="wiz-rec-meta-val">${isA?'Fixed price':'Milestone'}</div></div>
+          <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Match</div><div class="wiz-rec-meta-val" style="color:var(--green)">${Math.min(Math.round((topScore/35)*100),99)}%</div></div>
         </div>
         ${pkg.acc?`<div class="wiz-rec-sprint">${pkg.acc.sprint}</div>`:''}
         <div class="wiz-rec-dels">${(pkg.acc?.del||pkg.metrics).slice(0,5).map(d=>`<div class="wiz-rec-del">${d}</div>`).join('')}</div>
       </div>
     </div>
+
+    ${runner?`<div style="margin-bottom:14px;padding:14px 18px;border:1px solid var(--g2);border-radius:10px;background:var(--g0)">
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--g4);margin-bottom:6px">Also consider</div>
+      <div style="display:flex;align-items:center;gap:12px;cursor:pointer" onclick="closeWiz();openM('${runner.id}')">
+        <span class="pk-id">${runner.id}</span>
+        <div><div style="font-size:.9rem;font-weight:700;color:var(--g8)">${runner.name}</div>
+        <div style="font-size:.78rem;color:var(--g5)">${runner.dur} · ${runner.price} · ${runner.eng}</div></div>
+      </div>
+    </div>`:''}
 
     ${journey.length>1?`<div class="wiz-leads">
       <div class="wiz-leads-label">Recommended pathway after this</div>
