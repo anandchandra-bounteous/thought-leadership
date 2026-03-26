@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NextWave AI Innovation Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --n9:#040e1a;--n8:#091929;--n7:#0d2137;--n6:#132d4a;--n5:#1a3d62;--n4:#24537f;
+  --t6:#00909e;--t5:#00b4c5;--t4:#1cc8d7;--t3:#4dd6e2;--t0:#e0f9fb;
+  --w:#fff;--g0:#f7f8fa;--g1:#eef0f4;--g2:#dfe3ea;--g3:#c8ced8;--g4:#929cac;--g5:#636f82;--g6:#475467;--g7:#344054;--g8:#1d2939;
+  --dk:#c2d1e0;--dkm:#7a8ea3;
+  --amber:#f59e0b;--green:#10b981;--red:#ef4444;--purple:#8b5cf6;--blue:#3b82f6;--rose:#f43f5e;
+  --sh:0 1px 4px rgba(0,0,0,.06);--shh:0 12px 32px rgba(0,0,0,.1);
+  --r:12px;--rl:16px;--f:'Outfit',sans-serif;--fm:'Fira Code',monospace;--tr:.2s ease;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--f);background:var(--g0);color:var(--g8);-webkit-font-smoothing:antialiased}
+body.wiz-open{overflow:hidden;position:fixed;width:100%;top:0}
+
+/* TOPBAR */
+.topbar{background:var(--n8);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+.tb{max-width:1400px;margin:0 auto;padding:0 36px;display:flex;align-items:center;height:56px;gap:20px}
+.tb-logo img{height:22px;filter:brightness(0) invert(1);opacity:.9;display:block}
+.tb-div{width:1px;height:24px;background:rgba(255,255,255,.12)}
+.tb-name{font-size:.85rem;font-weight:600;color:var(--w)}
+.tb-sub{font-size:.52rem;color:var(--dkm);letter-spacing:.12em;text-transform:uppercase;margin-top:1px}
+.tb-tabs{display:flex;gap:2px;margin-left:auto}
+.tab{padding:8px 16px;font-family:var(--f);font-size:.85rem;font-weight:500;color:var(--dkm);background:none;border:none;border-radius:8px;cursor:pointer;transition:var(--tr)}
+.tab:hover{color:var(--dk);background:rgba(255,255,255,.05)}
+.tab.on{color:var(--t4);background:rgba(0,180,197,.12)}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,var(--n9),var(--n7) 40%,var(--n5));position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 8% 90%,rgba(0,180,197,.09),transparent),radial-gradient(ellipse 40% 60% at 92% 10%,rgba(139,92,246,.05),transparent)}
+.hero-in{max-width:1400px;margin:0 auto;padding:36px 36px 32px;display:flex;justify-content:space-between;align-items:center;gap:40px;position:relative;z-index:1}
+.hero-tag{display:inline-flex;font-size:.7rem;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;background:rgba(0,180,197,.1);padding:5px 14px;border-radius:100px;border:1px solid rgba(0,180,197,.15)}
+.hero-h{font-size:2rem;font-weight:800;color:var(--w);letter-spacing:-.04em;line-height:1.15;margin-bottom:8px}
+.hero-h em{font-style:normal;color:var(--t4)}
+.hero-p{font-size:.95rem;color:var(--dkm);max-width:560px;line-height:1.6}
+.hero-stats{display:flex;gap:20px;flex-shrink:0}
+.h-stat{text-align:center;padding:0 18px}
+.h-stat:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
+.h-stat b{display:block;font-size:1.8rem;font-weight:800;color:var(--t4);line-height:1}
+.h-stat span{font-size:.7rem;color:var(--dkm);margin-top:4px;display:block}
+
+/* PAGES */
+.page{display:none}.page.show{display:block}
+.wrap{max-width:1400px;margin:0 auto;padding:0 36px}
+
+/* FILTER BAR */
+.fbar{padding:20px 0 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.fbar-search{position:relative}
+.fbar-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--g4);fill:none;stroke-width:2}
+.fbar-search input{padding:8px 14px 8px 36px;border:1px solid var(--g2);border-radius:8px;font-family:var(--f);font-size:.85rem;background:var(--w);color:var(--g8);outline:none;width:220px;transition:var(--tr)}
+.fbar-search input:focus{border-color:var(--t5);box-shadow:0 0 0 3px rgba(0,180,197,.1)}
+.fdiv{width:1px;height:24px;background:var(--g2)}
+.flbl{font-size:.75rem;font-weight:600;color:var(--g5)}
+.chip{padding:6px 14px;font-family:var(--f);font-size:.8rem;font-weight:500;border:1px solid var(--g2);border-radius:100px;background:var(--w);color:var(--g6);cursor:pointer;transition:var(--tr);user-select:none}
+.chip:hover{border-color:var(--g3);background:var(--g1)}
+.chip.on{background:var(--n8);color:var(--w);border-color:var(--n8)}
+.chip.green.on{background:var(--green);color:var(--w);border-color:var(--green)}
+.chip.teal.on{background:var(--t5);color:var(--w);border-color:var(--t5)}
+.chip.red.on{background:var(--red);color:var(--w);border-color:var(--red)}
+.creset{padding:6px 14px;font-family:var(--f);font-size:.8rem;font-weight:500;border:1px dashed var(--g3);border-radius:100px;background:none;color:var(--g4);cursor:pointer;transition:var(--tr)}
+.creset:hover{color:var(--t5);border-color:var(--t5)}
+
+/* CHARTS */
+.charts{padding:20px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cc{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:20px}
+.cc-t{font-size:.9rem;font-weight:700;margin-bottom:14px}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-r{display:flex;align-items:center;gap:12px}
+.bar-l{font-size:.8rem;color:var(--g5);width:110px;text-align:right;font-weight:500;flex-shrink:0}
+.bar-t{flex:1;height:28px;background:var(--g1);border-radius:6px;overflow:hidden}
+.bar-f{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 10px;font-size:.75rem;font-weight:700;color:var(--w);min-width:28px;transition:width .5s ease}
+.bf-growth{background:linear-gradient(90deg,#059669,#10b981)}.bf-eff{background:linear-gradient(90deg,#2563eb,#3b82f6)}.bf-risk{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.bf-map{background:linear-gradient(90deg,var(--n6),var(--n4))}.bf-activate{background:linear-gradient(90deg,#d97706,#f59e0b)}.bf-prove{background:linear-gradient(90deg,#059669,#10b981)}.bf-scale{background:linear-gradient(90deg,#e11d48,#f43f5e)}
+
+/* PKG GRID */
+.sec-hd{display:flex;align-items:center;justify-content:space-between;padding:20px 0 12px}
+.sec-t{font-size:1.1rem;font-weight:700}
+.sec-count{font-size:.8rem;font-weight:600;color:var(--t6);background:var(--t0);padding:4px 14px;border-radius:100px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:14px;padding-bottom:48px}
+.pk{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:22px 24px;cursor:pointer;transition:var(--tr)}
+.pk:hover{border-color:var(--t4);box-shadow:var(--shh);transform:translateY(-2px)}
+.pk-r1{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.pk-id{font-family:var(--fm);font-size:.7rem;color:var(--g4);background:var(--g1);padding:2px 8px;border-radius:4px}
+.pills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{font-size:.65rem;font-weight:600;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.02em}
+.pill-map{background:rgba(13,33,55,.07);color:var(--n5)}.pill-activate{background:rgba(245,158,11,.1);color:#92400e}.pill-prove{background:rgba(16,185,129,.1);color:#065f46}.pill-scale{background:rgba(244,63,94,.1);color:#9f1239}
+.pill-accel{background:var(--t0);color:var(--t6)}.pill-prop{background:#ede9fe;color:#6d28d9}
+.pk-name{font-size:1rem;font-weight:700;line-height:1.3;margin-bottom:10px}
+.pk-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:100px}
+.t-auto{background:#ecfeff;color:#0e7490}.t-data{background:#f5f3ff;color:#6d28d9}.t-ai{background:#fffbeb;color:#92400e}.t-qa{background:#ecfdf5;color:#047857}.t-sol{background:#eff6ff;color:#1d4ed8}.t-biz{background:#fef2f2;color:#b91c1c}
+.tag-biz{font-size:.65rem;font-weight:600;padding:3px 8px;border-radius:5px}
+.tag-growth{background:#d1fae5;color:#065f46}.tag-eff{background:#dbeafe;color:#1e40af}.tag-risk{background:#fee2e2;color:#991b1b}
+.tag-dom{font-size:.7rem;font-weight:500;padding:3px 8px;border-radius:100px;background:var(--g1);color:var(--g5)}
+.pk-meta{display:flex;gap:16px;font-size:.8rem;color:var(--g4);margin-bottom:10px}
+.pk-meta b{color:var(--g7);font-weight:600}
+.pk-oc{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.pk-o{font-size:.85rem;color:var(--g6);display:flex;align-items:baseline;gap:7px}
+.pk-o::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--t5);flex-shrink:0}
+.pk-tools{display:flex;flex-wrap:wrap;gap:4px}
+.tool{font-size:.7rem;font-weight:500;padding:3px 8px;border-radius:4px;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+
+/* ═══ DOMAIN FRONT DOORS ═══ */
+.dom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:16px;padding:20px 0 16px}
+.dom-card{background:var(--w);border:1px solid var(--g2);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:var(--tr)}
+.dom-card:hover{box-shadow:var(--shh);transform:translateY(-2px)}
+.dom-card-hero{padding:24px 28px;position:relative;overflow:hidden}
+.dom-card-hero::before{content:'';position:absolute;inset:0;opacity:.06}
+.dom-card.risk .dom-card-hero{background:linear-gradient(135deg,#7f1d1d,#991b1b)}
+.dom-card.finance .dom-card-hero{background:linear-gradient(135deg,#1e3a5f,#1e40af)}
+.dom-card.ops .dom-card-hero{background:linear-gradient(135deg,#064e3b,#047857)}
+.dom-card.compliance .dom-card-hero{background:linear-gradient(135deg,#4a1d96,#6d28d9)}
+.dom-card.commercial .dom-card-hero{background:linear-gradient(135deg,#78350f,#92400e)}
+.dom-card.tech .dom-card-hero{background:linear-gradient(135deg,var(--n8),var(--n5))}
+.dom-card-icon{font-size:1.8rem;margin-bottom:10px}
+.dom-card-name{font-size:1.15rem;font-weight:800;color:var(--w);margin-bottom:6px}
+.dom-card-desc{font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.5}
+.dom-card-body{padding:20px 28px}
+.dom-card-stat{display:flex;gap:16px;margin-bottom:14px}
+.dom-card-stat div{font-size:.8rem;color:var(--g5)}
+.dom-card-stat b{color:var(--g8);font-weight:700}
+.dom-card-personas{font-size:.8rem;color:var(--g5);margin-bottom:10px}
+.dom-card-personas b{color:var(--g7)}
+.dom-card-pkgs{display:flex;flex-wrap:wrap;gap:4px}
+
+/* DOMAIN DETAIL VIEW */
+.dom-detail{padding:20px 0 48px;display:none}
+.dom-detail.show{display:block}
+.dom-back{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--t5);cursor:pointer;padding:6px 14px;border-radius:8px;border:none;background:none;font-family:var(--f);transition:var(--tr);margin-bottom:16px}
+.dom-back:hover{background:var(--t0)}
+.dom-detail-hero{border-radius:var(--rl);padding:32px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.dom-detail-hero.risk{background:linear-gradient(135deg,#7f1d1d,#991b1b)}.dom-detail-hero.finance{background:linear-gradient(135deg,#1e3a5f,#1e40af)}.dom-detail-hero.ops{background:linear-gradient(135deg,#064e3b,#047857)}.dom-detail-hero.compliance{background:linear-gradient(135deg,#4a1d96,#6d28d9)}.dom-detail-hero.commercial{background:linear-gradient(135deg,#78350f,#92400e)}.dom-detail-hero.tech{background:linear-gradient(135deg,var(--n8),var(--n5))}
+.dom-detail-icon{font-size:2rem;margin-bottom:8px}
+.dom-detail-name{font-size:1.5rem;font-weight:800;color:var(--w);margin-bottom:8px}
+.dom-detail-narrative{font-size:1rem;color:rgba(255,255,255,.75);line-height:1.6;max-width:700px}
+
+/* JOURNEY TIMELINE */
+.journey-section{margin-bottom:32px}
+.journey-title{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.journey-sub{font-size:.85rem;color:var(--g5);margin-bottom:16px}
+.journey{display:flex;gap:0;position:relative;overflow-x:auto;padding-bottom:8px}
+.journey::before{content:'';position:absolute;top:28px;left:0;right:0;height:3px;background:var(--g2);border-radius:2px}
+.j-step{flex:1;min-width:220px;position:relative;padding-top:48px}
+.j-dot{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--w);z-index:2;box-shadow:0 0 0 4px var(--g0)}
+.j-dot.accel{background:var(--t5)}.j-dot.prop{background:var(--purple)}
+.j-connector{position:absolute;top:27px;left:0;right:50%;height:5px}
+.j-card{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:16px 18px;margin:0 6px;transition:var(--tr)}
+.j-card:hover{box-shadow:var(--sh);border-color:var(--g3)}
+.j-card-type{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.j-card-type.accel{color:var(--t6)}.j-card-type.prop{color:var(--purple)}
+.j-card-name{font-size:.9rem;font-weight:700;color:var(--g8);margin-bottom:4px;line-height:1.25}
+.j-card-id{font-family:var(--fm);font-size:.65rem;color:var(--g4);margin-bottom:6px}
+.j-card-meta{font-size:.75rem;color:var(--g5);margin-bottom:8px}
+.j-card-meta b{color:var(--g7)}
+.j-card-del{display:flex;flex-direction:column;gap:2px}
+.j-card-del-i{font-size:.75rem;color:var(--g6);display:flex;gap:5px}
+.j-card-del-i::before{content:'→';color:var(--t5);flex-shrink:0}
+.j-arrow{position:absolute;top:22px;right:-8px;font-size:1rem;color:var(--g3);z-index:3}
+
+/* Domain packages grid inside detail */
+.dom-pkgs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+
+/* Domain Reference Architecture */
+.arch-section{margin-bottom:32px}
+.arch-wrap{background:var(--w);border:1px solid var(--g2);border-radius:var(--rl);padding:28px 32px;position:relative;overflow:hidden}
+.arch-wrap::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(0,180,197,.04),transparent);pointer-events:none}
+.arch-layers{display:flex;flex-direction:column;gap:0;position:relative}
+.arch-layer{position:relative;padding:6px 0}
+.arch-layer:not(:last-child)::after{content:'';position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--g3);z-index:2}
+.arch-layer-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--g4);margin-bottom:6px;text-align:center}
+.arch-boxes{display:flex;gap:10px}
+.arch-box{flex:1;background:linear-gradient(135deg,var(--n8),var(--n6));border-radius:10px;padding:16px 18px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.arch-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 80%,rgba(0,180,197,.08),transparent);pointer-events:none}
+.arch-box:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(4,14,26,.25)}
+.arch-box-id{font-family:var(--fm);font-size:.65rem;color:var(--t4);opacity:.8;margin-bottom:4px}
+.arch-box-name{font-size:.88rem;font-weight:700;color:var(--w);line-height:1.25;margin-bottom:4px}
+.arch-box-sub{font-size:.72rem;color:var(--dkm);line-height:1.35}
+.arch-box-type{position:absolute;top:12px;right:12px;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:100px}
+.arch-box-type.accel{background:rgba(0,180,197,.15);color:var(--t4)}
+.arch-box-type.prop{background:rgba(139,92,246,.15);color:#c4b5fd}
+
+.arch-crosscut{margin-top:14px;background:linear-gradient(90deg,var(--t0),#f0f9ff);border:1px dashed var(--t4);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr)}
+.arch-crosscut:hover{box-shadow:0 4px 16px rgba(0,180,197,.12);border-style:solid}
+.arch-crosscut-icon{font-size:1.1rem;flex-shrink:0}
+.arch-crosscut-id{font-family:var(--fm);font-size:.7rem;color:var(--t6);font-weight:500}
+.arch-crosscut-name{font-size:.9rem;font-weight:700;color:var(--g8)}
+.arch-crosscut-label{font-size:.72rem;color:var(--g5)}
+
+.arch-legend{display:flex;gap:16px;margin-top:16px;padding-top:14px;border-top:1px solid var(--g2);justify-content:center}
+.arch-legend-item{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--g5)}
+.arch-legend-dot{width:10px;height:10px;border-radius:3px}
+.arch-legend-dot.layer{background:linear-gradient(135deg,var(--n8),var(--n6))}
+.arch-legend-dot.cross{background:var(--t0);border:1px dashed var(--t4)}
+.arch-legend-dot.accel-d{background:var(--t5)}
+.arch-legend-dot.prop-d{background:var(--purple)}
+
+/* Domain KPI Metrics */
+.kpi-section{margin-bottom:32px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.kpi-card{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:18px 20px;display:flex;gap:14px;transition:var(--tr)}
+.kpi-card:hover{box-shadow:var(--sh);border-color:var(--g3)}
+.kpi-icon{font-size:1.4rem;flex-shrink:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--g0);border-radius:10px}
+.kpi-body{flex:1;min-width:0}
+.kpi-metric{font-size:.95rem;font-weight:700;color:var(--g8);margin-bottom:8px;line-height:1.25}
+.kpi-row{display:flex;gap:8px;margin-bottom:4px}
+.kpi-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;width:64px}
+.kpi-label.from{color:var(--red)}
+.kpi-label.to{color:var(--green)}
+.kpi-val{font-size:.82rem;color:var(--g6);line-height:1.4}
+.kpi-bar{height:4px;background:var(--g1);border-radius:2px;margin-top:8px;overflow:hidden}
+.kpi-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--t5),var(--t3));transition:width .6s ease}
+
+/* ═══ SCENARIOS ═══ */
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;padding:20px 0 48px}
+.scen{background:var(--w);border:1px solid var(--g2);border-radius:var(--rl);overflow:hidden;transition:var(--tr)}
+.scen:hover{box-shadow:var(--shh)}
+.scen-top{padding:24px 28px;border-bottom:1px solid var(--g1)}
+.scen-q{font-size:1.1rem;font-weight:700;color:var(--g8);line-height:1.3;margin-bottom:8px}
+.scen-q::before{content:'"';color:var(--t5);font-size:1.4rem;font-weight:800;margin-right:4px}
+.scen-context{font-size:.85rem;color:var(--g5);line-height:1.55}
+.scen-body{padding:20px 28px}
+.scen-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t6);margin-bottom:10px}
+.scen-flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.scen-pkg{padding:8px 14px;border-radius:8px;border:1px solid var(--g2);background:var(--g0);font-size:.82rem;font-weight:600;color:var(--g7)}
+.scen-pkg .sid{font-family:var(--fm);font-size:.65rem;color:var(--g4);margin-right:4px}
+.scen-arrow{color:var(--g3);font-size:1.1rem}
+.scen-outcome{font-size:.85rem;color:var(--g6);line-height:1.5;padding:12px 16px;background:var(--g0);border-radius:8px;border-left:3px solid var(--t5)}
+.scen-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+
+/* ═══ ACCELERATORS ═══ */
+.acc-intro{padding:24px 0 12px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.acc-intro h2{font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.acc-intro p{font-size:.9rem;color:var(--g5);max-width:600px;line-height:1.55}
+.acc-stats{display:flex;gap:8px}
+.acc-sp{padding:8px 16px;background:var(--w);border:1px solid var(--g2);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--g7)}
+.acc-sp b{color:var(--t5);margin-right:4px}
+.acc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px;padding-bottom:48px}
+.ac{background:var(--w);border:1px solid var(--g2);border-radius:var(--rl);overflow:hidden;transition:var(--tr)}
+.ac:hover{box-shadow:var(--shh);transform:translateY(-2px)}
+.ac-top{padding:20px 22px;border-bottom:1px solid var(--g1)}
+.ac-name{font-size:1rem;font-weight:700;line-height:1.25;margin:6px 0 4px}
+.ac-sprint{font-size:.85rem;font-weight:600;color:var(--t6);margin-bottom:6px}
+.ac-sprint::before{content:'⚡ '}
+.ac-prob{font-size:.82rem;color:var(--g5);line-height:1.45}
+.ac-body{padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+.ac-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g4);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.ac-lbl::before{content:'';width:3px;height:10px;border-radius:2px}
+.al-t::before{background:var(--t5)}.al-g::before{background:var(--green)}.al-p::before{background:var(--purple)}.al-b::before{background:var(--blue)}
+.ac-weeks{display:flex;gap:6px}
+.ac-wk{flex:1;padding:10px 12px;border-radius:8px;border:1px solid var(--g2);background:var(--g0)}
+.ac-wk.hi{border-color:var(--t4);background:var(--t0)}
+.ac-wk-n{font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--g4);margin-bottom:3px}
+.ac-wk.hi .ac-wk-n{color:var(--t6)}
+.ac-wk-t{font-size:.78rem;color:var(--g6);line-height:1.4}
+.ac-del-i{font-size:.8rem;color:var(--g6);display:flex;gap:5px}.ac-del-i::before{content:'✓';color:var(--green);font-weight:700;font-size:.7rem;flex-shrink:0}
+.ac-tm{font-size:.75rem;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--g1);color:var(--g6)}
+.ac-foot{padding:14px 22px;border-top:1px solid var(--g1);background:var(--g0);display:flex;justify-content:space-between;align-items:center}
+.ac-foot-l{display:flex;gap:14px;font-size:.8rem;color:var(--g5)}.ac-foot-l b{color:var(--g7)}
+.ac-leads{font-size:.75rem;font-weight:600;color:var(--purple);background:#ede9fe;padding:4px 12px;border-radius:100px}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(4,14,26,.55);backdrop-filter:blur(6px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.mo.show{display:flex}
+.modal{background:var(--w);border-radius:var(--rl);max-width:720px;width:100%;box-shadow:var(--shh);animation:mIn .25s ease both;overflow:hidden}
+@keyframes mIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+.m-hero{background:linear-gradient(135deg,var(--n8),var(--n6));padding:28px 32px;position:relative;overflow:hidden}
+.m-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 300px 200px at 95% 95%,rgba(0,180,197,.1),transparent)}
+.m-hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;position:relative;z-index:1}
+.m-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);border-radius:8px;cursor:pointer;color:var(--dkm);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.m-close:hover{background:rgba(255,255,255,.12);color:var(--w)}
+.m-title{font-size:1.25rem;font-weight:800;color:var(--w);line-height:1.2;position:relative;z-index:1}
+.m-eng{display:flex;gap:12px;padding:16px 32px;background:var(--g0);border-bottom:1px solid var(--g2)}
+.m-eng-box{flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;border:1px solid var(--g2);background:var(--w)}
+.m-eng-box.active{border-color:var(--t5);background:var(--t0)}
+.m-eng-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--g4)}
+.m-eng-val{font-size:.95rem;font-weight:700;color:var(--g8)}
+.m-eng-sub{font-size:.75rem;color:var(--g5)}
+.m-body{padding:28px 32px;display:flex;flex-direction:column;gap:22px}
+.ms{display:flex;flex-direction:column;gap:6px}
+.ms-l{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g4);display:flex;align-items:center;gap:6px}
+.ms-l::before{content:'';width:3px;height:12px;border-radius:2px}
+.lt::before{background:var(--t5)}.lo::before{background:var(--amber)}.lp::before{background:var(--purple)}.lg::before{background:var(--green)}.lb::before{background:var(--blue)}
+.ms-t{font-size:.95rem;color:var(--g6);line-height:1.6}
+.ms-ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ms-ul li{font-size:.9rem;color:var(--g6);padding-left:18px;position:relative}
+.ms-ul li::before{content:'';width:5px;height:5px;border-radius:50%;position:absolute;left:0;top:9px}
+.ms-ul.oc li::before{background:var(--t5)}.ms-ul.rc li::before{background:var(--amber)}
+.maps-tl{display:flex;flex-direction:column}
+.maps-s{display:flex;gap:14px;padding:10px 0;position:relative}
+.maps-s:not(:last-child)::after{content:'';position:absolute;left:16px;top:40px;bottom:-2px;width:2px;background:var(--g2)}
+.maps-dot{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--w);flex-shrink:0;z-index:1}
+.md-m{background:var(--n6)}.md-a{background:#b45309}.md-p{background:#047857}.md-s{background:#be123c}
+.maps-n{font-size:.9rem;font-weight:700;margin-bottom:2px}
+.maps-desc{font-size:.85rem;color:var(--g5);line-height:1.5;margin-bottom:8px}
+.maps-out{display:flex;flex-direction:column;gap:3px;padding:10px 14px;background:var(--g0);border-radius:8px;border-left:3px solid var(--t5)}
+.maps-out-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t6);margin-bottom:3px}
+.maps-out-i{font-size:.8rem;color:var(--g6);display:flex;gap:5px}.maps-out-i::before{content:'→';color:var(--t5);flex-shrink:0}
+.maps-tools{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.nstep{background:linear-gradient(135deg,var(--t0),#f0f9ff);border:1px solid rgba(0,180,197,.12);border-radius:var(--r);padding:16px 20px;display:flex;gap:12px}
+.nstep-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t6);margin-bottom:2px}
+.nstep-t{font-size:.9rem;font-weight:600;color:var(--g7);line-height:1.35}
+.m-note{font-size:.85rem;color:var(--g5);font-style:italic;padding:14px 16px;background:var(--g0);border-radius:10px;border-left:3px solid var(--g3);line-height:1.5}
+
+/* GLOSSARY */
+.tb-gloss{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:var(--dk);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);flex-shrink:0;margin-left:6px}
+.tb-gloss:hover{background:rgba(0,180,197,.15);border-color:rgba(0,180,197,.3);color:var(--t4)}
+.gloss-overlay{position:fixed;inset:0;background:rgba(4,14,26,.55);backdrop-filter:blur(6px);z-index:250;display:none;align-items:flex-start;justify-content:center;padding:60px 20px;overflow-y:auto}
+.gloss-overlay.show{display:flex}
+.gloss-modal{background:var(--w);border-radius:var(--rl);max-width:680px;width:100%;box-shadow:var(--shh);animation:mIn .25s ease both;overflow:hidden}
+.gloss-header{background:linear-gradient(135deg,var(--n8),var(--n6));padding:24px 28px;display:flex;justify-content:space-between;align-items:center}
+.gloss-header-left{display:flex;align-items:center;gap:10px}
+.gloss-header-icon{font-size:1.3rem}
+.gloss-header h3{font-size:1.1rem;font-weight:800;color:var(--w)}
+.gloss-header p{font-size:.8rem;color:var(--dkm);margin-top:2px}
+.gloss-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);border-radius:8px;cursor:pointer;color:var(--dkm);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.gloss-close:hover{background:rgba(255,255,255,.12);color:var(--w)}
+.gloss-body{padding:20px 28px;max-height:60vh;overflow-y:auto}
+.gloss-body::-webkit-scrollbar{width:5px}.gloss-body::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
+.gloss-group{margin-bottom:18px}
+.gloss-group-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--g4);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--g2);display:flex;align-items:center;gap:6px}
+.gloss-group-title::before{content:'';width:3px;height:10px;border-radius:2px;background:var(--t5)}
+.gloss-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--g1)}
+.gloss-row:last-child{border-bottom:none}
+.gloss-id{font-family:var(--fm);font-size:.75rem;font-weight:500;color:var(--t6);background:var(--t0);padding:4px 10px;border-radius:5px;min-width:100px;text-align:center;flex-shrink:0}
+.gloss-name{font-size:.88rem;font-weight:600;color:var(--g8);flex:1}
+.gloss-eng{font-size:.6rem;font-weight:600;padding:3px 8px;border-radius:100px;text-transform:uppercase;flex-shrink:0}
+.gloss-eng.accel{background:var(--t0);color:var(--t6)}.gloss-eng.prop{background:#ede9fe;color:#6d28d9}
+.gloss-footer{padding:14px 28px;border-top:1px solid var(--g2);background:var(--g0);font-size:.78rem;color:var(--g5);text-align:center}
+
+/* HERO CTA */
+.hero-cta{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:14px 28px;font-family:var(--f);font-size:.95rem;font-weight:700;color:var(--n9);background:linear-gradient(135deg,var(--t4),var(--t3));border:none;border-radius:12px;cursor:pointer;transition:all .25s ease;box-shadow:0 4px 20px rgba(0,180,197,.35);position:relative;overflow:hidden}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,197,.45)}
+.hero-cta:active{transform:translateY(0)}
+.hero-cta-pulse{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:12px;animation:ctaPulse 2s ease-in-out infinite}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,180,197,.3)}50%{box-shadow:0 0 0 8px rgba(0,180,197,0)}}
+
+/* WIZARD MODAL */
+.wiz-overlay{position:fixed;inset:0;background:rgba(4,14,26,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:300;display:none;justify-content:center;padding:40px 20px;overflow-y:auto;overscroll-behavior:contain}
+.wiz-overlay.show{display:flex}
+.wiz{background:var(--w);border-radius:20px;max-width:600px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.25);animation:wizIn .35s cubic-bezier(.2,.8,.3,1) both;overflow:hidden;position:relative;margin:auto;flex-shrink:0}
+@keyframes wizIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:none}}
+
+.wiz-header{background:linear-gradient(135deg,var(--n8),var(--n6));padding:28px 32px 24px;text-align:center;position:relative;overflow:hidden}
+.wiz-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 300px 200px at 50% 120%,rgba(0,180,197,.12),transparent)}
+.wiz-header-icon{font-size:2rem;margin-bottom:8px}
+.wiz-header-title{font-size:1.2rem;font-weight:800;color:var(--w);margin-bottom:4px}
+.wiz-header-sub{font-size:.85rem;color:var(--dkm)}
+.wiz-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);border-radius:8px;cursor:pointer;color:var(--dkm);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--tr);z-index:2}
+.wiz-close:hover{background:rgba(255,255,255,.12);color:var(--w)}
+
+/* Progress */
+.wiz-progress{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px 32px 0}
+.wiz-dot{width:10px;height:10px;border-radius:50%;background:var(--g2);transition:all .3s ease}
+.wiz-dot.active{background:var(--t5);transform:scale(1.2)}
+.wiz-dot.done{background:var(--green)}
+.wiz-bar{width:32px;height:2px;background:var(--g2);border-radius:1px;transition:all .3s ease}
+.wiz-bar.done{background:var(--t5)}
+
+/* Step container */
+.wiz-body{padding:24px 32px 28px;min-height:320px;position:relative}
+.wiz-step{display:none;animation:stepIn .3s ease both}
+.wiz-step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+.wiz-q{font-size:1.1rem;font-weight:700;color:var(--g8);margin-bottom:6px;line-height:1.3}
+.wiz-q-sub{font-size:.85rem;color:var(--g5);margin-bottom:20px;line-height:1.5}
+
+/* Option cards */
+.wiz-options{display:flex;flex-direction:column;gap:8px}
+.wiz-opt{display:flex;align-items:center;gap:14px;padding:16px 18px;border:2px solid var(--g2);border-radius:12px;cursor:pointer;transition:all .2s ease;background:var(--w)}
+.wiz-opt:hover{border-color:var(--g3);background:var(--g0);transform:translateX(4px)}
+.wiz-opt.selected{border-color:var(--t5);background:var(--t0);box-shadow:0 0 0 3px rgba(0,180,197,.1)}
+.wiz-opt-icon{font-size:1.5rem;flex-shrink:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--g0);border-radius:10px}
+.wiz-opt.selected .wiz-opt-icon{background:rgba(0,180,197,.15)}
+.wiz-opt-text{flex:1}
+.wiz-opt-title{font-size:.95rem;font-weight:700;color:var(--g8);margin-bottom:2px}
+.wiz-opt-desc{font-size:.8rem;color:var(--g5);line-height:1.4}
+.wiz-opt-check{width:22px;height:22px;border:2px solid var(--g3);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s ease}
+.wiz-opt.selected .wiz-opt-check{border-color:var(--t5);background:var(--t5);color:var(--w);font-size:.7rem;font-weight:700}
+
+/* Result */
+.wiz-result{display:none;animation:resultIn .5s cubic-bezier(.2,.8,.3,1) both}
+.wiz-result.active{display:block}
+@keyframes resultIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+
+.wiz-result-badge{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;background:rgba(16,185,129,.08);padding:6px 14px;border-radius:100px;border:1px solid rgba(16,185,129,.15)}
+.wiz-result-title{font-size:.8rem;font-weight:600;color:var(--g5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+
+.wiz-rec{border:2px solid var(--t5);border-radius:14px;overflow:hidden;margin-bottom:14px;background:var(--w);box-shadow:0 4px 20px rgba(0,180,197,.1)}
+.wiz-rec-top{background:linear-gradient(135deg,var(--n8),var(--n6));padding:18px 22px;position:relative;overflow:hidden}
+.wiz-rec-top::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 200px 150px at 90% 90%,rgba(0,180,197,.1),transparent)}
+.wiz-rec-pills{display:flex;gap:4px;margin-bottom:8px;position:relative;z-index:1}
+.wiz-rec-name{font-size:1.1rem;font-weight:800;color:var(--w);line-height:1.2;position:relative;z-index:1}
+.wiz-rec-body{padding:18px 22px;display:flex;flex-direction:column;gap:12px}
+.wiz-rec-meta{display:flex;gap:20px}
+.wiz-rec-meta-item{display:flex;flex-direction:column}
+.wiz-rec-meta-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--g4)}
+.wiz-rec-meta-val{font-size:1rem;font-weight:700;color:var(--g8)}
+.wiz-rec-sprint{font-size:.9rem;font-weight:600;color:var(--t6);display:flex;align-items:center;gap:5px}
+.wiz-rec-sprint::before{content:'⚡'}
+.wiz-rec-dels{display:flex;flex-direction:column;gap:3px}
+.wiz-rec-del{font-size:.82rem;color:var(--g6);display:flex;align-items:baseline;gap:5px}
+.wiz-rec-del::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+
+.wiz-leads{background:var(--g0);border:1px solid var(--g2);border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.wiz-leads-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--purple);margin-bottom:8px}
+.wiz-leads-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wiz-leads-step{padding:8px 14px;border-radius:8px;border:1px solid var(--g2);background:var(--w);font-size:.8rem;font-weight:600;color:var(--g7)}
+.wiz-leads-step .wiz-sid{font-family:var(--fm);font-size:.65rem;color:var(--g4);margin-right:4px}
+.wiz-leads-arrow{color:var(--g3);font-size:1rem}
+
+.wiz-domains{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+
+.wiz-actions{display:flex;gap:10px;margin-top:4px}
+.wiz-btn{flex:1;padding:12px;font-family:var(--f);font-size:.9rem;font-weight:700;border-radius:10px;cursor:pointer;transition:var(--tr);text-align:center;border:none}
+.wiz-btn-primary{background:linear-gradient(135deg,var(--t5),var(--t3));color:var(--n9);box-shadow:0 4px 16px rgba(0,180,197,.25)}
+.wiz-btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,180,197,.35)}
+.wiz-btn-secondary{background:var(--w);color:var(--g6);border:1px solid var(--g2)}
+.wiz-btn-secondary:hover{border-color:var(--g3);background:var(--g0)}
+
+/* VALUE REALISATION CURVE */
+.vc-wrap{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:20px 24px;overflow:hidden}
+.vc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.vc-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g4);display:flex;align-items:center;gap:6px}
+.vc-title::before{content:'';width:3px;height:12px;border-radius:2px;background:var(--green)}
+.vc-domains{display:flex;gap:4px}
+.vc-svg-wrap{position:relative;margin:8px 0 0}
+.vc-milestones{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:14px}
+.vc-ms{padding:10px 12px;border-radius:8px;border-left:3px solid var(--g3);background:var(--g0);transition:var(--tr)}
+.vc-ms.map{border-left-color:var(--n5)}.vc-ms.activate{border-left-color:var(--amber)}.vc-ms.prove{border-left-color:var(--green)}.vc-ms.scale{border-left-color:var(--rose)}
+.vc-ms-stage{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.vc-ms.map .vc-ms-stage{color:var(--n5)}.vc-ms.activate .vc-ms-stage{color:#b45309}.vc-ms.prove .vc-ms-stage{color:#047857}.vc-ms.scale .vc-ms-stage{color:#be123c}
+.vc-ms-val{font-size:.72rem;font-weight:600;color:var(--g8);margin-bottom:2px}
+.vc-ms-pct{font-size:1.1rem;font-weight:800;margin-bottom:2px}
+.vc-ms.map .vc-ms-pct{color:var(--n5)}.vc-ms.activate .vc-ms-pct{color:#b45309}.vc-ms.prove .vc-ms-pct{color:#047857}.vc-ms.scale .vc-ms-pct{color:#be123c}
+.vc-ms-ben{font-size:.7rem;color:var(--g5);line-height:1.35}
+.vc-legend{display:flex;gap:14px;margin-top:12px;padding-top:10px;border-top:1px solid var(--g2);flex-wrap:wrap}
+.vc-legend-item{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--g5)}
+.vc-legend-dot{width:8px;height:8px;border-radius:2px}
+
+.empty{text-align:center;padding:60px;color:var(--g4)}.empty-t{font-size:1rem;font-weight:600;color:var(--g5)}
+.footer{background:var(--n9);padding:24px 36px;text-align:center}.footer-t{font-size:.75rem;color:var(--dkm)}.footer-t a{color:var(--t4);text-decoration:none}.footer-t img{height:16px;opacity:.6;filter:brightness(0) invert(1);vertical-align:middle;margin-right:10px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.an{animation:fadeIn .3s ease both}
+@media(max-width:900px){.hero-stats{display:none}.pgrid,.acc-grid,.dom-grid,.scen-grid{grid-template-columns:1fr}.charts{grid-template-columns:1fr}.ac-weeks{flex-direction:column}.journey{flex-direction:column}.j-step{min-width:auto;padding-top:20px}}
+</style>
+</head>
+<body>
+
+<nav class="topbar"><div class="tb">
+  <a class="tb-logo" href="#"><img src="https://www.nxwave.com/hs-fs/hubfs/1.02-500x1200-NextwaveConsultingLtd-AG-275325-1.png?width=250&height=58" alt="NextWave"></a>
+  <div class="tb-div"></div>
+  <div><div class="tb-name">AI Innovation Lab</div><div class="tb-sub">Strategy &bull; Specialists &bull; Solutions</div></div>
+  <div class="tb-tabs" id="tabs">
+    <button class="tab on" data-p="cat">Catalogue</button>
+    <button class="tab" data-p="dom">Domains</button>
+    <button class="tab" data-p="scen">Scenarios</button>
+    <button class="tab" data-p="acc">Accelerators</button>
+  </div>
+  <button class="tb-gloss" onclick="toggleGloss()" title="Package Glossary">📖</button>
+</div></nav>
+
+<header class="hero"><div class="hero-in">
+  <div><div class="hero-tag">⚡ AI CoE — Packaged Offers</div><h1 class="hero-h">AI. Embedded. Governed.<br><em>Delivered.</em></h1><p class="hero-p">18 packages across 6 business domains, with FS-specific KPIs, sequenced engagement journeys and real-world scenarios — from accelerator sprint to scaled delivery.</p><button class="hero-cta" onclick="openWiz()"><span class="hero-cta-pulse"></span>Start Here — Find Your Package</button></div>
+  <div class="hero-stats"><div class="h-stat"><b id="ks1">18</b><span>Packages</span></div><div class="h-stat"><b id="ks2">6</b><span>Practices</span></div><div class="h-stat"><b>6</b><span>Domains</span></div><div class="h-stat"><b>8</b><span>Scenarios</span></div><div class="h-stat"><b>36</b><span>FS KPIs</span></div></div>
+</div></header>
+
+<!-- PAGE: CATALOGUE -->
+<div id="pgCat" class="page show"><div class="wrap"><div class="fbar" id="fbar"></div><div class="charts" id="charts"></div><div class="sec-hd"><div class="sec-t">All Packages</div><div class="sec-count" id="cnt"></div></div><div class="pgrid" id="grid"></div></div></div>
+
+<!-- PAGE: DOMAINS -->
+<div id="pgDom" class="page"><div class="wrap">
+  <div class="sec-hd"><div class="sec-t">Domain Front Doors</div></div>
+  <p style="font-size:.9rem;color:var(--g5);margin-bottom:4px">Select a business domain to see curated packages and a recommended engagement journey.</p>
+  <div class="dom-grid" id="domGrid"></div>
+  <div class="dom-detail" id="domDetail"></div>
+</div></div>
+
+<!-- PAGE: SCENARIOS -->
+<div id="pgScen" class="page"><div class="wrap">
+  <div class="sec-hd"><div class="sec-t">Industry Scenarios</div></div>
+  <p style="font-size:.9rem;color:var(--g5);margin-bottom:4px">Recognise your situation? Each scenario maps to a recommended package combination.</p>
+  <div class="scen-grid" id="scenGrid"></div>
+</div></div>
+
+<!-- PAGE: ACCELERATORS -->
+<div id="pgAcc" class="page"><div class="wrap"><div class="acc-intro"><div><h2>NextWave Labs Accelerators</h2><p>Asset-led, time-boxed sprints using pre-built IP. Delivers tangible outputs in weeks and creates the evidence to fund the larger proposition.</p></div><div class="acc-stats"><div class="acc-sp"><b id="accN">18</b>sprints</div><div class="acc-sp"><b>2–6</b>wks</div><div class="acc-sp"><b>£30–80k</b>fixed</div></div></div><div class="acc-grid" id="accG"></div></div></div>
+
+<div class="wiz-overlay" id="wizO">
+<div class="wiz">
+  <div class="wiz-header">
+    <button class="wiz-close" onclick="closeWiz()">✕</button>
+    <div class="wiz-header-icon">🧭</div>
+    <div class="wiz-header-title">Find Your Starting Point</div>
+    <div class="wiz-header-sub">Three questions. Thirty seconds. One clear recommendation.</div>
+  </div>
+  <div class="wiz-progress" id="wizProg"></div>
+  <div class="wiz-body" id="wizBody"></div>
+</div>
+</div>
+
+<div class="gloss-overlay" id="glossO">
+  <div class="gloss-modal">
+    <div class="gloss-header"><div class="gloss-header-left"><div class="gloss-header-icon">📖</div><div><h3>Package Glossary</h3><p>18 named packages across 6 practice areas</p></div></div><button class="gloss-close" onclick="toggleGloss()">✕</button></div>
+    <div class="gloss-body" id="glossBody"></div>
+    <div class="gloss-footer">Click any package in the dashboard to see full details, MAPS delivery, tools and outputs</div>
+  </div>
+</div>
+
+<div class="mo" id="mO"><div class="modal" id="mP"></div></div>
+
+<footer class="footer"><div class="footer-t"><img src="https://www.nxwave.com/hs-fs/hubfs/1.02-500x1200-NextwaveConsultingLtd-AG-275325-1.png?width=250&height=58" alt="NW">AI Innovation Lab &mdash; MAPS Catalogue &nbsp;|&nbsp; <a href="https://www.nxwave.com">nxwave.com</a></div></footer>
+
+<script>
+const D=[{id:"RESET",name:"Intelligent Automation Portfolio Reset",pa:"Automation",personas:["COO","Head of Operations","Transformation Director"],problem:"Automation has plateaued—too many bots, brittle workflows, unclear ROI, rising operational risk.",metrics:["Cycle time reduction","Cost-to-serve","Automation success rate","Exception rate","STP uplift"],controls:["Change control","Auditability","Segregation of duties","Drift monitoring"],maps:{Map:{d:"Value pool + process heatmap + control hotspots; prioritised backlog",o:["Automation heatmap","Value pool analysis","Control hotspot register","Prioritised backlog"],t:["Alteryx","Celonis","NW Nexus"]},Activate:{d:"Target operating model for automation + governance",o:["Automation TOM blueprint","Governance framework","Control standards"],t:["Appian","ServiceNow","MethodGrid"]},Prove:{d:"1–2 processes redesigned with AI-assisted routing",o:["Redesigned flows","AI routing POV","Exception model"],t:["Appian","Camunda","Toca.io"]},Scale:{d:"Automation factory playbook, measures, QA gates",o:["Factory playbook","QA gates","BAU dashboard"],t:["Appian","Alteryx","Diffblue"]}},notes:"Executive-friendly MAPS sprint to restart automation ROI.",biz:["Efficiency","Risk & Control"],dom:["Operations","Finance"],eng:"Accelerator",dur:"3–4 wk",price:"£40–60k",acc:{sprint:"Automation Reset Sprint",weeks:3,team:["NW Practice Lead","Process Analyst","Automation Architect","Controls Specialist"],tl:[{w:"Wk 1",a:"Process inventory, value pool sizing, control hotspots",h:0},{w:"Wk 2",a:"Prioritisation matrix, TOM sketch, quick-win ID",h:1},{w:"Wk 3",a:"Executive playback, prioritised backlog, investment case",h:0}],del:["Automation value heatmap","Control hotspot register","Prioritised 90-day backlog","Executive investment case","TOM blueprint (draft)"],leads:"Full Automation TOM + 2-process POV",at:["Alteryx","Celonis","NW Nexus"]}},
+{id:"AGENTIC",name:"Agentic Workflow Orchestration Pilot",pa:"Automation",personas:["Head of Operations","Head of Service","CIO"],problem:"Knowledge work is slow—decisions rely on scattered data and manual judgement.",metrics:["Time-to-resolution","Tickets per FTE","Rework reduction","NPS uplift"],controls:["Human-in-the-loop","Evidence capture","Access controls","Prompt leakage protection"],maps:{Prove:{d:"POV demonstrating orchestration with guardrails",o:["Working agentic POV","Guardrail config","Evidence pack"],t:["Camunda","Azure OpenAI","LangChain"]},Scale:{d:"Scale as controlled operating capability",o:["Operating playbook","Governance framework","Monitoring"],t:["Camunda","ServiceNow","Datadog"]}},notes:"Focus on one workflow with explicit control posture.",biz:["Efficiency"],dom:["Operations"],eng:"Proposition",dur:"8–12 wk",price:"£120–200k",acc:{sprint:"Agentic Workflow Discovery",weeks:3,team:["NW AI Lead","Workflow Analyst","Solutions Architect"],tl:[{w:"Wk 1",a:"Map workflow; identify decision points & data sources",h:0},{w:"Wk 2",a:"Design agentic architecture with guardrails",h:1},{w:"Wk 3",a:"Prototype demo & feasibility report",h:0}],del:["Workflow decision map","Architecture blueprint","Guardrail design","Feasibility assessment","POV business case"],leads:"Full Agentic POV build (8–12 wk)",at:["Camunda","Azure OpenAI","NW Nexus"]}},
+{id:"DOC2DEC",name:"Document-to-Decision Automation",pa:"Automation",personas:["Operations Executive","Compliance/Risk Sponsor"],problem:"Onboarding/KYC/claims constrained by document handling and audit trails.",metrics:["Turnaround time reduction","Accuracy uplift","Drop-off reduction","Audit exceptions reduction"],controls:["Source-of-truth controls","Retention policies","Explainability","QA sampling"],maps:{Map:{d:"E2E journey assessment and control hotspots",o:["Journey map","Control gap analysis","Feasibility scorecard"],t:["Celonis","Alteryx","NW Nexus"]},Prove:{d:"Redesigned journey with evidence and exception handling",o:["Redesigned journey","IDP model","Evidence framework"],t:["Appian","Azure Doc Intelligence","Alteryx"]},Scale:{d:"Industrialised controls-as-process and BAU handover",o:["BAU run book","Monitoring dashboard","Handover pack"],t:["Appian","ServiceNow","Alteryx"]}},notes:"Redesign the journey with audit-ready evidence.",biz:["Efficiency","Risk & Control"],dom:["Operations","Compliance"],eng:"Proposition",dur:"10–16 wk",price:"£150–280k",acc:{sprint:"Document Journey Diagnostic",weeks:3,team:["NW Ops Lead","Journey Analyst","IDP Specialist","Controls Advisor"],tl:[{w:"Wk 1",a:"E2E journey mapping; pain points; control gaps",h:0},{w:"Wk 2",a:"Document classification; IDP feasibility; redesign options",h:1},{w:"Wk 3",a:"Target journey design; business case; POV scope",h:0}],del:["As-is journey map","Document taxonomy","Control gap assessment","Target journey blueprint","POV scope"],leads:"Document-to-Decision POV + Scale",at:["Celonis","Alteryx","Azure Doc Intelligence"]}},
+{id:"DATAREADY",name:"AI Readiness & Data Product Foundation",pa:"Data",personas:["CDO","CIO","Head of Data Platforms"],problem:"Data is fragmented, ownership unclear, quality issues create AI delivery risk.",metrics:["Data elements with owners","Quality score","Time-to-access reduction","AI time-to-first-value"],controls:["Lineage","Access governance","Privacy controls","Audit-ready controls"],maps:{Map:{d:"Use-case feasibility vs data reality; readiness scorecard",o:["AI readiness scorecard","Data landscape map","Use-case matrix"],t:["Alteryx","Solidatus","NW Scorecard"]},Activate:{d:"Data product operating model",o:["Data product TOM","Stewardship RACI","SLA framework"],t:["Solidatus","Collibra","MethodGrid"]},Prove:{d:"1–2 golden data products",o:["Golden data products","Quality reports","Lineage docs"],t:["Databricks","Alteryx","Solidatus"]},Scale:{d:"Quality/observability into BAU",o:["Observability dashboard","Quality gates","Alert framework"],t:["Databricks","Monte Carlo","Alteryx"]}},notes:"Data product backbone that makes AI repeatable.",biz:["Efficiency","Growth"],dom:["Data & Technology","Risk"],eng:"Accelerator",dur:"4–6 wk",price:"£50–80k",acc:{sprint:"AI Data Readiness Scorecard",weeks:4,team:["NW Data Lead","Data Analyst","AI Strategist","Governance Advisor"],tl:[{w:"Wk 1",a:"Stakeholder interviews; use-case inventory; data scan",h:0},{w:"Wk 2",a:"Quality profiling; ownership mapping; gap analysis",h:1},{w:"Wk 3",a:"Readiness scoring; data product ID; TOM sketch",h:0},{w:"Wk 4",a:"Exec readout: roadmap, investment plan, quick wins",h:0}],del:["AI Readiness Scorecard","Data landscape map","Use-case matrix","Data product roadmap","Stewardship RACI (draft)"],leads:"Golden Data Product build + Observability",at:["Alteryx","Solidatus","NW Scorecard"]}},
+{id:"TRUSTLAYER",name:"Data Quality + Observability for AI",pa:"Data",personas:["CDO","Head of Data Governance","Risk Stakeholder"],problem:"No control plane for data freshness, drift, completeness—AI pilots fail at scale.",metrics:["Defects prevented","Incident reduction","Model stability","Reduced reconciliation"],controls:["Control definitions","Evidence & logging","Accountable owners","Audit traceability"],maps:{Activate:{d:"Define controls, thresholds, owners and escalation",o:["Control catalogue","Threshold definitions","Escalation matrix"],t:["Solidatus","Alteryx","Praevisum"]},Scale:{d:"Monitoring into BAU with actionable alerts",o:["Monitoring dashboard","Alert runbooks","Audit evidence pack"],t:["Databricks","Monte Carlo","Alteryx"]}},notes:"Controls that run—metrics, thresholds and escalation paths.",biz:["Risk & Control"],dom:["Data & Technology","Risk"],eng:"Proposition",dur:"8–12 wk",price:"£100–180k",acc:{sprint:"Data Control Plane Design",weeks:3,team:["NW Data Gov Lead","Data Engineer","Risk Analyst"],tl:[{w:"Wk 1",a:"Inventory critical data; map controls & gaps",h:0},{w:"Wk 2",a:"Design controls, thresholds & escalation",h:1},{w:"Wk 3",a:"Owner assignment; monitoring blueprint",h:0}],del:["Control catalogue","Threshold matrix","Escalation framework","Owner RACI","Monitoring blueprint"],leads:"Full Trust Layer build + BAU integration",at:["Solidatus","Alteryx","Praevisum"]}},
+{id:"KNOWFABRIC",name:"Secure Enterprise Knowledge Fabric",pa:"Data",personas:["CIO","CISO","COO"],problem:"Knowledge is siloed and security concerns block GenAI adoption.",metrics:["Time saved in search","Reduced duplicated work","Adoption","User satisfaction"],controls:["RBAC","Retrieval boundaries","Sensitive data handling","Hallucination controls"],maps:{Map:{d:"Knowledge sources, security boundaries, retrieval design",o:["Knowledge inventory","Security map","RAG architecture"],t:["Azure AI Search","Solidatus","NW Nexus"]},Prove:{d:"Trusted assistant pilot",o:["Working RAG assistant","Safety evaluation","User feedback"],t:["Azure OpenAI","LangChain","Streamlit"]},Scale:{d:"Expand domains with governance",o:["Expansion playbook","Governance framework","Usage analytics"],t:["Azure AI","Databricks","ServiceNow"]}},notes:"Unlock GenAI safely with a controlled retrieval layer.",biz:["Efficiency","Growth"],dom:["Data & Technology","Operations"],eng:"Proposition",dur:"10–14 wk",price:"£150–250k",acc:{sprint:"Knowledge Fabric Discovery",weeks:3,team:["NW AI Lead","Info Architect","Security Consultant"],tl:[{w:"Wk 1",a:"Knowledge source inventory; security boundary mapping",h:0},{w:"Wk 2",a:"RAG architecture; retrieval & access model",h:1},{w:"Wk 3",a:"Blueprint; risk assessment; POV scope",h:0}],del:["Knowledge inventory","Security boundary map","RAG architecture","Access control design","POV scope"],leads:"Trusted Assistant POV + Scale",at:["Azure AI Search","Solidatus","NW Nexus"]}},
+{id:"AISTRAT",name:"AI Strategy & Investment Choices",pa:"AI & Analytics",personas:["CEO","COO","CIO","CDO","CRO"],problem:"Leadership needs a pragmatic view of where AI creates value and what it takes to adopt safely.",metrics:["Prioritised portfolio","Investment plan","Value model","Delivery velocity","Risk posture"],controls:["Responsible AI","Model risk alignment","Regulatory mapping","Accountability"],maps:{Map:{d:"Strategy-to-portfolio, value pools, risk appetite, roadmap",o:["AI strategy","Value pool analysis","Portfolio","Investment roadmap"],t:["NW Nexus","StrategyWorks","Alteryx"]},Activate:{d:"Governance, KPIs, POV pipeline, operating cadence",o:["Governance charter","KPI framework","POV pipeline","Cadence design"],t:["MethodGrid","StrategyWorks","ServiceNow"]}},notes:"Strategy-to-operating-plan in weeks, not months.",biz:["Growth","Risk & Control"],dom:["Finance","Risk","Data & Technology"],eng:"Accelerator",dur:"3–5 wk",price:"£50–80k",acc:{sprint:"Executive AI Strategy Sprint",weeks:4,team:["NW Strategy Partner","AI Strategist","Risk Advisor","Value Analyst"],tl:[{w:"Wk 1",a:"C-suite interviews; competitive scan; opportunities",h:0},{w:"Wk 2",a:"Value pools; risk appetite; portfolio shaping",h:1},{w:"Wk 3",a:"Roadmap; governance; operating model",h:0},{w:"Wk 4",a:"Board pack; POV pipeline; cadence",h:0}],del:["AI Strategy document","Value pool analysis","Prioritised portfolio","Investment roadmap","Governance charter (draft)","Board pack"],leads:"Governance stand-up + first POV pipeline",at:["NW Nexus","StrategyWorks","Alteryx"]}},
+{id:"GENPROVE",name:"Outcome-Led GenAI POV",pa:"AI & Analytics",personas:["Business Line Leader","CIO Sponsor","Risk Sponsor"],problem:"Stakeholders need proof it works in our environment with our controls before funding scale.",metrics:["Business KPI uplift","Adoption","Accuracy","Control compliance","Audit completeness"],controls:["Safety filters","Human review","Evidence capture","Monitoring & drift"],maps:{Prove:{d:"POV around a single decision/workflow with success criteria",o:["Working GenAI POV","Success scorecard","Compliance report","Business case update"],t:["Azure OpenAI","LangChain","Alteryx","Streamlit"]},Scale:{d:"Scale path with monitoring and governance",o:["Scale architecture","Governance model","Monitoring framework"],t:["Databricks","Azure AI","ServiceNow"]}},notes:"Build confidence through measured outcomes.",biz:["Efficiency","Growth"],dom:["Operations","Data & Technology"],eng:"Proposition",dur:"8–12 wk",price:"£120–200k",acc:{sprint:"GenAI POV Scoping Sprint",weeks:2,team:["NW AI Lead","ML Engineer","Business Analyst"],tl:[{w:"Wk 1",a:"Use-case selection; data assessment; success criteria",h:1},{w:"Wk 2",a:"POV architecture; control posture; delivery plan",h:0}],del:["Use-case brief","Data readiness assessment","POV architecture","Success criteria","Control posture","Delivery plan"],leads:"Full GenAI POV build (8–12 wk)",at:["Azure OpenAI","LangChain","NW Nexus"]}},
+{id:"AIGOV",name:"Responsible AI & Model Governance Blueprint",pa:"AI & Analytics",personas:["CRO","Head of Model Risk","Compliance","CIO"],problem:"AI delivery blocked by unclear governance, responsibilities and assurance standards.",metrics:["Time-to-approval reduction","Reduced rework","Improved audit outcomes","Consistent risk coverage"],controls:["Lifecycle controls","Validation","Documentation standards","Third-party risk"],maps:{Activate:{d:"Templates, approval flows, evidence collection",o:["Governance framework","Approval templates","Evidence standards","RACI"],t:["Acin","RequirementONE","MethodGrid"]},Scale:{d:"Embed governance into delivery gates and BAU",o:["Gate checklist","BAU monitoring","Audit evidence pack"],t:["ServiceNow","Acin","Kaizen"]}},notes:"Governance that ships—assets, flows and evidence.",biz:["Risk & Control"],dom:["Risk","Compliance"],eng:"Accelerator",dur:"4–6 wk",price:"£50–80k",acc:{sprint:"AI Governance Blueprint Sprint",weeks:4,team:["NW Risk Lead","Model Risk Specialist","Compliance Advisor","Process Designer"],tl:[{w:"Wk 1",a:"Current-state; regulatory mapping",h:0},{w:"Wk 2",a:"Framework: controls, approvals, evidence",h:1},{w:"Wk 3",a:"Templates; RACI; pilot scope",h:0},{w:"Wk 4",a:"Playbook delivery; embed plan",h:0}],del:["Governance framework","Approval templates","Evidence standards","RACI","Playbook","Implementation plan"],leads:"Governance into delivery gates (Scale)",at:["Acin","RequirementONE","MethodGrid"]}},
+{id:"QAUPLIFT",name:"AI-Assisted Test Transformation",pa:"QA Engineering",personas:["CIO","Head of QA","Programme Director"],problem:"Release speed constrained by manual testing, poor coverage, late defect discovery.",metrics:["Test cycle reduction","Defect leakage reduction","Automation coverage","Release frequency"],controls:["Test evidence integrity","AI artefact quality","Audit traceability"],maps:{Map:{d:"QA assessment and bottlenecks",o:["QA maturity assessment","Bottleneck analysis","Automation register"],t:["Diffblue","NW Nexus","Alteryx"]},Activate:{d:"Test operating model + tooling modernisation",o:["Test TOM","Tooling roadmap","Training plan"],t:["Diffblue","Selenium","MethodGrid"]},Prove:{d:"AI-assisted test design in 1–2 releases",o:["AI test cases","Coverage report","Defect analysis"],t:["Diffblue","Azure DevOps"]},Scale:{d:"Playbook and governance gates",o:["QA playbook","Release gates","Dashboard"],t:["Diffblue","ServiceNow"]}},notes:"AI embedded in the QA operating model.",biz:["Efficiency","Risk & Control"],dom:["Data & Technology"],eng:"Accelerator",dur:"4–6 wk",price:"£40–70k",acc:{sprint:"QA Maturity & AI Opportunity Sprint",weeks:3,team:["NW QA Lead","Test Analyst","AI/ML Specialist"],tl:[{w:"Wk 1",a:"Assessment; bottleneck & coverage audit",h:0},{w:"Wk 2",a:"AI opportunity mapping; tooling eval; TOM",h:1},{w:"Wk 3",a:"Roadmap; quick wins; POV scope",h:0}],del:["QA maturity scorecard","Bottleneck analysis","AI opportunity register","Test TOM","Tooling roadmap"],leads:"AI-assisted test POV in 1–2 releases",at:["Diffblue","NW Nexus","Alteryx"]}},
+{id:"AISAFE",name:"Model & GenAI Assurance Suite",pa:"QA Engineering",personas:["CIO","Risk Sponsor","Product Owner"],problem:"Can't evidence safety, robustness and compliance for production AI.",metrics:["Incident reduction","Stability improvement","Faster approvals","Reduced unsafe outputs"],controls:["Red teaming","Prompt injection testing","Bias checks","Data leakage tests"],maps:{Activate:{d:"Assurance framework and test harness",o:["Assurance framework","Test harness","Risk taxonomy"],t:["Azure AI","Promptfoo","NW Nexus"]},Prove:{d:"Tests for one model/use case",o:["Red team report","Safety results","Compliance evidence"],t:["Promptfoo","Azure AI","Python"]},Scale:{d:"Assurance into CI/CD",o:["CI/CD integration","Automated suite","Gate criteria"],t:["Azure DevOps","Diffblue","ServiceNow"]}},notes:"Safety testable, repeatable and auditable.",biz:["Risk & Control"],dom:["Risk","Data & Technology"],eng:"Proposition",dur:"8–12 wk",price:"£100–180k",acc:{sprint:"AI Safety Assurance Design",weeks:3,team:["NW QA Lead","AI Safety Specialist","Risk Analyst"],tl:[{w:"Wk 1",a:"Model inventory; risk taxonomy; test coverage",h:0},{w:"Wk 2",a:"Assurance framework; test harness architecture",h:1},{w:"Wk 3",a:"Roadmap; tooling; pilot scope",h:0}],del:["AI risk taxonomy","Assurance framework","Test harness","Red team strategy","Roadmap"],leads:"Full assurance suite + CI/CD",at:["Promptfoo","Azure AI","NW Nexus"]}},
+{id:"RELGOV",name:"Controls-by-Design Release Governance",pa:"QA Engineering",personas:["COO","CIO","Head of Change"],problem:"Release controls weren't built for AI/automation—operational risk is growing.",metrics:["Change failure rate reduction","Fewer audit findings","MTTR reduction","Compliance adherence"],controls:["Segregation of duties","Approvals workflow","Traceability","Rollback readiness"],maps:{Map:{d:"Assess governance and control gaps",o:["Gap assessment","Risk register","Recommendations"],t:["Acin","NW Nexus","Alteryx"]},Activate:{d:"Redesign release governance + evidence capture",o:["Governance framework","Evidence design","Approval workflows"],t:["ServiceNow","Acin","MethodGrid"]},Scale:{d:"Embed into BAU with metrics",o:["BAU procedures","Metrics dashboard","CI framework"],t:["ServiceNow","Alteryx","Kaizen"]}},notes:"Release governance for AI/automation realities.",biz:["Risk & Control"],dom:["Operations","Compliance"],eng:"Accelerator",dur:"3–5 wk",price:"£40–60k",acc:{sprint:"Release Governance Diagnostic",weeks:3,team:["NW Controls Lead","Change Analyst","DevOps Specialist"],tl:[{w:"Wk 1",a:"Current governance; control gap ID",h:0},{w:"Wk 2",a:"Redesign: approvals, evidence, rollback",h:1},{w:"Wk 3",a:"Playbook; metrics; embed plan",h:0}],del:["Control gap assessment","Approval workflows","Evidence standards","Governance playbook","Metrics design"],leads:"BAU governance embed (Scale)",at:["Acin","ServiceNow","NW Nexus"]}},
+{id:"GOLDPATH",name:"Platform-Native AI Reference Architecture",pa:"Solution Technology",personas:["CIO","Chief Architect","Head of Platforms"],problem:"AI delivery fragmented—one-off solutions that don't fit enterprise security/ops.",metrics:["Onboarding time reduction","Duplicate builds reduced","Security exceptions reduced","Cost per use case"],controls:["Identity & access","Encryption","Audit logging","Resilience patterns"],maps:{Activate:{d:"Golden path patterns and platform standards",o:["Reference architecture","Golden paths","Security standards","Onboarding guide"],t:["Azure","Databricks","Terraform"]},Scale:{d:"Reusable patterns + enablement",o:["Pattern library","Playbook","Enablement kit"],t:["Azure","Databricks","GitHub"]}},notes:"Scalable architecture and golden path for AI delivery.",biz:["Efficiency","Growth"],dom:["Data & Technology"],eng:"Proposition",dur:"10–16 wk",price:"£150–280k",acc:{sprint:"AI Platform Architecture Sprint",weeks:4,team:["NW Chief Architect","Cloud Engineer","Security Specialist","Platform Lead"],tl:[{w:"Wk 1",a:"Landscape; gaps; compliance needs",h:0},{w:"Wk 2",a:"Reference architecture; golden paths",h:1},{w:"Wk 3",a:"Security standards; onboarding; guardrails",h:0},{w:"Wk 4",a:"Blueprint; roadmap; governance",h:0}],del:["Reference architecture","Golden paths","Security standards","Onboarding guide","Roadmap"],leads:"Platform build + enablement (10–16 wk)",at:["Azure","Databricks","Terraform"]}},
+{id:"AIEMBED",name:"AI Integration for Core Platforms",pa:"Solution Technology",personas:["CIO","Head of Core Platforms","COO"],problem:"AI value limited if not embedded in workflows where work happens.",metrics:["Adoption","Workflow throughput","Reduced swivel-chair work","Reduced handoffs"],controls:["Transactional integrity","Access boundaries","Operational resilience"],maps:{Prove:{d:"Pilot integration in one domain",o:["Integration POV","API design","Test results","Business case"],t:["Appian","Camunda","Azure"]},Scale:{d:"Replicate across domains",o:["Integration playbook","Replication guide","Training"],t:["Appian","Camunda","ServiceNow"]}},notes:"AI from 'side tool' to 'in-workflow' capability.",biz:["Efficiency","Growth"],dom:["Operations","Data & Technology"],eng:"Proposition",dur:"12–20 wk",price:"£200–400k",acc:{sprint:"AI Integration Feasibility Sprint",weeks:3,team:["NW Solutions Architect","Integration Specialist","Business Analyst"],tl:[{w:"Wk 1",a:"Platform inventory; workflow mapping; opportunities",h:0},{w:"Wk 2",a:"API design; integration architecture; dependencies",h:1},{w:"Wk 3",a:"Feasibility; POV scope; plan",h:0}],del:["Platform map","API design (draft)","Integration architecture","Risk register","POV scope"],leads:"Pilot integration + cross-domain playbook",at:["Appian","Camunda","Azure"]}},
+{id:"VENDORAI",name:"FinTech / Third-Party AI Risk Assessment",pa:"Solution Technology",personas:["CIO","CISO","Procurement","Risk"],problem:"AI vendor opportunities high, but risk/integration/assurance slow decisions.",metrics:["Decision cycle reduction","Reduced rework","Improved vendor compliance"],controls:["Third-party risk","Data sharing controls","Model transparency","Exit strategy"],maps:{Map:{d:"Assessment and decision framework",o:["Vendor framework","Decision matrix","Risk scoring"],t:["NW Nexus","RequirementONE","Alteryx"]},Activate:{d:"Integration plan and assurance checkpoints",o:["Integration plan","Checkpoints","Contract risk analysis"],t:["RequirementONE","MethodGrid"]}},notes:"Speed vendor decisions with a repeatable framework.",biz:["Risk & Control","Growth"],dom:["Data & Technology","Risk","Compliance"],eng:"Accelerator",dur:"2–4 wk",price:"£30–50k",acc:{sprint:"Vendor AI Risk Assessment Sprint",weeks:2,team:["NW Risk Lead","Integration Analyst","Procurement Advisor"],tl:[{w:"Wk 1",a:"Vendor landscape; risk scoring; assessment criteria",h:1},{w:"Wk 2",a:"Evaluations; decision matrix; checkpoints",h:0}],del:["Vendor framework","Risk scoring model","Decision matrix","Integration plan","Contract risk analysis"],leads:"Vendor onboarding + integration",at:["NW Nexus","RequirementONE","Alteryx"]}},
+{id:"ADOPTENG",name:"AI Operating Model & Workforce Enablement",pa:"Business Change",personas:["COO","CHRO","Transformation Sponsor"],problem:"AI programmes stall because accountability, roles and ways of working don't change.",metrics:["Adoption","Productivity uplift","Role readiness","Training completion","Employee NPS"],controls:["Role-based access","Decision accountability","Policy compliance"],maps:{Map:{d:"Role impacts + capability gaps; adoption barriers",o:["Impact assessment","Gap analysis","Barrier register"],t:["NW Nexus","Alteryx","MethodGrid"]},Activate:{d:"Roles/RACI, training, comms plan",o:["RACI","Training programme","Comms plan","Change roadmap"],t:["MethodGrid","StrategyWorks"]},Prove:{d:"Adoption pilot in one domain",o:["Pilot results","Adoption metrics","Lessons learnt"],t:["MethodGrid","Alteryx"]},Scale:{d:"Embed into BAU performance measures",o:["BAU framework","Performance KPIs","CI plan"],t:["ServiceNow","Alteryx"]}},notes:"Adoption as a managed capability.",biz:["Growth","Efficiency"],dom:["Operations","Finance"],eng:"Proposition",dur:"10–16 wk",price:"£120–220k",acc:{sprint:"AI Workforce Readiness Sprint",weeks:4,team:["NW Change Lead","Org Design Specialist","Training Designer","Comms Lead"],tl:[{w:"Wk 1",a:"Role impacts; capability gaps; barriers",h:0},{w:"Wk 2",a:"Target RACI; role evolution roadmap",h:1},{w:"Wk 3",a:"Training; comms plan; change roadmap",h:0},{w:"Wk 4",a:"Readiness pack; pilot scope; exec readout",h:0}],del:["Impact assessment","Gap register","Target RACI","Training programme","Comms plan","Pilot scope"],leads:"Adoption pilot + BAU embed",at:["NW Nexus","MethodGrid","Alteryx"]}},
+{id:"SELLAI",name:"Client Partner AI Enablement",pa:"Business Change",personas:["Head of Sales","Managing Partners","Client Partners"],problem:"Partners lack confidence, language and credible AI offers.",metrics:["AI-qualified pursuits","Conversion uplift","Deal size uplift","Sales cycle reduction"],controls:["Claims governance","Client AI policy compliance","Data handling"],maps:{Activate:{d:"Certification + talk tracks + discovery toolkit",o:["Certification","Talk tracks","Discovery toolkit","Demo scripts"],t:["MethodGrid","StrategyWorks","Canva"]},Prove:{d:"Tested in 1–2 pursuits",o:["Tested proposals","Pursuit playback","Win/loss analysis"],t:["MethodGrid","Streamlit"]},Scale:{d:"Rollout enablement",o:["Enablement library","Reuse catalogue","Success metrics"],t:["MethodGrid","StrategyWorks"]}},notes:"Commercial confidence with repeatable assets.",biz:["Growth"],dom:["Commercial"],eng:"Accelerator",dur:"3–5 wk",price:"£30–50k",acc:{sprint:"AI Sales Enablement Sprint",weeks:3,team:["NW Commercial Lead","Content Strategist","Demo Engineer"],tl:[{w:"Wk 1",a:"Capability audit; talk track gaps; positioning",h:0},{w:"Wk 2",a:"Talk tracks; demos; proposal modules",h:1},{w:"Wk 3",a:"Certification; toolkit; pilot pursuit",h:0}],del:["Talk track library","Demo scripts","Proposal templates","Certification programme","Discovery toolkit"],leads:"Rollout enablement + reuse library",at:["MethodGrid","StrategyWorks","Streamlit"]}},
+{id:"VALUEOFF",name:"Value Realisation Office for AI",pa:"Business Change",personas:["CFO","COO","Transformation Director"],problem:"AI value hard to track; stakeholders lose confidence without measurable progress.",metrics:["Benefits vs planned","Delivery predictability","Control adherence","Audit readiness"],controls:["Measurement integrity","Governance cadence","Decision logs"],maps:{Activate:{d:"Value tracking, cadence, executive reporting",o:["Value framework","Executive dashboard","Governance cadence","Decision log template"],t:["Alteryx","Power BI","StrategyWorks"]},Scale:{d:"Sustain as BAU",o:["BAU tracking","Automated reporting","CI register"],t:["Alteryx","Power BI","ServiceNow"]}},notes:"Executive-grade value and control tracking.",biz:["Risk & Control","Efficiency"],dom:["Finance","Operations"],eng:"Accelerator",dur:"3–4 wk",price:"£35–55k",acc:{sprint:"Value Office Setup Sprint",weeks:3,team:["NW Value Lead","Data Analyst","PMO Specialist"],tl:[{w:"Wk 1",a:"Benefits framework; KPI definition; baselines",h:0},{w:"Wk 2",a:"Dashboard design; governance cadence; templates",h:1},{w:"Wk 3",a:"Exec reporting; handover; BAU procedures",h:0}],del:["Value framework","KPI definitions","Executive dashboard","Governance cadence","Decision logs","BAU procedures"],leads:"Sustained benefits tracking as BAU",at:["Alteryx","Power BI","StrategyWorks"]}}
+];
+
+// Derived
+function ps(p){const o=['Map','Activate','Prove','Scale'];for(const s of o)if(p.maps[s])return s;return Object.keys(p.maps)[0]}
+D.forEach(p=>{p.stg=ps(p);p.stgs=Object.keys(p.maps);p.tools=[...new Set(Object.values(p.maps).flatMap(s=>s.t))];});
+const PA=[...new Set(D.map(d=>d.pa))].sort(),BIZ=['Growth','Efficiency','Risk & Control'],MS=['Map','Activate','Prove','Scale'],ENG=['Accelerator','Proposition'];
+const PT={'Automation':'t-auto','Data':'t-data','AI & Analytics':'t-ai','QA Engineering':'t-qa','Solution Technology':'t-sol','Business Change':'t-biz'};
+const $=id=>document.getElementById(id);
+let fBiz=new Set(BIZ),fEng=new Set(ENG),fQ='';
+
+// ═══ DOMAIN DEFINITIONS ═══
+const DOMAINS=[
+{key:'risk',icon:'🛡️',name:'Risk & Model Risk',cls:'risk',narrative:"AI governance is unclear, the regulator expects MRM frameworks, and teams are waiting for approval to go live. You need a control posture that unblocks delivery without creating risk blind spots.",
+  personas:'CRO, Head of Model Risk, Compliance, Risk Stakeholder',pkgs:['AIGOV','AISAFE','TRUSTLAYER','AISTRAT','VENDORAI','RELGOV'],
+  journey:[{id:'AIGOV',phase:'Wk 1–4'},{id:'AISAFE',phase:'Wk 5–16'},{id:'TRUSTLAYER',phase:'Wk 8–20'},{id:'RELGOV',phase:'Wk 12–17'},{id:'VALUEOFF',phase:'Wk 14–18'}],
+  arch:{layers:[
+    {label:'Strategy Layer',boxes:[{id:'AISTRAT',w:1}]},
+    {label:'Governance Layer',boxes:[{id:'AIGOV',w:1}]},
+    {label:'Assurance & Trust',boxes:[{id:'AISAFE',w:.5},{id:'TRUSTLAYER',w:.5}]},
+    {label:'Delivery Controls',boxes:[{id:'RELGOV',w:.5},{id:'VENDORAI',w:.5}]}
+  ],crosscut:{id:'VALUEOFF',label:'Value & Control Measurement (cross-cutting)'}},
+  kpis:[
+    {metric:'Model risk findings closed',baseline:'Avg 6-month backlog',target:'80% closed within 90 days',icon:'🔴'},
+    {metric:'Time-to-MRM approval',baseline:'12–16 weeks per model',target:'<6 weeks with standard framework',icon:'⏱'},
+    {metric:'Regulatory action items resolved',baseline:'Open items accumulating',target:'Zero overdue items at next review',icon:'📋'},
+    {metric:'AI assurance coverage',baseline:'<20% of models tested',target:'100% production models with evidence pack',icon:'🛡️'},
+    {metric:'Governance framework maturity',baseline:'Ad hoc / undocumented',target:'Embedded in delivery gates with audit trail',icon:'📊'},
+    {metric:'Third-party AI risk assessments completed',baseline:'No standard framework',target:'All vendors assessed within 4 weeks of engagement',icon:'🔍'}
+  ]},
+{key:'finance',icon:'💰',name:'Finance & CFO Office',cls:'finance',narrative:"AI promises cost reduction and better forecasting, but the CFO needs measurable benefits tracking and audit-ready evidence before committing investment. The link between AI spend and business outcomes is unclear.",
+  personas:'CFO, COO, Transformation Director, Finance Sponsor',pkgs:['AISTRAT','VALUEOFF','RESET','DATAREADY','ADOPTENG'],
+  journey:[{id:'AISTRAT',phase:'Wk 1–5'},{id:'VALUEOFF',phase:'Wk 3–7'},{id:'RESET',phase:'Wk 6–10'},{id:'DATAREADY',phase:'Wk 8–14'},{id:'ADOPTENG',phase:'Wk 12–28'}],
+  arch:{layers:[
+    {label:'Investment Strategy',boxes:[{id:'AISTRAT',w:1}]},
+    {label:'Execution & Data',boxes:[{id:'RESET',w:.5},{id:'DATAREADY',w:.5}]},
+    {label:'Workforce Adoption',boxes:[{id:'ADOPTENG',w:1}]}
+  ],crosscut:{id:'VALUEOFF',label:'Benefits & Control Tracking (cross-cutting)'}},
+  kpis:[
+    {metric:'Cost-to-serve reduction by function',baseline:'Unmeasured / estimated',target:'15–30% reduction in target processes',icon:'💷'},
+    {metric:'Benefits realised vs business case',baseline:'<40% realisation rate',target:'>85% with auditable evidence',icon:'📈'},
+    {metric:'Finance close cycle compression',baseline:'T+10 to T+15 days',target:'T+5 with automated reconciliation',icon:'⏱'},
+    {metric:'AI investment ROI visibility',baseline:'No tracking framework',target:'Monthly exec dashboard with value attribution',icon:'📊'},
+    {metric:'Operational loss events avoided',baseline:'Reactive identification',target:'Proactive monitoring with threshold alerts',icon:'🛡️'},
+    {metric:'FTE capacity redeployed to value-add',baseline:'80% on manual processes',target:'40% redeployed within 12 months',icon:'👥'}
+  ]},
+{key:'ops',icon:'⚙️',name:'Operations & COO',cls:'ops',narrative:"Process automation has stalled, knowledge work is slow, and document-heavy journeys are a bottleneck. The COO needs a reset that delivers measurable efficiency gains with proper controls.",
+  personas:'COO, Head of Operations, Operations Executive',pkgs:['RESET','AGENTIC','DOC2DEC','ADOPTENG','KNOWFABRIC','RELGOV'],
+  journey:[{id:'RESET',phase:'Wk 1–4'},{id:'DOC2DEC',phase:'Wk 5–20'},{id:'AGENTIC',phase:'Wk 8–20'},{id:'KNOWFABRIC',phase:'Wk 10–24'},{id:'ADOPTENG',phase:'Wk 14–30'}],
+  arch:{layers:[
+    {label:'Diagnostic & Strategy',boxes:[{id:'RESET',w:1}]},
+    {label:'AI-Powered Delivery',boxes:[{id:'DOC2DEC',w:.5},{id:'AGENTIC',w:.5}]},
+    {label:'Knowledge & Intelligence',boxes:[{id:'KNOWFABRIC',w:1}]},
+    {label:'Governance & Controls',boxes:[{id:'RELGOV',w:1}]}
+  ],crosscut:{id:'ADOPTENG',label:'Workforce Enablement & Adoption (cross-cutting)'}},
+  kpis:[
+    {metric:'STP rate by process',baseline:'40–60% across key journeys',target:'>85% with exception routing',icon:'⚡'},
+    {metric:'Exception rate by journey',baseline:'25–40% manual exceptions',target:'<10% with AI-assisted triage',icon:'🔄'},
+    {metric:'FTE redeployment from manual work',baseline:'Headcount locked in BAU',target:'20–30% capacity freed in 6 months',icon:'👥'},
+    {metric:'Turnaround time (onboarding/KYC/claims)',baseline:'5–15 business days',target:'<2 days with IDP + automation',icon:'⏱'},
+    {metric:'Customer/employee NPS impact',baseline:'Stagnant or declining',target:'+15 points in automated journeys',icon:'😊'},
+    {metric:'Knowledge work resolution time',baseline:'Hours to days per case',target:'Minutes with agentic orchestration',icon:'🤖'}
+  ]},
+{key:'compliance',icon:'📜',name:'Compliance & Regulatory',cls:'compliance',narrative:"Regulatory expectations around AI are tightening. You need governance frameworks, release controls and assurance evidence that satisfy both internal audit and the regulator.",
+  personas:'Compliance, Head of Change, Risk/Compliance Sponsor',pkgs:['AIGOV','RELGOV','DOC2DEC','VENDORAI','AISAFE'],
+  journey:[{id:'AIGOV',phase:'Wk 1–6'},{id:'RELGOV',phase:'Wk 4–9'},{id:'VENDORAI',phase:'Wk 5–9'},{id:'AISAFE',phase:'Wk 8–20'},{id:'DOC2DEC',phase:'Wk 10–26'}],
+  arch:{layers:[
+    {label:'Governance Framework',boxes:[{id:'AIGOV',w:1}]},
+    {label:'Release & Vendor Controls',boxes:[{id:'RELGOV',w:.5},{id:'VENDORAI',w:.5}]},
+    {label:'Safety & Assurance',boxes:[{id:'AISAFE',w:1}]},
+    {label:'Compliant Process Delivery',boxes:[{id:'DOC2DEC',w:1}]}
+  ]},
+  kpis:[
+    {metric:'Audit findings on AI/automation',baseline:'Increasing year-on-year',target:'Zero repeat findings; all prior items closed',icon:'📋'},
+    {metric:'Change failure rate (AI releases)',baseline:'15–25% causing incidents',target:'<5% with controls-by-design',icon:'🔴'},
+    {metric:'Evidence pack completeness',baseline:'Inconsistent / manual',target:'100% automated evidence at every gate',icon:'✅'},
+    {metric:'Regulatory response readiness',baseline:'Months to compile evidence',target:'Board-ready pack within 48 hours',icon:'⏱'},
+    {metric:'Vendor compliance posture',baseline:'No standard assessment',target:'All AI vendors assessed with documented risk score',icon:'🔍'},
+    {metric:'Segregation of duties adherence',baseline:'Manual checks, gaps',target:'Automated enforcement with exception logging',icon:'🛡️'}
+  ]},
+{key:'commercial',icon:'📈',name:'Commercial & Growth',cls:'commercial',narrative:"Your partners want to sell AI but lack the language, tools and credible offers. Your clients are asking about AI and you need to respond with confidence and repeatable propositions.",
+  personas:'Head of Sales, Managing Partners, Client Partners',pkgs:['SELLAI','GENPROVE','KNOWFABRIC','AIEMBED','AISTRAT'],
+  journey:[{id:'SELLAI',phase:'Wk 1–5'},{id:'AISTRAT',phase:'Wk 2–7'},{id:'GENPROVE',phase:'Wk 6–18'},{id:'KNOWFABRIC',phase:'Wk 8–22'},{id:'AIEMBED',phase:'Wk 14–34'}],
+  arch:{layers:[
+    {label:'Enablement & Strategy',boxes:[{id:'SELLAI',w:.5},{id:'AISTRAT',w:.5}]},
+    {label:'Prove & Demonstrate',boxes:[{id:'GENPROVE',w:1}]},
+    {label:'Platform Capability',boxes:[{id:'KNOWFABRIC',w:.5},{id:'AIEMBED',w:.5}]}
+  ]},
+  kpis:[
+    {metric:'AI-qualified pipeline pursuits',baseline:'<5 per quarter',target:'15+ per quarter within 6 months',icon:'📈'},
+    {metric:'Pursuit-to-win conversion rate',baseline:'15–20% on AI deals',target:'>35% with certified partners + demo capability',icon:'🎯'},
+    {metric:'Average AI deal size',baseline:'Sub-£100k tactical',target:'£200k+ with accelerator + proposition pathway',icon:'💷'},
+    {metric:'Sales cycle for AI engagements',baseline:'4–6 months',target:'<8 weeks from discovery to signed SOW',icon:'⏱'},
+    {metric:'Partner AI certification rate',baseline:'<10% of partners confident',target:'>80% certified within 3 months',icon:'🎓'},
+    {metric:'Client AI adoption (post-delivery)',baseline:'Low / unmeasured',target:'>70% active users within 60 days of go-live',icon:'👥'}
+  ]},
+{key:'tech',icon:'🏗️',name:'Data & Technology Office',cls:'tech',narrative:"AI delivery is fragmented across teams—no standard architecture, no shared data products, no repeatable patterns. The CTO/CDO needs a platform strategy that scales.",
+  personas:'CIO, CDO, Chief Architect, Head of Platforms',pkgs:['DATAREADY','GOLDPATH','TRUSTLAYER','QAUPLIFT','KNOWFABRIC','AIEMBED'],
+  journey:[{id:'DATAREADY',phase:'Wk 1–6'},{id:'GOLDPATH',phase:'Wk 4–20'},{id:'TRUSTLAYER',phase:'Wk 6–18'},{id:'QAUPLIFT',phase:'Wk 8–14'},{id:'KNOWFABRIC',phase:'Wk 12–26'}],
+  arch:{layers:[
+    {label:'Data Foundation',boxes:[{id:'DATAREADY',w:1}]},
+    {label:'Platform & Trust',boxes:[{id:'GOLDPATH',w:.5},{id:'TRUSTLAYER',w:.5}]},
+    {label:'Quality Engineering',boxes:[{id:'QAUPLIFT',w:1}]},
+    {label:'AI Capabilities',boxes:[{id:'KNOWFABRIC',w:.5},{id:'AIEMBED',w:.5}]}
+  ]},
+  kpis:[
+    {metric:'Time-to-onboard new AI use case',baseline:'3–6 months per use case',target:'<4 weeks on golden path',icon:'⚡'},
+    {metric:'Duplicate AI builds across teams',baseline:'60–70% reinvention',target:'<10% with shared platform + patterns',icon:'🔄'},
+    {metric:'Data products with defined owners',baseline:'<20% of critical elements',target:'>90% with lineage and SLAs',icon:'📊'},
+    {metric:'Data quality score (AI-critical)',baseline:'Unknown / unmeasured',target:'>95% with automated observability',icon:'✅'},
+    {metric:'Security exceptions for AI workloads',baseline:'Frequent; slowing delivery',target:'Zero with reference architecture compliance',icon:'🛡️'},
+    {metric:'Test automation coverage',baseline:'<30% automated',target:'>80% with AI-assisted test generation',icon:'🤖'}
+  ]}
+];
+
+// ═══ SCENARIO DEFINITIONS ═══
+const SCENARIOS=[
+{q:"Your automation programme has stalled and the COO wants a reset",context:"Too many bots, unclear ROI, brittle workflows. The exec team wants a clear-eyed assessment and a 90-day plan to restart value delivery with proper controls.",pkgs:['RESET','DOC2DEC'],outcome:"In 4 weeks you'll have a prioritised automation backlog, a target operating model sketch, and a funded business case for the first 2 process redesigns.",tags:['Efficiency','Risk & Control','Operations']},
+{q:"The board wants an AI strategy but Risk needs assurance before anything goes live",context:"Leadership sees AI opportunity but the CRO is blocking without governance. You need a strategy that satisfies both ambition and control.",pkgs:['AISTRAT','AIGOV','AISAFE'],outcome:"In 10 weeks you'll have a board-approved AI strategy, a model governance framework, and an assurance test harness for the first production use case.",tags:['Growth','Risk & Control','Finance','Risk']},
+{q:"You have 15 GenAI POCs but none have made it to production",context:"Data quality is unknown, there's no standard platform, and nobody can evidence safety or compliance. The gap between prototype and production is widening.",pkgs:['DATAREADY','TRUSTLAYER','GOLDPATH','GENPROVE'],outcome:"In 16 weeks you'll have a data readiness scorecard, golden data products, a reference architecture, and one GenAI POV in production with full control posture.",tags:['Efficiency','Growth','Data & Technology']},
+{q:"The regulator has flagged your AI governance and you have 6 months to respond",context:"Audit findings on model risk management, unclear approval processes, and gaps in evidence collection. You need a framework that's operational, not just documented.",pkgs:['AIGOV','RELGOV','AISAFE','VALUEOFF'],outcome:"In 12 weeks you'll have a model governance framework embedded in delivery gates, release controls redesigned for AI, and an assurance suite running in CI/CD.",tags:['Risk & Control','Compliance','Risk']},
+{q:"Your client partners want to sell AI but keep losing to competitors",context:"The sales team lacks confidence, talk tracks and demo capability. Pursuits stall because there's no credible 'here's how we start' offer.",pkgs:['SELLAI','GENPROVE'],outcome:"In 5 weeks your partners will have certification, talk tracks, demo scripts and a tested proposal module. First AI-qualified pursuits within 8 weeks.",tags:['Growth','Commercial']},
+{q:"KYC/onboarding takes too long and compliance costs are rising",context:"Document-heavy journeys, manual verification, audit trail gaps. The ops team wants automation but compliance needs evidence and control.",pkgs:['DOC2DEC','DATAREADY','RELGOV'],outcome:"In 16 weeks you'll have a redesigned journey with intelligent document processing, embedded evidence capture, and updated release governance.",tags:['Efficiency','Risk & Control','Operations','Compliance']},
+{q:"AI vendor pitches keep landing but procurement can't assess the risk",context:"Every week a new AI vendor. Integration risk is unclear, data sharing concerns, no standard assessment framework. Decisions take months.",pkgs:['VENDORAI','TRUSTLAYER'],outcome:"In 4 weeks you'll have a repeatable vendor assessment framework, risk scoring model, and integration checkpoint plan. Decision cycles drop from months to weeks.",tags:['Risk & Control','Growth','Data & Technology']},
+{q:"The CDO wants to make data 'AI-ready' but doesn't know where to start",context:"Data is scattered across silos, ownership is unclear, quality is unknown. AI teams are spending 80% of their time on data prep.",pkgs:['DATAREADY','TRUSTLAYER','KNOWFABRIC'],outcome:"In 14 weeks you'll have an AI readiness scorecard, golden data products with lineage, a trust layer with monitoring, and a knowledge fabric architecture.",tags:['Efficiency','Growth','Data & Technology']}
+];
+
+// ═══ TABS ═══
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));const map={cat:'pgCat',dom:'pgDom',scen:'pgScen',acc:'pgAcc'};$(map[b.dataset.p]).classList.add('show');if(b.dataset.p==='dom')rDomGrid();if(b.dataset.p==='scen')rScen();if(b.dataset.p==='acc')rAcc();});
+
+// ═══ CATALOGUE ═══
+function buildFilters(){const bar=$('fbar');bar.innerHTML=`<div class="fbar-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="sI" placeholder="Search packages..."></div><div class="fdiv"></div><div class="flbl">Outcome</div><span id="cBiz"></span><div class="fdiv"></div><div class="flbl">Type</div><span id="cEng"></span><div class="fdiv"></div><button class="creset" id="cR">Reset</button>`;
+const bc={Growth:'green',Efficiency:'teal','Risk & Control':'red'};
+BIZ.forEach(b=>{const c=document.createElement('button');c.className=`chip ${bc[b]} on`;c.textContent=b;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?fBiz.add(b):fBiz.delete(b);R();};$('cBiz').appendChild(c);});
+ENG.forEach(e=>{const c=document.createElement('button');c.className='chip on';c.textContent=e;c.onclick=()=>{c.classList.toggle('on');c.classList.contains('on')?fEng.add(e):fEng.delete(e);R();};$('cEng').appendChild(c);});
+$('sI').addEventListener('input',e=>{fQ=e.target.value.toLowerCase();R();});
+$('cR').onclick=()=>{fBiz=new Set(BIZ);fEng=new Set(ENG);fQ='';buildFilters();R();};}
+
+function gF(){return D.filter(p=>{if(!p.biz.some(b=>fBiz.has(b)))return false;if(!fEng.has(p.eng))return false;if(fQ){const h=[p.name,p.problem,...p.metrics,...p.controls,...p.tools,...p.dom].join(' ').toLowerCase();if(!h.includes(fQ))return false;}return true;});}
+function R(){const f=gF();$('ks1').textContent=f.length;$('ks2').textContent=new Set(f.map(x=>x.pa)).size;rCharts(f);rGrid(f);}
+
+function rCharts(d){const bc={};BIZ.forEach(b=>bc[b]=0);d.forEach(x=>x.biz.forEach(b=>bc[b]++));const bm=Math.max(...Object.values(bc),1);const sc={};MS.forEach(s=>sc[s]=0);d.forEach(x=>sc[x.stg]++);const sm=Math.max(...Object.values(sc),1);const ec={};ENG.forEach(e=>ec[e]=0);d.forEach(x=>ec[x.eng]++);const em=Math.max(...Object.values(ec),1);const bf={Growth:'bf-growth',Efficiency:'bf-eff','Risk & Control':'bf-risk'};
+$('charts').innerHTML=`<div class="cc an"><div class="cc-t">By Business Outcome</div><div class="bars">${BIZ.map(b=>`<div class="bar-r"><div class="bar-l">${b}</div><div class="bar-t"><div class="bar-f ${bf[b]}" style="width:${(bc[b]/bm)*100}%">${bc[b]}</div></div></div>`).join('')}</div></div><div class="cc an" style="animation-delay:.04s"><div class="cc-t">By MAPS Stage</div><div class="bars">${MS.map(s=>`<div class="bar-r"><div class="bar-l">${s}</div><div class="bar-t"><div class="bar-f bf-${s.toLowerCase()}" style="width:${(sc[s]/sm)*100}%">${sc[s]}</div></div></div>`).join('')}</div></div><div class="cc an" style="animation-delay:.08s"><div class="cc-t">Engagement Type</div><div class="bars">${ENG.map(e=>`<div class="bar-r"><div class="bar-l">${e}</div><div class="bar-t"><div class="bar-f ${e==='Accelerator'?'bf-prove':'bf-scale'}" style="width:${(ec[e]/em)*100}%">${ec[e]}</div></div></div>`).join('')}</div></div>`;}
+
+function pkCard(p){return`<div class="pk an" onclick="openM('${p.id}')"><div class="pk-r1"><span class="pk-id">${p.id}</span><div class="pills"><span class="pill pill-${p.stg.toLowerCase()}">${p.stg}</span><span class="pill ${p.eng==='Accelerator'?'pill-accel':'pill-prop'}">${p.eng==='Accelerator'?'⚡ Accel':'🏗 Prop'}</span></div></div><div class="pk-name">${p.name}</div><div class="pk-tags"><span class="tag ${PT[p.pa]}">${p.pa}</span>${p.biz.map(b=>`<span class="tag-biz tag-${b==='Growth'?'growth':b==='Efficiency'?'eff':'risk'}">${b}</span>`).join('')}${p.dom.slice(0,2).map(d=>`<span class="tag-dom">${d}</span>`).join('')}</div><div class="pk-meta"><span>⏱ <b>${p.dur}</b></span><span>💷 <b>${p.price}</b></span></div><div class="pk-oc">${p.metrics.slice(0,3).map(m=>`<div class="pk-o">${m}</div>`).join('')}</div><div class="pk-tools">${p.tools.slice(0,4).map(t=>`<span class="tool">${t}</span>`).join('')}${p.tools.length>4?`<span class="tool">+${p.tools.length-4}</span>`:''}</div></div>`;}
+
+function rGrid(d){$('cnt').textContent=`${d.length} package${d.length!==1?'s':''}`;if(!d.length){$('grid').innerHTML=`<div class="empty"><div class="empty-t">🔍 No packages match — try broadening filters</div></div>`;return;}$('grid').innerHTML=d.map(p=>pkCard(p)).join('');}
+
+// ═══ MODAL ═══
+// ═══ VALUE REALISATION CURVE ═══
+const DOM_BENEFITS={
+'Operations':{
+  Map:{pct:10,val:'Visibility',ben:'Process inventory complete; value pools sized; control hotspots identified'},
+  Activate:{pct:25,val:'Readiness',ben:'TOM in place; governance operational; intake pipeline live'},
+  Prove:{pct:55,val:'Measured impact',ben:'STP rate improving; exception rates falling; cycle times measurable'},
+  Scale:{pct:100,val:'BAU value',ben:'Factory running; FTE redeployed; continuous improvement embedded'}},
+'Finance':{
+  Map:{pct:10,val:'Baseline set',ben:'Cost-to-serve baselined; investment case framed; quick wins identified'},
+  Activate:{pct:30,val:'Tracking live',ben:'Value framework operational; exec dashboard live; governance cadence set'},
+  Prove:{pct:60,val:'Benefits evidenced',ben:'Measurable cost reduction; benefits vs business case tracked; audit-ready'},
+  Scale:{pct:100,val:'ROI sustained',ben:'Automated reporting; continuous benefits; redeployment complete'}},
+'Risk':{
+  Map:{pct:15,val:'Gaps mapped',ben:'Risk landscape clear; regulatory expectations mapped; appetite calibrated'},
+  Activate:{pct:35,val:'Framework live',ben:'Governance framework operational; approval flows active; evidence standards set'},
+  Prove:{pct:65,val:'Assurance demonstrated',ben:'Models tested; findings reducing; audit evidence complete'},
+  Scale:{pct:100,val:'Embedded control',ben:'Zero overdue items; continuous monitoring; regulator-ready at all times'}},
+'Compliance':{
+  Map:{pct:10,val:'Gaps identified',ben:'Control gaps documented; regulatory mapping complete; priorities clear'},
+  Activate:{pct:30,val:'Controls designed',ben:'Approval workflows live; evidence capture automated; SoD enforced'},
+  Prove:{pct:60,val:'Evidence flowing',ben:'Audit findings reducing; evidence packs complete; change failure rate falling'},
+  Scale:{pct:100,val:'Continuous compliance',ben:'All gates automated; 48-hour regulatory response; zero repeat findings'}},
+'Data & Technology':{
+  Map:{pct:10,val:'Landscape mapped',ben:'Data inventory complete; readiness scored; use-case feasibility assessed'},
+  Activate:{pct:25,val:'Platform ready',ben:'Architecture defined; golden paths set; data products owned'},
+  Prove:{pct:55,val:'Capability proven',ben:'Use cases onboarding in weeks; quality measurable; security compliant'},
+  Scale:{pct:100,val:'Platform scaled',ben:'Duplicate builds eliminated; observability live; test automation >80%'}},
+'Commercial':{
+  Map:{pct:15,val:'Opportunity sized',ben:'Market scan complete; competitive positioning clear; pipeline targets set'},
+  Activate:{pct:35,val:'Team enabled',ben:'Partners certified; talk tracks live; demo capability ready'},
+  Prove:{pct:65,val:'Revenue evidenced',ben:'First AI-qualified pursuits won; deal size increasing; cycle times falling'},
+  Scale:{pct:100,val:'Growth engine',ben:'Enablement library live; reuse embedded; >80% partners active'}}
+};
+
+function renderBenefitCurve(pkg){
+  const stages=['Map','Activate','Prove','Scale'];
+  const activeStages=stages.filter(s=>pkg.maps[s]);
+  const doms=pkg.dom;
+  // Build milestones from domains × stages
+  const milestones=[];
+  activeStages.forEach(s=>{
+    const domBens=doms.map(d=>DOM_BENEFITS[d]?.[s]).filter(Boolean);
+    if(domBens.length){
+      const best=domBens.reduce((a,b)=>a.pct>b.pct?a:b);
+      const allBens=domBens.map(b=>b.ben);
+      milestones.push({stage:s,pct:best.pct,val:best.val,bens:allBens});
+    }
+  });
+  if(!milestones.length)return '';
+
+  // SVG curve
+  const W=620,H=140,PX=50,PY=20;
+  const gW=W-PX*2,gH=H-PY*2;
+  const stageColors={Map:'#1a3d62',Activate:'#d97706',Prove:'#059669',Scale:'#e11d48'};
+  const points=milestones.map((m,i)=>{
+    const x=PX+(i/(milestones.length-1||1))*gW;
+    const y=PY+gH-(m.pct/100)*gH;
+    return{x,y,...m};
+  });
+  // Smooth curve path
+  let pathD=`M ${points[0].x} ${PY+gH}`;
+  points.forEach((p,i)=>{
+    if(i===0)pathD+=` L ${p.x} ${p.y}`;
+    else{const prev=points[i-1];const cpx=(prev.x+p.x)/2;pathD+=` C ${cpx} ${prev.y} ${cpx} ${p.y} ${p.x} ${p.y}`;}
+  });
+  const fillD=pathD+` L ${points[points.length-1].x} ${PY+gH} Z`;
+  const lineD=`M ${points[0].x} ${points[0].y}`+points.slice(1).map((p,i)=>{const prev=points[i];const cpx=(prev.x+p.x)/2;return` C ${cpx} ${prev.y} ${cpx} ${p.y} ${p.x} ${p.y}`;}).join('');
+
+  const domColors={'Operations':'#059669','Finance':'#2563eb','Risk':'#ef4444','Compliance':'#8b5cf6','Data & Technology':'#0891b2','Commercial':'#d97706'};
+
+  return`<div class="vc-wrap">
+    <div class="vc-header">
+      <div class="vc-title">Value Realisation Curve</div>
+      <div class="vc-domains">${doms.map(d=>`<span class="tag-biz" style="background:${domColors[d]||'#667085'}20;color:${domColors[d]||'#667085'}">${d}</span>`).join('')}</div>
+    </div>
+    <div class="vc-svg-wrap">
+      <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
+        <defs>
+          <linearGradient id="vcGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#00b4c5" stop-opacity=".18"/>
+            <stop offset="100%" stop-color="#00b4c5" stop-opacity=".02"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        ${[0,25,50,75,100].map(v=>{const y=PY+gH-(v/100)*gH;return`<line x1="${PX}" y1="${y}" x2="${W-PX}" y2="${y}" stroke="#dfe3ea" stroke-width=".7" stroke-dasharray="${v===0?'0':'3,3'}"/><text x="${PX-8}" y="${y+3}" text-anchor="end" fill="#929cac" font-size="9" font-family="Outfit">${v}%</text>`;}).join('')}
+        <!-- Fill -->
+        <path d="${fillD}" fill="url(#vcGrad)"/>
+        <!-- Line -->
+        <path d="${lineD}" fill="none" stroke="#00b4c5" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Dots + labels -->
+        ${points.map(p=>`
+          <circle cx="${p.x}" cy="${p.y}" r="6" fill="${stageColors[p.stage]}" stroke="#fff" stroke-width="2.5"/>
+          <text x="${p.x}" y="${p.y-14}" text-anchor="middle" fill="${stageColors[p.stage]}" font-size="10" font-weight="700" font-family="Outfit">${p.val}</text>
+          <text x="${p.x}" y="${PY+gH+14}" text-anchor="middle" fill="#636f82" font-size="9" font-weight="600" font-family="Outfit">${p.stage}</text>
+        `).join('')}
+      </svg>
+    </div>
+    <div class="vc-milestones">
+      ${milestones.map(m=>`<div class="vc-ms ${m.stage.toLowerCase()}">
+        <div class="vc-ms-stage">${m.stage}</div>
+        <div class="vc-ms-pct">${m.pct}%</div>
+        <div class="vc-ms-val">${m.val}</div>
+        ${m.bens.map(b=>`<div class="vc-ms-ben">${b}</div>`).join('')}
+      </div>`).join('')}
+    </div>
+    <div class="vc-legend">
+      ${doms.map(d=>`<div class="vc-legend-item"><div class="vc-legend-dot" style="background:${domColors[d]||'#667'}"></div>${d}</div>`).join('')}
+      <div class="vc-legend-item"><div class="vc-legend-dot" style="background:var(--t5)"></div>Cumulative value</div>
+    </div>
+  </div>`;
+}
+
+const NX={Map:'Start with a MAPS Sprint — rapid diagnostic with clear next steps',Activate:'Stand up TOM + governance + squads',Prove:'Run a controlled POV with explicit success criteria',Scale:'Industrialise platform + controls + adoption into BAU'};
+function openM(id){const p=D.find(d=>d.id===id);if(!p)return;const ord=['Map','Activate','Prove','Scale'],isA=p.eng==='Accelerator';
+$('mP').innerHTML=`<div class="m-hero"><div class="m-hero-top"><div class="pills"><span class="pk-id" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">${p.id}</span><span class="pill pill-${p.stg.toLowerCase()}">${p.stg}</span><span class="pill ${isA?'pill-accel':'pill-prop'}">${isA?'⚡ Accelerator':'🏗 Proposition'}</span></div><button class="m-close" onclick="closeM()">✕</button></div><div class="m-title">${p.name}</div></div><div class="m-eng"><div class="m-eng-box ${isA?'active':''}"><div style="font-size:1.1rem">⏱</div><div><div class="m-eng-lbl">Duration</div><div class="m-eng-val">${p.dur}</div></div></div><div class="m-eng-box ${!isA?'active':''}"><div style="font-size:1.1rem">💷</div><div><div class="m-eng-lbl">Investment</div><div class="m-eng-val">${p.price}</div><div class="m-eng-sub">${isA?'Fixed price':'Milestone-based'}</div></div></div></div><div class="m-body"><div class="ms"><div class="ms-l lt">Problem</div><div class="ms-t">${p.problem}</div></div><div class="ms"><div class="ms-l lb">Business Context</div><div style="display:flex;flex-wrap:wrap;gap:5px">${p.biz.map(b=>`<span class="tag-biz tag-${b==='Growth'?'growth':b==='Efficiency'?'eff':'risk'}">${b}</span>`).join('')}${p.dom.map(d=>`<span class="tag-dom">${d}</span>`).join('')}</div></div><div class="ms"><div class="ms-l lp">Buyer Personas</div><div style="display:flex;flex-wrap:wrap;gap:5px">${p.personas.map(b=>`<span class="tag-dom">${b}</span>`).join('')}</div></div><div class="ms"><div class="ms-l lg">Outcomes</div><ul class="ms-ul oc">${p.metrics.map(m=>`<li>${m}</li>`).join('')}</ul></div><div class="ms"><div class="ms-l lo">Risk & Controls</div><ul class="ms-ul rc">${p.controls.map(c=>`<li>${c}</li>`).join('')}</ul></div><div class="ms"><div class="ms-l lt">MAPS Delivery — Tools & Outputs</div><div class="maps-tl">${ord.filter(s=>p.maps[s]).map(s=>{const st=p.maps[s];return`<div class="maps-s"><div class="maps-dot md-${s[0].toLowerCase()}">${s[0]}</div><div style="flex:1"><div class="maps-n">${s}</div><div class="maps-desc">${st.d}</div><div class="maps-out"><div class="maps-out-lbl">Outputs</div>${st.o.map(o=>`<div class="maps-out-i">${o}</div>`).join('')}</div><div class="maps-tools">${st.t.map(t=>`<span class="tool">${t}</span>`).join('')}</div></div></div>`;}).join('')}</div></div>${renderBenefitCurve(p)}<div class="nstep"><div style="font-size:1.1rem">🎯</div><div><div class="nstep-lbl">Suggested Next Step</div><div class="nstep-t">${NX[p.stg]}</div></div></div><div class="m-note">${p.notes}</div></div>`;
+$('mO').classList.add('show');document.body.style.overflow='hidden';}
+function closeM(){$('mO').classList.remove('show');document.body.style.overflow='';}
+$('mO').onclick=e=>{if(e.target===$('mO'))closeM();};
+document.onkeydown=e=>{if(e.key==='Escape'){closeM();if($('glossO').classList.contains('show'))toggleGloss();if($('wizO').classList.contains('show'))closeWiz();}};
+
+// ═══ DOMAINS ═══
+let activeDom=null;
+function rDomGrid(){
+  $('domGrid').innerHTML=DOMAINS.map((d,i)=>`<div class="dom-card ${d.cls} an" style="animation-delay:${i*.04}s" onclick="openDom('${d.key}')">
+    <div class="dom-card-hero"><div class="dom-card-icon">${d.icon}</div><div class="dom-card-name">${d.name}</div><div class="dom-card-desc">${d.narrative.substring(0,120)}...</div></div>
+    <div class="dom-card-body"><div class="dom-card-stat"><div><b>${d.pkgs.length}</b> packages</div><div><b>${d.journey.length}</b>-step journey</div><div><b>${d.kpis.length}</b> KPIs</div></div><div class="dom-card-personas"><b>Key buyers:</b> ${d.personas}</div><div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">${d.kpis.slice(0,3).map(k=>`<div style="font-size:.78rem;color:var(--g6);display:flex;align-items:baseline;gap:5px"><span style="color:var(--t5);font-size:.7rem">→</span>${k.metric}</div>`).join('')}</div><div class="dom-card-pkgs">${d.pkgs.map(id=>{const p=D.find(x=>x.id===id);return p?`<span class="tag ${PT[p.pa]}">${id}</span>`:''}).join('')}</div></div></div>`).join('');
+  $('domDetail').innerHTML='';$('domDetail').classList.remove('show');$('domGrid').style.display='';
+}
+
+function openDom(key){
+  const dm=DOMAINS.find(d=>d.key===key);if(!dm)return;
+  $('domGrid').style.display='none';
+  const det=$('domDetail');det.classList.add('show');
+  const pkgs=dm.pkgs.map(id=>D.find(p=>p.id===id)).filter(Boolean);
+  det.innerHTML=`<button class="dom-back" onclick="rDomGrid()">← Back to all domains</button>
+  <div class="dom-detail-hero ${dm.cls}"><div class="dom-detail-icon">${dm.icon}</div><div class="dom-detail-name">${dm.name}</div><div class="dom-detail-narrative">${dm.narrative}</div></div>
+  ${dm.arch?`<div class="arch-section"><div class="journey-title">Reference Architecture</div><div class="journey-sub">How the packages compose into a target-state architecture for ${dm.name}. Click any block to see full details.</div>
+    <div class="arch-wrap">
+      <div class="arch-layers">
+        ${dm.arch.layers.map(layer=>`<div class="arch-layer">
+          <div class="arch-layer-label">${layer.label}</div>
+          <div class="arch-boxes">${layer.boxes.map(b=>{const p=D.find(x=>x.id===b.id);if(!p)return '';const isA=p.eng==='Accelerator';return`<div class="arch-box" style="flex:${b.w}" onclick="openM('${p.id}')">
+            <div class="arch-box-type ${isA?'accel':'prop'}">${isA?'Accel':'Prop'}</div>
+            <div class="arch-box-id">${p.id}</div>
+            <div class="arch-box-name">${p.name}</div>
+            <div class="arch-box-sub">${p.metrics.slice(0,2).join(' · ')}</div>
+          </div>`;}).join('')}</div>
+        </div>`).join('')}
+      </div>
+      ${dm.arch.crosscut?`<div class="arch-crosscut" onclick="openM('${dm.arch.crosscut.id}')">
+        <div class="arch-crosscut-icon">↔</div>
+        <div><div class="arch-crosscut-id">${dm.arch.crosscut.id}</div><div class="arch-crosscut-name">${dm.arch.crosscut.label}</div><div class="arch-crosscut-label">${(D.find(x=>x.id===dm.arch.crosscut.id)||{}).name||''}</div></div>
+      </div>`:''}
+      <div class="arch-legend">
+        <div class="arch-legend-item"><div class="arch-legend-dot layer"></div>Package</div>
+        ${dm.arch.crosscut?'<div class="arch-legend-item"><div class="arch-legend-dot cross"></div>Cross-cutting</div>':''}
+        <div class="arch-legend-item"><div class="arch-legend-dot accel-d"></div>Accelerator</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot prop-d"></div>Proposition</div>
+      </div>
+    </div>
+  </div>`:''}
+  <div class="journey-section"><div class="journey-title">Recommended Engagement Journey</div><div class="journey-sub">A sequenced pathway showing how accelerators gate into propositions and cumulative value builds.</div>
+    <div class="journey">${dm.journey.map((j,i)=>{const p=D.find(x=>x.id===j.id);if(!p)return '';const isA=p.eng==='Accelerator';return`<div class="j-step an" style="animation-delay:${i*.08}s"><div class="j-dot ${isA?'accel':'prop'}">${i+1}</div><div class="j-card" onclick="openM('${p.id}')" style="cursor:pointer"><div class="j-card-type ${isA?'accel':'prop'}">${isA?'⚡ Accelerator':'🏗 Proposition'}</div><div class="j-card-name">${p.name}</div><div class="j-card-id">${p.id} · ${j.phase}</div><div class="j-card-meta">⏱ <b>${p.dur}</b> · 💷 <b>${p.price}</b></div><div class="j-card-del">${(p.acc?.del||p.metrics).slice(0,3).map(d=>`<div class="j-card-del-i">${d}</div>`).join('')}</div></div>${i<dm.journey.length-1?'<div class="j-arrow">→</div>':''}</div>`;}).join('')}</div>
+  </div>
+  <div class="kpi-section"><div class="journey-title">Domain-Specific Outcome Metrics</div><div class="journey-sub">Measurable, auditable FS KPIs — from current baseline to target state. These are the metrics your stakeholders will track.</div>
+    <div class="kpi-grid">${dm.kpis.map((k,i)=>`<div class="kpi-card an" style="animation-delay:${i*.04}s">
+      <div class="kpi-icon">${k.icon}</div>
+      <div class="kpi-body">
+        <div class="kpi-metric">${k.metric}</div>
+        <div class="kpi-row"><div class="kpi-label from">Today</div><div class="kpi-val">${k.baseline}</div></div>
+        <div class="kpi-row"><div class="kpi-label to">Target</div><div class="kpi-val">${k.target}</div></div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${30+Math.random()*50}%"></div></div>
+      </div></div>`).join('')}
+    </div>
+  </div>
+  <div class="journey-section"><div class="journey-title">All Packages in This Domain</div><div class="journey-sub">Click any package for full details, MAPS delivery, tools and outputs.</div><div class="dom-pkgs-grid">${pkgs.map(p=>pkCard(p)).join('')}</div></div>`;
+}
+
+// ═══ SCENARIOS ═══
+function rScen(){$('scenGrid').innerHTML=SCENARIOS.map((s,i)=>`<div class="scen an" style="animation-delay:${i*.04}s">
+  <div class="scen-top"><div class="scen-q">${s.q}</div><div class="scen-context">${s.context}</div></div>
+  <div class="scen-body"><div class="scen-label">Recommended Package Sequence</div>
+    <div class="scen-flow">${s.pkgs.map((id,j)=>{const p=D.find(x=>x.id===id);return(j>0?'<span class="scen-arrow">→</span>':'')+`<div class="scen-pkg" onclick="openM('${id}')" style="cursor:pointer"><span class="sid">${id}</span>${p?p.name:''}</div>`;}).join('')}</div>
+    <div class="scen-outcome">${s.outcome}</div>
+    <div class="scen-tags">${s.tags.map(t=>`<span class="tag-dom">${t}</span>`).join('')}</div>
+  </div></div>`).join('');}
+
+// ═══ ACCELERATORS ═══
+function rAcc(){$('accN').textContent=D.length;$('accG').innerHTML=D.map((p,i)=>{const a=p.acc;return`<div class="ac an" style="animation-delay:${i*.025}s"><div class="ac-top"><div class="ac-r1"><span class="pk-id">${p.id}</span><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag ${PT[p.pa]}">${p.pa}</span>${p.biz.map(b=>`<span class="tag-biz tag-${b==='Growth'?'growth':b==='Efficiency'?'eff':'risk'}">${b}</span>`).join('')}</div></div><div class="ac-name">${p.name}</div><div class="ac-sprint">${a.sprint}</div><div class="ac-prob">${p.problem}</div></div><div class="ac-body"><div><div class="ac-lbl al-t">${a.weeks}-Week Sprint</div><div class="ac-weeks">${a.tl.map(t=>`<div class="ac-wk ${t.h?'hi':''}"><div class="ac-wk-n">${t.w}</div><div class="ac-wk-t">${t.a}</div></div>`).join('')}</div></div><div><div class="ac-lbl al-g">Deliverables</div>${a.del.map(d=>`<div class="ac-del-i">${d}</div>`).join('')}</div><div><div class="ac-lbl al-p">Team</div><div class="ac-team">${a.team.map(t=>`<span class="ac-tm">${t}</span>`).join('')}</div></div><div><div class="ac-lbl al-b">Technology</div><div style="display:flex;flex-wrap:wrap;gap:4px">${a.at.map(t=>`<span class="tool">${t}</span>`).join('')}</div></div></div><div class="ac-foot"><div class="ac-foot-l"><span>⏱ <b>${p.dur}</b></span><span>💷 <b>${p.price}</b></span></div><div class="ac-leads">→ ${a.leads}</div></div></div>`;}).join('');}
+
+// ═══ RECOMMENDATION WIZARD ═══
+const WIZ_DOMAINS=[
+  {key:'risk',icon:'🛡️',name:'Risk & Model Risk',desc:'Governance, MRM, assurance, regulatory response'},
+  {key:'finance',icon:'💰',name:'Finance & CFO Office',desc:'Cost reduction, benefits tracking, investment ROI'},
+  {key:'ops',icon:'⚙️',name:'Operations & COO',desc:'Process automation, efficiency, workforce enablement'},
+  {key:'compliance',icon:'📜',name:'Compliance & Regulatory',desc:'Audit readiness, release controls, evidence packs'},
+  {key:'commercial',icon:'📈',name:'Commercial & Growth',desc:'Sales enablement, pipeline, partner certification'},
+  {key:'tech',icon:'🏗️',name:'Data & Technology',desc:'Platform architecture, data products, test engineering'}
+];
+const WIZ_PRESSURES=[
+  {key:'Growth',icon:'🚀',name:'Growth',desc:'We need to do new things — enter markets, launch products, win deals'},
+  {key:'Efficiency',icon:'⚡',name:'Efficiency',desc:'We need to do things better, faster or cheaper — reduce cost, increase STP'},
+  {key:'Risk & Control',icon:'🛡️',name:'Risk & Control',desc:'We need to stay safe — satisfy the regulator, close audit findings, govern AI'}
+];
+const WIZ_READINESS=[
+  {key:'explore',icon:'🔍',name:'We need to explore & build the case',desc:'No budget yet — we need a diagnostic, scorecard or strategy to secure funding'},
+  {key:'deliver',icon:'🏗️',name:'We have approval and need to deliver',desc:'Budget approved — we need to execute, prove and scale'},
+  {key:'unsure',icon:'🤔',name:'We\'re not sure yet',desc:'Help us figure out the right starting point — low risk, high insight'}
+];
+
+// Recommendation engine
+const WIZ_RECS={
+  'risk|Growth|explore':'AISTRAT','risk|Growth|deliver':'AISAFE','risk|Growth|unsure':'AISTRAT',
+  'risk|Efficiency|explore':'AIGOV','risk|Efficiency|deliver':'AISAFE','risk|Efficiency|unsure':'AIGOV',
+  'risk|Risk & Control|explore':'AIGOV','risk|Risk & Control|deliver':'AISAFE','risk|Risk & Control|unsure':'AIGOV',
+  'finance|Growth|explore':'AISTRAT','finance|Growth|deliver':'ADOPTENG','finance|Growth|unsure':'AISTRAT',
+  'finance|Efficiency|explore':'RESET','finance|Efficiency|deliver':'RESET','finance|Efficiency|unsure':'VALUEOFF',
+  'finance|Risk & Control|explore':'VALUEOFF','finance|Risk & Control|deliver':'VALUEOFF','finance|Risk & Control|unsure':'VALUEOFF',
+  'ops|Growth|explore':'RESET','ops|Growth|deliver':'AGENTIC','ops|Growth|unsure':'RESET',
+  'ops|Efficiency|explore':'RESET','ops|Efficiency|deliver':'DOC2DEC','ops|Efficiency|unsure':'RESET',
+  'ops|Risk & Control|explore':'RELGOV','ops|Risk & Control|deliver':'DOC2DEC','ops|Risk & Control|unsure':'RELGOV',
+  'compliance|Growth|explore':'VENDORAI','compliance|Growth|deliver':'DOC2DEC','compliance|Growth|unsure':'VENDORAI',
+  'compliance|Efficiency|explore':'RELGOV','compliance|Efficiency|deliver':'DOC2DEC','compliance|Efficiency|unsure':'RELGOV',
+  'compliance|Risk & Control|explore':'AIGOV','compliance|Risk & Control|deliver':'AISAFE','compliance|Risk & Control|unsure':'AIGOV',
+  'commercial|Growth|explore':'SELLAI','commercial|Growth|deliver':'GENPROVE','commercial|Growth|unsure':'SELLAI',
+  'commercial|Efficiency|explore':'SELLAI','commercial|Efficiency|deliver':'AIEMBED','commercial|Efficiency|unsure':'SELLAI',
+  'commercial|Risk & Control|explore':'AISTRAT','commercial|Risk & Control|deliver':'GENPROVE','commercial|Risk & Control|unsure':'AISTRAT',
+  'tech|Growth|explore':'DATAREADY','tech|Growth|deliver':'GOLDPATH','tech|Growth|unsure':'DATAREADY',
+  'tech|Efficiency|explore':'DATAREADY','tech|Efficiency|deliver':'GOLDPATH','tech|Efficiency|unsure':'DATAREADY',
+  'tech|Risk & Control|explore':'TRUSTLAYER','tech|Risk & Control|deliver':'TRUSTLAYER','tech|Risk & Control|unsure':'DATAREADY'
+};
+
+// Journey after recommendation
+const WIZ_JOURNEYS={
+  'RESET':['RESET','DOC2DEC','AGENTIC','ADOPTENG'],
+  'AGENTIC':['AGENTIC','KNOWFABRIC','ADOPTENG'],
+  'DOC2DEC':['DOC2DEC','RELGOV','ADOPTENG'],
+  'DATAREADY':['DATAREADY','GOLDPATH','TRUSTLAYER','KNOWFABRIC'],
+  'TRUSTLAYER':['TRUSTLAYER','DATAREADY','GOLDPATH'],
+  'KNOWFABRIC':['KNOWFABRIC','AIEMBED'],
+  'AISTRAT':['AISTRAT','AIGOV','GENPROVE'],
+  'GENPROVE':['GENPROVE','AIEMBED','KNOWFABRIC'],
+  'AIGOV':['AIGOV','AISAFE','RELGOV','VALUEOFF'],
+  'QAUPLIFT':['QAUPLIFT','AISAFE','RELGOV'],
+  'AISAFE':['AISAFE','RELGOV','VALUEOFF'],
+  'RELGOV':['RELGOV','AISAFE','VALUEOFF'],
+  'GOLDPATH':['GOLDPATH','TRUSTLAYER','QAUPLIFT','AIEMBED'],
+  'AIEMBED':['AIEMBED','GOLDPATH','ADOPTENG'],
+  'VENDORAI':['VENDORAI','AIGOV','RELGOV'],
+  'ADOPTENG':['ADOPTENG','VALUEOFF'],
+  'SELLAI':['SELLAI','AISTRAT','GENPROVE'],
+  'VALUEOFF':['VALUEOFF','ADOPTENG']
+};
+
+let wizStep=0,wizAnswers={};
+
+let wizScrollY=0;
+function openWiz(){wizStep=0;wizAnswers={};wizScrollY=window.scrollY;document.body.classList.add('wiz-open');document.body.style.top=`-${wizScrollY}px`;$('wizO').classList.add('show');renderWiz();}
+function closeWiz(){document.body.classList.remove('wiz-open');document.body.style.top='';window.scrollTo(0,wizScrollY);$('wizO').classList.remove('show');}
+$('wizO').addEventListener('click',e=>{if(e.target===$('wizO'))closeWiz();});
+
+function renderWiz(){
+  // Progress
+  const prog=$('wizProg');
+  prog.innerHTML=[0,1,2].map((s,i)=>`${i>0?`<div class="wiz-bar ${wizStep>i?'done':''}"></div>`:''}
+    <div class="wiz-dot ${wizStep===i?'active':''} ${wizStep>i?'done':''}"></div>`).join('')+
+    `<div class="wiz-bar ${wizStep>2?'done':''}"></div><div class="wiz-dot ${wizStep>2?'done':''}"></div>`;
+
+  const body=$('wizBody');
+  if(wizStep===0)renderWizStep1(body);
+  else if(wizStep===1)renderWizStep2(body);
+  else if(wizStep===2)renderWizStep3(body);
+  else renderWizResult(body);
+}
+
+function renderWizStep1(el){
+  el.innerHTML=`<div class="wiz-step active">
+    <div class="wiz-q">What's your world?</div>
+    <div class="wiz-q-sub">Select the business domain closest to your current priorities.</div>
+    <div class="wiz-options">${WIZ_DOMAINS.map(d=>`
+      <div class="wiz-opt ${wizAnswers.domain===d.key?'selected':''}" onclick="wizSelect(0,'domain','${d.key}')">
+        <div class="wiz-opt-icon">${d.icon}</div>
+        <div class="wiz-opt-text"><div class="wiz-opt-title">${d.name}</div><div class="wiz-opt-desc">${d.desc}</div></div>
+        <div class="wiz-opt-check">${wizAnswers.domain===d.key?'✓':''}</div>
+      </div>`).join('')}
+    </div></div>`;
+}
+
+function renderWizStep2(el){
+  el.innerHTML=`<div class="wiz-step active">
+    <div class="wiz-q">What's your biggest pressure right now?</div>
+    <div class="wiz-q-sub">What's driving the urgency in your organisation today?</div>
+    <div class="wiz-options">${WIZ_PRESSURES.map(p=>`
+      <div class="wiz-opt ${wizAnswers.pressure===p.key?'selected':''}" onclick="wizSelect(1,'pressure','${p.key}')">
+        <div class="wiz-opt-icon">${p.icon}</div>
+        <div class="wiz-opt-text"><div class="wiz-opt-title">${p.name}</div><div class="wiz-opt-desc">${p.desc}</div></div>
+        <div class="wiz-opt-check">${wizAnswers.pressure===p.key?'✓':''}</div>
+      </div>`).join('')}
+    </div></div>`;
+}
+
+function renderWizStep3(el){
+  el.innerHTML=`<div class="wiz-step active">
+    <div class="wiz-q">Where are you on the journey?</div>
+    <div class="wiz-q-sub">This helps us recommend an accelerator or a full proposition.</div>
+    <div class="wiz-options">${WIZ_READINESS.map(r=>`
+      <div class="wiz-opt ${wizAnswers.readiness===r.key?'selected':''}" onclick="wizSelect(2,'readiness','${r.key}')">
+        <div class="wiz-opt-icon">${r.icon}</div>
+        <div class="wiz-opt-text"><div class="wiz-opt-title">${r.name}</div><div class="wiz-opt-desc">${r.desc}</div></div>
+        <div class="wiz-opt-check">${wizAnswers.readiness===r.key?'✓':''}</div>
+      </div>`).join('')}
+    </div></div>`;
+}
+
+function wizSelect(step,key,val){
+  wizAnswers[key]=val;
+  setTimeout(()=>{wizStep=step+1;renderWiz();},250);
+}
+
+function renderWizResult(el){
+  const recKey=`${wizAnswers.domain}|${wizAnswers.pressure}|${wizAnswers.readiness}`;
+  const recId=WIZ_RECS[recKey]||'AISTRAT';
+  const pkg=D.find(d=>d.id===recId);
+  if(!pkg){el.innerHTML='<div class="wiz-step active"><p>Something went wrong.</p></div>';return;}
+  const isA=pkg.eng==='Accelerator';
+  const journey=(WIZ_JOURNEYS[recId]||[recId]).map(id=>D.find(d=>d.id===id)).filter(Boolean);
+  const domObj=WIZ_DOMAINS.find(d=>d.key===wizAnswers.domain);
+  const pressObj=WIZ_PRESSURES.find(p=>p.key===wizAnswers.pressure);
+  const readObj=WIZ_READINESS.find(r=>r.key===wizAnswers.readiness);
+
+  el.innerHTML=`<div class="wiz-result active">
+    <div class="wiz-result-badge">✅ Recommendation ready</div>
+
+    <div class="wiz-domains">
+      <span class="tag-dom">${domObj?domObj.icon+' '+domObj.name:''}</span>
+      <span class="tag-biz tag-${wizAnswers.pressure==='Growth'?'growth':wizAnswers.pressure==='Efficiency'?'eff':'risk'}">${pressObj?pressObj.icon+' '+pressObj.name:''}</span>
+      <span class="tag-dom">${readObj?readObj.icon+' '+readObj.name:''}</span>
+    </div>
+
+    <div class="wiz-result-title">We recommend starting with</div>
+
+    <div class="wiz-rec">
+      <div class="wiz-rec-top">
+        <div class="wiz-rec-pills">
+          <span class="pk-id" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">${pkg.id}</span>
+          <span class="pill pill-${pkg.stg.toLowerCase()}">${pkg.stg}</span>
+          <span class="pill ${isA?'pill-accel':'pill-prop'}">${isA?'⚡ Accelerator':'🏗 Proposition'}</span>
+        </div>
+        <div class="wiz-rec-name">${pkg.name}</div>
+      </div>
+      <div class="wiz-rec-body">
+        <div class="wiz-rec-meta">
+          <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Duration</div><div class="wiz-rec-meta-val">${pkg.dur}</div></div>
+          <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Investment</div><div class="wiz-rec-meta-val">${pkg.price}</div></div>
+          <div class="wiz-rec-meta-item"><div class="wiz-rec-meta-label">Type</div><div class="wiz-rec-meta-val">${isA?'Fixed price':'Milestone'}</div></div>
+        </div>
+        ${pkg.acc?`<div class="wiz-rec-sprint">${pkg.acc.sprint}</div>`:''}
+        <div class="wiz-rec-dels">${(pkg.acc?.del||pkg.metrics).slice(0,5).map(d=>`<div class="wiz-rec-del">${d}</div>`).join('')}</div>
+      </div>
+    </div>
+
+    ${journey.length>1?`<div class="wiz-leads">
+      <div class="wiz-leads-label">Recommended pathway after this</div>
+      <div class="wiz-leads-flow">${journey.map((p,i)=>`${i>0?'<span class="wiz-leads-arrow">→</span>':''}
+        <div class="wiz-leads-step" ${i===0?'style="border-color:var(--t5);background:var(--t0)"':''}><span class="wiz-sid">${p.id}</span>${p.name}</div>`).join('')}
+      </div>
+    </div>`:''}
+
+    <div class="wiz-actions">
+      <button class="wiz-btn wiz-btn-primary" onclick="closeWiz();openM('${pkg.id}')">View Full Details</button>
+      <button class="wiz-btn wiz-btn-secondary" onclick="wizStep=0;wizAnswers={};renderWiz()">Start Over</button>
+    </div>
+  </div>`;
+}
+
+// ═══ GLOSSARY ═══
+function renderGloss(){
+  const groups={};
+  D.forEach(p=>{if(!groups[p.pa])groups[p.pa]=[];groups[p.pa].push(p);});
+  $('glossBody').innerHTML=Object.keys(groups).sort().map(pa=>`
+    <div class="gloss-group">
+      <div class="gloss-group-title">${pa}</div>
+      ${groups[pa].map(p=>`<div class="gloss-row">
+        <div class="gloss-id">${p.id}</div>
+        <div class="gloss-name">${p.name}</div>
+        <div class="gloss-eng ${p.eng==='Accelerator'?'accel':'prop'}">${p.eng==='Accelerator'?'⚡ Accel':'🏗 Prop'}</div>
+      </div>`).join('')}
+    </div>`).join('');
+}
+function toggleGloss(){
+  const o=$('glossO');
+  if(o.classList.contains('show')){o.classList.remove('show');document.body.style.overflow='';}
+  else{renderGloss();o.classList.add('show');document.body.style.overflow='hidden';}
+}
+$('glossO').addEventListener('click',e=>{if(e.target===$('glossO'))toggleGloss();});
+
+// ═══ INIT ═══
+buildFilters();R();
+</script>
+</body>
+</html>
